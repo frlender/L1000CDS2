@@ -1,0 +1,83 @@
+ <!DOCTYPE html>
+<html lang="en" ng-app="Sigine">
+  <head>
+    <title>gene lists</title>
+    <!-- css -->
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    <link rel="stylesheet" href="libraries/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="libraries/datatables/media/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="libraries/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="CSS/sigine.css">
+
+    <!-- libraries -->
+    <script src="libraries/angular/angular.js"></script>
+    <script src="libraries/jquery/jquery.min.js"></script>
+    <script src="libraries/string/lib/string.min.js"></script>
+    <script src="libraries/underscore/underscore-min.js"></script>
+    <script src="libraries/angular-smart-table/dist/smart-table.min.js"></script>
+
+    <!-- scripts -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers.js"></script>
+  </head>
+
+
+  <body style="text-align:center" ng-controller="GeneList">
+    <div class="pure-menu pure-menu-horizontal  custom-menu">
+
+    	<img src="CSS/images/sigine.png" alt="Sigine" class='rubic'>
+    	<span class='rubic-title'> Sigine </span>
+      <div class="description"> A <span class='highlight'>lightning-fast</span> search engine for LINCS L1000 gene expression signatures</div>
+      <!-- <input placeholder="click a tile to show its label here so that you can copy it : )" class="labelBox"> -->
+      <button ng-class="{'pure-button-disabled':!genes}" class="pure-button pure-button-active custom-button" ng-click="search()">Search</button>
+    </div>
+    <div id="container" class="pure-g custom-container">
+      <div class="pure-u-1-3 pure-form">
+          <!-- <input class="pure-input-2-3" placeholder="description of gene list"></input> -->
+          <textarea class="pure-input-2-3" placeholder="gene list" ng-model="genes"></textarea>
+          <a class="pure-button" ng-click="fillInText()">Fill</a>
+         <!--  <div class="up-down-container">
+            <button class="pure-button up-down-button">Up</button>
+            <button class="pure-button up-down-button">Down</button>
+          </div> -->
+      </div>
+    <div class="pure-u-2-3">
+        <table class="table table-striped" st-table="displayedEntries" st-safe-src="entries">
+          <thead>
+            <th> Score </th>
+            <th> Perturbation </th>
+            <th> Cell-line </th>
+            <th> Dose </th>
+            <th> Time </th>
+            <th> Download </th>
+          </thead>
+          <tbody>
+            <tr ng-class="{'up-signature': (entry['posPercent']>=0.5), 'dn-signature': (entry['posPercent']<0.5)}" ng-repeat="entry in displayedEntries">
+              <td>{{entry["score"]}}</td>
+              <td>{{entry["pert_desc"]}}</td>
+              <td>{{entry["cell_id"]}}</td>
+              <td>{{entry["pert_dose"]+entry["pert_dose_unit"]}}</td>
+              <td>{{entry["pert_time"]+entry["pert_time_unit"]}}</td>
+              <td>
+                <a class='pure-button download-icon'>
+                  <i class='fa fa-download'></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="6">
+                  <div class="table-label"> Chemical Perturbations</div>
+                  <div class="custom-pagination" st-pagination="" st-items-by-page="6" st-displayed-pages="">
+                  </div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+
+    </div>
+
+    </div>
+  </body>
+</html>

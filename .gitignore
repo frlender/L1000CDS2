@@ -1,0 +1,13 @@
+node_modules/
+public/libraries/
+*.Rhistory
+R/sync.ffs_db
+.idea/.name
+.idea/encodings.xml
+.idea/jsLibraryMappings.xml
+.idea/libraries/searchEngine_node_modules.xml
+.idea/modules.xml
+.idea/scopes/scope_settings.xml
+.idea/searchEngine.iml
+.idea/vcs.xml
+.idea/workspace.xml

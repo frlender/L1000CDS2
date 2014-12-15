@@ -1,0 +1,145 @@
+body{
+	font-size:15px;
+}
+
+.custom-menu{
+	background: black;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding-bottom: 0.5em;
+	padding-top:0.5em;
+	z-index: 999;
+}
+
+
+.custom-container{
+	margin-top:6em;
+	
+}
+
+.custom-table{
+	font-size:0.9em;
+}
+
+.custom-button{
+	font-size:0.75em;
+	background: rgb(66, 184, 221);;
+	color:white;
+	vertical-align: 10%;
+	float:right;
+	margin-right: 0.8em;
+}
+
+
+
+
+.rubic{
+	width: 30px;
+	height: 30px;
+	vertical-align: middle;
+	float: left;
+	margin-left: 1em;
+}
+
+.rubic-title{
+	color: white;
+	vertical-align: middle;
+	font-size: 1.5em;
+	font-weight: bold;
+	margin-right: 0.5em;
+	float: left;
+	margin-left: 0.3em;
+}
+
+.description{
+	vertical-align: text-bottom;
+	margin-top: 0.4em;
+	margin-left: 2em;
+	margin-right: 3em;
+	font-size: 0.8em;
+	display: inline-block;
+	color:white;
+}
+
+.highlight{
+	font-weight: bold;
+	font-size:1.3em;
+}
+
+
+/*override. specificity: .pure-form input > class*/
+.pure-form input:not([type]){
+	border-radius: 4px 4px 0 0;
+}
+
+.pure-form textarea{
+	/*width:218px;*/
+	/*height:300px;*/
+	border-radius: 0 0 0 0 !important; 
+	top: -1px;
+	height: 20em;
+}
+
+.download-icon{
+	background-color: white;
+	padding:0;
+	/*margin-top: 40%; */
+}
+
+/*.pure-button i{
+	color:#ccc;
+	font-size:7em;
+}*/
+
+.up-down-container{
+	font-size:0px;
+}
+.up-down-button{
+	width:33.33%;
+	font-size:12px;
+	border-radius: 0px;
+}
+
+.up-signature{
+	color:#2ca02c;
+}
+
+.dn-signature{
+	color:#d62728;
+}
+
+
+
+div.pagination{
+display: inline-block;
+padding-left: 0;
+margin: 0 0;
+border-radius: 4px;
+}
+
+ul.pagination{
+	display: inline-block;
+	padding-left: 0;
+	margin: 0px 0;
+	border-radius: 4px;
+}
+
+tfoot a{
+	cursor: pointer;
+}
+
+div.custom-pagination{
+	float:right;
+}
+
+.table-label{
+	font-style: italic;
+	display:inline-block;
+	margin-top: 0.3em;
+}
+
+tfoot td{
+	text-align: left;
+}
