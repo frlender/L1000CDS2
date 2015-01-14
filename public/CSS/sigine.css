@@ -24,9 +24,12 @@ body{
 }
 
 .custom-button{
-	font-size:0.75em;
-	background: rgb(66, 184, 221);;
+	background: rgb(66, 184, 221);
 	color:white;
+}
+
+.search-button{
+	font-size:0.75em;
 	vertical-align: 10%;
 	float:right;
 	margin-right: 0.8em;
@@ -142,4 +145,12 @@ div.custom-pagination{
 
 tfoot td{
 	text-align: left;
+}
+
+.input-margin{
+	margin-top:1em;
+}
+
+.example-button{
+	background:#7EB36A;
 }

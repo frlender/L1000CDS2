@@ -29,19 +29,28 @@
     	<span class='rubic-title'> Sigine </span>
       <div class="description"> A <span class='highlight'>lightning-fast</span> search engine for LINCS L1000 gene expression signatures</div>
       <!-- <input placeholder="click a tile to show its label here so that you can copy it : )" class="labelBox"> -->
-      <button ng-class="{'pure-button-disabled':!genes}" class="pure-button pure-button-active custom-button" ng-click="search()">Search</button>
+      <button ng-class="{'pure-button-disabled':!upGenes}" class="pure-button pure-button-active custom-button search-button" ng-click="search()">Search</button>
     </div>
     <div id="container" class="pure-g custom-container">
-      <div class="pure-u-1-3 pure-form">
+      <div class="pure-u-1-4 pure-form">
           <!-- <input class="pure-input-2-3" placeholder="description of gene list"></input> -->
-          <textarea class="pure-input-2-3" placeholder="gene list" ng-model="genes"></textarea>
-          <a class="pure-button" ng-click="fillInText()">Fill</a>
+          <div class="input-margin">
+            <b>up genes</b>
+            <textarea class="pure-input-3-5" placeholder="up genes" ng-model="upGenes"></textarea>
+          </div>
+          <div class="input-margin">
+            <b>down genes</b>
+            <textarea class="pure-input-3-5" placeholder="down genes" ng-model="dnGenes"></textarea>
+          </div>
+          <div class="input-margin">
+            <a class="pure-button custom-button example-button" ng-click="fillInText()">Example</a>
+          </div>
          <!--  <div class="up-down-container">
             <button class="pure-button up-down-button">Up</button>
             <button class="pure-button up-down-button">Down</button>
           </div> -->
       </div>
-    <div class="pure-u-2-3">
+    <div class="pure-u-3-4">
         <table class="table table-striped" st-table="displayedEntries" st-safe-src="entries">
           <thead>
             <th> Score </th>

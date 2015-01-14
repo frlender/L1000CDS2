@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
-var sigine = require('./handlers.js');
+var sigine = require('./handlers2.js');
 
 app.use('/sigine',express.static(__dirname + '/public'));
 var jsonParser = bodyParser.json();

@@ -6,19 +6,29 @@ var baseURL = window.location.protocol+"//"+window.location.host + "/sigine/";
 var process = _.identity;
 indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http){
 		$scope.fillInText = function(){
-			$http.get('data/example-genes.txt').success(function(data){
-				$scope.genes = data;
+			$http.get('data/example-up-genes.txt').success(function(data){
+				$scope.upGenes = data;
+			});
+			$http.get('data/example-dn-genes.txt').success(function(data){
+				$scope.dnGenes = data;
 			});
 		}
-		$scope.search = function(){
-			if($scope.genes){
-				var input = _.unique(S($scope.genes.toUpperCase())
+
+		var tidyUp = function(genes){
+			 var newGenes = _.unique(S(genes.toUpperCase())
 					.trim().s.split("\n"));
 				//trim unvisible char like \r after each gene if any
-				input = _.map(input,function(gene){
+			  newGenes = _.map(newGenes,function(gene){
 					return S(gene).trim().s;
 				});
-				$http.post(baseURL+"query",{input:input})
+			  return newGenes
+		}
+
+		$scope.search = function(){
+			if($scope.upGenes&&$scope.dnGenes){
+				
+				$http.post(baseURL+"query",{upGenes:tidyUp($scope.upGenes),
+											dnGenes:tidyUp($scope.dnGenes)})
 					.success(function(data) {
 					$scope.entries = process(data);
 				});
