@@ -10,7 +10,7 @@ var Schema = mongoose.Schema({"pert_desc":String,"cell_id":String,
 var Expm = mongoose.model('Expm',Schema);
 
 //get meta information by sig_id and send results to client.
-var getMeta = function(topExpms,res){
+var getMetas = function(topExpms,res){
     // topExpms structure:
     // topExpms -- [sig_ids]
     //          -- [scores]
@@ -76,7 +76,7 @@ exports.query = function(req,res){
             // res.send(body);
             // var enrichRes = JSON.parse(body);
             
-            getMeta(JSON.parse(body),res);
+            getMetas(JSON.parse(body),res);
         }
     });
 }
