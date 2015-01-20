@@ -14,6 +14,8 @@ indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http
 			});
 		}
 
+		$scope.aggravate = true;
+
 		var tidyUp = function(genes){
 			 var newGenes = _.unique(S(genes.toUpperCase())
 					.trim().s.split("\n"));
@@ -26,9 +28,10 @@ indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http
 
 		$scope.search = function(){
 			if($scope.upGenes&&$scope.dnGenes){
-				
+				console.log('a',$scope.aggravate)
 				$http.post(baseURL+"query",{upGenes:tidyUp($scope.upGenes),
-											dnGenes:tidyUp($scope.dnGenes)})
+											dnGenes:tidyUp($scope.dnGenes),
+											aggravate:$scope.aggravate})
 					.success(function(data) {
 					$scope.entries = process(data);
 				});

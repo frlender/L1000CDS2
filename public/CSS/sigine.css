@@ -15,7 +15,7 @@ body{
 
 
 .custom-container{
-	margin-top:6em;
+	margin-top:5em;
 	
 }
 
@@ -153,4 +153,13 @@ tfoot td{
 
 .example-button{
 	background:#7EB36A;
+}
+
+.input-gene-list{
+	display: inline;
+	width:	12em;
+}
+
+textarea.form-control{
+	height:16em;
 }

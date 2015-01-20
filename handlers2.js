@@ -51,12 +51,21 @@ exports.query = function(req,res){
     // input should be processed in front-end into a unique array of 
     // uppercase gene symbols.
 
+    if(req.body.aggravate){
+        var upGenes = JSON.stringify(req.body.upGenes),
+            dnGenes = JSON.stringify(req.body.dnGenes);
+    }else{
+        // reverse search
+        var upGenes = JSON.stringify(req.body.dnGenes),
+            dnGenes = JSON.stringify(req.body.upGenes);
+    }
+    
     var options = {
         url: 'http://127.0.0.1:23239/custom/Sigine',
         method: 'POST',
         headers: headers,
-        form: {'upGenes': JSON.stringify(req.body.upGenes),
-            'dnGenes':JSON.stringify(req.body.dnGenes)}
+        form: {'upGenes': upGenes,
+            'dnGenes':dnGenes}
     }
 
     // Start the request
