@@ -1,12 +1,12 @@
 var indexControllers = angular.module('indexControllers', []);
 
 
-var baseURL = window.location.protocol+"//"+window.location.host + "/sigine/";
+var baseURL = window.location.protocol+"//"+window.location.host + "/lsr/";
 
 var process = _.identity;
 indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http){
 		$scope.fillInText = function(){
-			$http.get('data/example-up-genes.txt').success(function(data){
+			$http.get('data/example-up-genes-remove-first-three.txt').success(function(data){
 				$scope.upGenes = data;
 			});
 			$http.get('data/example-dn-genes.txt').success(function(data){
@@ -28,7 +28,6 @@ indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http
 
 		$scope.search = function(){
 			if($scope.upGenes&&$scope.dnGenes){
-				console.log('a',$scope.aggravate)
 				$http.post(baseURL+"query",{upGenes:tidyUp($scope.upGenes),
 											dnGenes:tidyUp($scope.dnGenes),
 											aggravate:$scope.aggravate})
@@ -36,6 +35,12 @@ indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http
 					$scope.entries = process(data);
 				});
 			}
-		}	
+		}
+
+		$scope.downloadMeta = function(sig_id){
+			var url = baseURL+"meta?sig_id="+sig_id;
+			window.location = url;
+		}
+
 	}
 ]);

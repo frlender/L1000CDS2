@@ -4,10 +4,11 @@ var bodyParser = require('body-parser');
 
 var sigine = require('./handlers2.js');
 
-app.use('/sigine',express.static(__dirname + '/public'));
+app.use('/lsr',express.static(__dirname + '/public'));
 var jsonParser = bodyParser.json();
 
-app.post('/sigine/query',jsonParser,sigine.query);
+app.post('/lsr/query',jsonParser,sigine.query);
+app.get('/lsr/meta',sigine.meta);
 
 
 app.listen(8182);

@@ -163,3 +163,7 @@ tfoot td{
 textarea.form-control{
 	height:16em;
 }
+
+th{
+	text-align: center;
+}

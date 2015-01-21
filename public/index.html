@@ -1,7 +1,7 @@
  <!DOCTYPE html>
 <html lang="en" ng-app="Sigine">
   <head>
-    <title>Sigine</title>
+    <title>L1kSrchR</title>
     <!-- css -->
     <link rel="shortcut icon" href="CSS/images/sigine.ico" type="image/x-icon" />
     <link rel="stylesheet" href="libraries/font-awesome/css/font-awesome.min.css">
@@ -31,7 +31,7 @@
     <div class="pure-menu pure-menu-horizontal  custom-menu">
 
     	<img src="CSS/images/sigine.png" alt="Sigine" class='rubic'>
-    	<span class='rubic-title'> Sigine </span>
+    	<span class='rubic-title'> L1kSrchR </span>
       <div class="description"> A <span class='highlight'>lightning-fast</span> search engine for LINCS L1000 gene expression signatures</div>
       <!-- <input placeholder="click a tile to show its label here so that you can copy it : )" class="labelBox"> -->
       <button ng-class="{'disabled':!upGenes||!dnGenes}" class="btn btn-info custom-button search-button" ng-click="search()">Search</button>
@@ -75,13 +75,16 @@
           </thead>
           <tbody>
             <tr ng-class="{'up-signature': (entry['posPercent']>=0.5), 'dn-signature': (entry['posPercent']<0.5)}" ng-repeat="entry in displayedEntries">
-              <td>{{entry["score"]}}</td>
-              <td>{{entry["pert_desc"]}}</td>
+              <td>{{entry["score"].toFixed(4)}}</td>
+              <td>
+                <a href="http://life.ccs.miami.edu/life/summary?mode=SmallMolecule&input={{entry['pert_id']}}&source=BROAD" target="_blank">{{entry["pert_desc"]=="-666"?entry["pert_id"]:entry["pert_desc"]}}
+                </a>
+              </td>
               <td>{{entry["cell_id"]}}</td>
               <td>{{entry["pert_dose"]+entry["pert_dose_unit"]}}</td>
               <td>{{entry["pert_time"]+entry["pert_time_unit"]}}</td>
               <td>
-                <a class='btn download-icon'>
+                <a class='btn download-icon' ng-click="downloadMeta(entry['sig_id'])">
                   <i class='fa fa-download'></i>
                 </a>
               </td>
@@ -91,7 +94,7 @@
             <tr>
               <td colspan="6">
                   <div class="table-label"> Chemical Perturbations</div>
-                  <div class="custom-pagination" st-pagination="" st-items-by-page="6" st-displayed-pages="">
+                  <div class="custom-pagination" st-pagination="" st-items-by-page="12" st-displayed-pages="">
                   </div>
               </td>
             </tr>

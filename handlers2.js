@@ -22,7 +22,7 @@ var getMetas = function(topExpms,res){
     });
 
     var query = Expm.find({sig_id:{$in:topExpms["sig_ids"]}})
-        .select('-_id sig_id pert_type pert_desc cell_id pert_dose pert_dose_unit pert_time pert_time_unit').lean();
+        .select('-_id sig_id pert_id pert_type pert_desc cell_id pert_dose pert_dose_unit pert_time pert_time_unit').lean();
     
     console.log(map);
     query.exec(function(err,queryRes){
@@ -36,7 +36,7 @@ var getMetas = function(topExpms,res){
             topMeta[idx].score = topExpms["scores"][idx];
         });
         console.log('topMeta',topMeta.slice(0,3))
-        res.send(topMeta.slice(0,18));
+        res.send(topMeta.slice(0,36));
     });
 }
 
@@ -78,6 +78,16 @@ exports.query = function(req,res){
             
             getMetas(JSON.parse(body),res);
         }
+    });
+}
+
+
+exports.meta = function(req,res){
+    var sig_id = req.param('sig_id');
+    var query = Expm.findOne({sig_id:sig_id}).lean().exec(function(err,doc){
+        if(err) throw err;
+        res.setHeader('Content-Disposition','attachment; filename="'+sig_id+'.json"');
+        res.send(JSON.stringify(doc))
     });
 }
 
