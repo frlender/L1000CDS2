@@ -1,20 +1,21 @@
 var indexControllers = angular.module('indexControllers', []);
 
 
-var baseURL = window.location.protocol+"//"+window.location.host + "/lsr/";
+var baseURL = window.location.protocol+"//"+window.location.host + "/lssr/";
 
 var process = _.identity;
 indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http){
+		
+		$scope.aggravate = true;
+
 		$scope.fillInText = function(){
-			$http.get('data/example-up-genes-remove-first-three.txt').success(function(data){
+			$http.get(baseURL+'data/example-up-genes-remove-first-three.txt').success(function(data){
 				$scope.upGenes = data;
 			});
-			$http.get('data/example-dn-genes.txt').success(function(data){
+			$http.get(baseURL+'data/example-dn-genes.txt').success(function(data){
 				$scope.dnGenes = data;
 			});
 		}
-
-		$scope.aggravate = true;
 
 		var tidyUp = function(genes){
 			 var newGenes = _.unique(S(genes.toUpperCase())
@@ -28,11 +29,16 @@ indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http
 
 		$scope.search = function(){
 			if($scope.upGenes&&$scope.dnGenes){
+				$scope.err = false;
 				$http.post(baseURL+"query",{upGenes:tidyUp($scope.upGenes),
 											dnGenes:tidyUp($scope.dnGenes),
 											aggravate:$scope.aggravate})
 					.success(function(data) {
-					$scope.entries = process(data);
+						if("err" in data){
+							$scope.err = data["err"][0];
+						}else{
+							$scope.entries = process(data);
+						}
 				});
 			}
 		}
@@ -42,5 +48,12 @@ indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http
 			window.location = url;
 		}
 
+		if(input){
+			// initialize up/dn genes if any input from geo2me. 
+			// Also search them if exist
+			$scope.upGenes = JSON.parse(input.upGenes).join('\n');
+			$scope.dnGenes = JSON.parse(input.dnGenes).join('\n');
+			// $scope.search();
+		}
 	}
 ]);

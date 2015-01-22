@@ -167,3 +167,12 @@ textarea.form-control{
 th{
 	text-align: center;
 }
+
+.err{
+	color:red;
+	display:block;
+}
+
+.noerr{
+	display: none;
+}

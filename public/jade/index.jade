@@ -1,0 +1,113 @@
+doctype html
+html(lang='en', ng-app='Sigine')
+  head
+    title L1kSigSrchR
+    // root variable to adjust the loading path for resources for geo2me
+    link(rel='shortcut icon', href=root+'CSS/images/sigine.ico', type='image/x-icon')
+    |     
+    link(rel='stylesheet', href=root+'libraries/font-awesome/css/font-awesome.min.css')
+    |     
+    link(rel='stylesheet', href=root+'libraries/datatables/media/css/jquery.dataTables.min.css')
+    |     
+    link(rel='stylesheet', type='text/css', href=root+'libraries/bootstrap/dist/css/bootstrap.min.css')
+    |     
+    link(rel='stylesheet', href=root+'CSS/sigine.css')
+    |     
+    link(rel='stylesheet', href=root+'libraries/bootstrap-toggle/css/bootstrap-toggle.min.css')
+    |     
+    link(rel='stylesheet', href=root+'CSS/angular-toggle-switch-bootstrap-3.css')
+    // global variables if any. Pass "" if null.
+    script(type='text/javascript').
+      var input= !{JSON.stringify(input)}
+
+    // libraries
+    script(src=root+'libraries/angular/angular.js')
+    |     
+    script(src=root+'libraries/jquery/jquery.min.js')
+    |     
+    script(src=root+'libraries/string/lib/string.min.js')
+    |     
+    script(src=root+'libraries/underscore/underscore-min.js')
+    |     
+    script(src=root+'libraries/angular-smart-table/dist/smart-table.min.js')
+    |     
+    script(src=root+'libraries/angular-bootstrap-toggle-switch/angular-toggle-switch.min.js')
+    // scripts
+    script(src=root+'scripts/app.js')
+    |     
+    script(src=root+'scripts/controllers.js')
+  |   
+  body(style='text-align:center', ng-controller='GeneList')
+    .pure-menu.pure-menu-horizontal.custom-menu
+      img.rubic(src=root+'CSS/images/sigine.png', alt='Sigine')
+      |     &#x9;
+      span.rubic-title  L1kSigSrchR 
+      |       
+      .description
+        | A 
+        span.highlight lightning-fast
+        |  search engine for LINCS L1000 gene expression signatures
+      // <input placeholder="click a tile to show its label here so that you can copy it : )" class="labelBox">
+      button.btn.btn-info.custom-button.search-button(ng-class="{'disabled':!upGenes||!dnGenes}", ng-click='search()') Search
+    |     
+    #container.row.custom-container
+      .col-sm-3
+        // <input class="pure-input-2-3" placeholder="description of gene list"></input>
+        .input-margin
+          div
+            b up genes
+          |             
+          textarea.form-control.input-gene-list(placeholder='up genes', ng-model='upGenes')
+        |           
+        .input-margin
+          div
+            b down genes
+          |             
+          textarea.form-control.input-gene-list(placeholder='down genes', ng-model='dnGenes')
+        |           
+        .input-margin
+          a.btn.btn-success.custom-button.example-button(ng-click='fillInText()') Example
+        |           
+        .input-margin(style='padding:0')
+          toggle-switch.switch-default(model='aggravate', on-label='aggravate', off-label='reverse')
+            toggle-switch
+      |     
+      .col-sm-9
+        table.table.table-striped(st-table='displayedEntries', st-safe-src='entries')
+          thead
+            th  Score 
+            |             
+            th  Perturbation 
+            |             
+            th  Cell-line 
+            |             
+            th  Dose 
+            |             
+            th  Time 
+            |             
+            th  Meta-data 
+          tbody           
+            tr(ng-class="{'up-signature': (entry['posPercent']>=0.5), 'dn-signature': (entry['posPercent']<0.5)}", ng-repeat='entry in displayedEntries')
+              td {{entry[&quot;score&quot;].toFixed(4)}}
+              |               
+              td
+                a(href="http://life.ccs.miami.edu/life/summary?mode=SmallMolecule&input={{entry['pert_id']}}&source=BROAD", target='_blank')
+                  | {{entry[&quot;pert_desc&quot;]==&quot;-666&quot;?entry[&quot;pert_id&quot;]:entry[&quot;pert_desc&quot;]}}
+              |               
+              td {{entry[&quot;cell_id&quot;]}}
+              |               
+              td {{entry[&quot;pert_dose&quot;]+entry[&quot;pert_dose_unit&quot;]}}
+              |               
+              td {{entry[&quot;pert_time&quot;]+entry[&quot;pert_time_unit&quot;]}}
+              |               
+              td
+                a.btn.download-icon(ng-click="downloadMeta(entry['sig_id'])")
+                  i.fa.fa-download
+          |           
+          tfoot
+            tr
+              td(colspan='6')
+                .table-label  Chemical Perturbations
+                |                   
+                .custom-pagination(st-pagination='', st-items-by-page='12', st-displayed-pages='')
+        h3(ng-class="{err:err,noerr:!err}") {{err}}

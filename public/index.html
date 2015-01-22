@@ -1,108 +1,86 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" ng-app="Sigine">
   <head>
-    <title>L1kSrchR</title>
-    <!-- css -->
-    <link rel="shortcut icon" href="CSS/images/sigine.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="libraries/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="libraries/datatables/media/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="libraries/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="CSS/sigine.css">
-    <link rel="stylesheet" href="libraries/bootstrap-toggle/css/bootstrap-toggle.min.css">
+    <title>L1kSigSrchR</title>
+    <!-- root variable to adjust the loading path for resources for geo2me-->
+    <link rel="shortcut icon" href="CSS/images/sigine.ico" type="image/x-icon">    
+    <link rel="stylesheet" href="libraries/font-awesome/css/font-awesome.min.css">    
+    <link rel="stylesheet" href="libraries/datatables/media/css/jquery.dataTables.min.css">    
+    <link rel="stylesheet" type="text/css" href="libraries/bootstrap/dist/css/bootstrap.min.css">    
+    <link rel="stylesheet" href="CSS/sigine.css">    
+    <link rel="stylesheet" href="libraries/bootstrap-toggle/css/bootstrap-toggle.min.css">    
     <link rel="stylesheet" href="CSS/angular-toggle-switch-bootstrap-3.css">
-
-
-
-    <!-- libraries -->
-    <script src="libraries/angular/angular.js"></script>
-    <script src="libraries/jquery/jquery.min.js"></script>
-    <script src="libraries/string/lib/string.min.js"></script>
-    <script src="libraries/underscore/underscore-min.js"></script>
-    <script src="libraries/angular-smart-table/dist/smart-table.min.js"></script>
+    <!-- global variables if any. Pass "" if null.-->
+    <script type="text/javascript">
+      var input= ""
+      
+    </script>
+    <!-- libraries-->
+    <script src="libraries/angular/angular.js"></script>    
+    <script src="libraries/jquery/jquery.min.js"></script>    
+    <script src="libraries/string/lib/string.min.js"></script>    
+    <script src="libraries/underscore/underscore-min.js"></script>    
+    <script src="libraries/angular-smart-table/dist/smart-table.min.js"></script>    
     <script src="libraries/angular-bootstrap-toggle-switch/angular-toggle-switch.min.js"></script>
-
-    <!-- scripts -->
-    <script src="scripts/app.js"></script>
+    <!-- scripts-->
+    <script src="scripts/app.js"></script>    
     <script src="scripts/controllers.js"></script>
-  </head>
-
-
+  </head>  
   <body style="text-align:center" ng-controller="GeneList">
-    <div class="pure-menu pure-menu-horizontal  custom-menu">
-
-    	<img src="CSS/images/sigine.png" alt="Sigine" class='rubic'>
-    	<span class='rubic-title'> L1kSrchR </span>
-      <div class="description"> A <span class='highlight'>lightning-fast</span> search engine for LINCS L1000 gene expression signatures</div>
-      <!-- <input placeholder="click a tile to show its label here so that you can copy it : )" class="labelBox"> -->
-      <button ng-class="{'disabled':!upGenes||!dnGenes}" class="btn btn-info custom-button search-button" ng-click="search()">Search</button>
-    </div>
+    <div class="pure-menu pure-menu-horizontal custom-menu"><img src="CSS/images/sigine.png" alt="Sigine" class="rubic">    &#x9;<span class="rubic-title"> L1kSigSrchR </span>      
+      <div class="description">A <span class="highlight">lightning-fast</span> search engine for LINCS L1000 gene expression signatures</div>
+      <!-- <input placeholder="click a tile to show its label here so that you can copy it : )" class="labelBox">-->
+      <button ng-class="{'disabled':!upGenes||!dnGenes}" ng-click="search()" class="btn btn-info custom-button search-button">Search</button>
+    </div>    
     <div id="container" class="row custom-container">
       <div class="col-sm-3">
-          <!-- <input class="pure-input-2-3" placeholder="description of gene list"></input> -->
-          <div class="input-margin">
-            <div><b>up genes</b></div>
-            <textarea class="form-control input-gene-list" placeholder="up genes" ng-model="upGenes"></textarea>
-          </div>
-          <div class="input-margin">
-            <div><b>down genes</b></div>
-            <textarea class="form-control input-gene-list" placeholder="down genes" ng-model="dnGenes"></textarea>
-          </div>
-          <div class="input-margin">
-            <a class="btn btn-success custom-button example-button" ng-click="fillInText()">Example</a>
-          </div>
-          <div class="input-margin" style="padding:0">
-            <toggle-switch
-              model="aggravate"
-              class="switch-default"
-              on-label="aggravate"
-              off-label="reverse">
-            <toggle-switch>
-          </div>
-         <!--  <div class="up-down-container">
-            <button class="pure-button up-down-button">Up</button>
-            <button class="pure-button up-down-button">Down</button>
-          </div> -->
-      </div>
-    <div class="col-sm-9">
-        <table class="table table-striped" st-table="displayedEntries" st-safe-src="entries">
+        <!-- <input class="pure-input-2-3" placeholder="description of gene list"></input>-->
+        <div class="input-margin">
+          <div><b>up genes</b></div>            
+          <textarea placeholder="up genes" ng-model="upGenes" class="form-control input-gene-list"></textarea>
+        </div>          
+        <div class="input-margin">
+          <div><b>down genes</b></div>            
+          <textarea placeholder="down genes" ng-model="dnGenes" class="form-control input-gene-list"></textarea>
+        </div>          
+        <div class="input-margin"><a ng-click="fillInText()" class="btn btn-success custom-button example-button">Example</a></div>          
+        <div style="padding:0" class="input-margin">
+          <toggle-switch model="aggravate" on-label="aggravate" off-label="reverse" class="switch-default">
+            <toggle-switch></toggle-switch>
+          </toggle-switch>
+        </div>
+      </div>    
+      <div class="col-sm-9">
+        <table st-table="displayedEntries" st-safe-src="entries" class="table table-striped">
           <thead>
-            <th> Score </th>
-            <th> Perturbation </th>
-            <th> Cell-line </th>
-            <th> Dose </th>
-            <th> Time </th>
+            <th> Score </th>            
+            <th> Perturbation </th>            
+            <th> Cell-line </th>            
+            <th> Dose </th>            
+            <th> Time </th>            
             <th> Meta-data </th>
           </thead>
-          <tbody>
-            <tr ng-class="{'up-signature': (entry['posPercent']>=0.5), 'dn-signature': (entry['posPercent']<0.5)}" ng-repeat="entry in displayedEntries">
-              <td>{{entry["score"].toFixed(4)}}</td>
-              <td>
-                <a href="http://life.ccs.miami.edu/life/summary?mode=SmallMolecule&input={{entry['pert_id']}}&source=BROAD" target="_blank">{{entry["pert_desc"]=="-666"?entry["pert_id"]:entry["pert_desc"]}}
-                </a>
-              </td>
-              <td>{{entry["cell_id"]}}</td>
-              <td>{{entry["pert_dose"]+entry["pert_dose_unit"]}}</td>
-              <td>{{entry["pert_time"]+entry["pert_time_unit"]}}</td>
-              <td>
-                <a class='btn download-icon' ng-click="downloadMeta(entry['sig_id'])">
-                  <i class='fa fa-download'></i>
-                </a>
-              </td>
+          <tbody>          
+            <tr ng-class="{'up-signature': (entry['posPercent']&gt;=0.5), 'dn-signature': (entry['posPercent']&lt;0.5)}" ng-repeat="entry in displayedEntries">
+              <td>{{entry[&quot;score&quot;].toFixed(4)}}</td>              
+              <td><a href="http://life.ccs.miami.edu/life/summary?mode=SmallMolecule&amp;input={{entry['pert_id']}}&amp;source=BROAD" target="_blank">{{entry[&quot;pert_desc&quot;]==&quot;-666&quot;?entry[&quot;pert_id&quot;]:entry[&quot;pert_desc&quot;]}}</a></td>              
+              <td>{{entry[&quot;cell_id&quot;]}}</td>              
+              <td>{{entry[&quot;pert_dose&quot;]+entry[&quot;pert_dose_unit&quot;]}}</td>              
+              <td>{{entry[&quot;pert_time&quot;]+entry[&quot;pert_time_unit&quot;]}}</td>              
+              <td><a ng-click="downloadMeta(entry['sig_id'])" class="btn download-icon"><i class="fa fa-download"></i></a></td>
             </tr>
-          </tbody>
+          </tbody>          
           <tfoot>
             <tr>
               <td colspan="6">
-                  <div class="table-label"> Chemical Perturbations</div>
-                  <div class="custom-pagination" st-pagination="" st-items-by-page="12" st-displayed-pages="">
-                  </div>
+                <div class="table-label"> Chemical Perturbations</div>                  
+                <div st-pagination="" st-items-by-page="12" st-displayed-pages="" class="custom-pagination"></div>
               </td>
             </tr>
           </tfoot>
         </table>
-
-    </div>
-
+        <h3 ng-class="{err:err,noerr:!err}">{{err}}</h3>
+      </div>
     </div>
   </body>
 </html>

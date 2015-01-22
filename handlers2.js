@@ -1,7 +1,10 @@
 var request = require('request');
 var mongoose = require('mongoose');
 var us = require('underscore');
-
+var fs = require('fs');
+var jade = require('jade');
+var indexFun = jade.compileFile('public/jade/index.jade',{pretty:true});
+fs.writeFileSync('public/index.html',indexFun({root:'',input:""}));
 
 mongoose.connect('mongodb://readUser:readUser@localhost/LINCS_L1000');
 var Schema = mongoose.Schema({"pert_desc":String,"cell_id":String,
@@ -75,8 +78,11 @@ exports.query = function(req,res){
             console.log(body,typeof(body))
             // res.send(body);
             // var enrichRes = JSON.parse(body);
-            
-            getMetas(JSON.parse(body),res);
+            var topMatches = JSON.parse(body);
+
+            // if err send err messenge
+            if("err" in topMatches) res.send(topMatches);
+            else getMetas(JSON.parse(body),res);
         }
     });
 }
@@ -90,4 +96,15 @@ exports.meta = function(req,res){
         res.send(JSON.stringify(doc))
     });
 }
+
+
+exports.geo2me = function(req,res){
+    console.log(req.body);
+    res.render('index',{root:'', input:req.body});
+
+}
+
+// exports.index = function(req,res){
+//     res.render('index',{root:'', input:""});
+// }
 
