@@ -54,6 +54,9 @@ exports.query = function(req,res){
     // input should be processed in front-end into a unique array of 
     // uppercase gene symbols.
 
+    res.header('Access-Control-Allow-Origin','*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+
     if(req.body.aggravate){
         var upGenes = JSON.stringify(req.body.upGenes),
             dnGenes = JSON.stringify(req.body.dnGenes);
@@ -89,6 +92,9 @@ exports.query = function(req,res){
 
 
 exports.meta = function(req,res){
+    res.header('Access-Control-Allow-Origin','*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    
     var sig_id = req.param('sig_id');
     var query = Expm.findOne({sig_id:sig_id}).lean().exec(function(err,doc){
         if(err) throw err;
@@ -99,6 +105,9 @@ exports.meta = function(req,res){
 
 
 exports.geo2me = function(req,res){
+    res.header('Access-Control-Allow-Origin','*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+
     console.log(req.body);
     res.render('index',{root:'', input:req.body});
 
