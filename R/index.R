@@ -27,8 +27,6 @@ topMatch <- function(upGenes,dnGenes){
     res <- list()
     res$sig_ids <- sig_ids[topIdx]
     res$scores <- overlaps[topIdx]/geneCount
-    print(sum(idx))
-    print(res$scores)
     toJSON(res,digits=4)
   }else{
     toJSON(list(err="Input genes have no overlap with the LINCS L1000 genome.")) 
@@ -50,12 +48,9 @@ my.app <- function(env){
   res$header("Access-Control-Allow-Origin","*")
   res$header("Access-Control-Allow-Methods","GET,PUT,POST,DELETE")
   
-  print('good')
   upGenes <- fromJSON(req$POST()$upGenes)
   dnGenes <- fromJSON(req$POST()$dnGenes)
   
-  print(upGenes)
-
   ptm <- proc.time()
   res$write(topMatch(upGenes,dnGenes))
   print(proc.time()-ptm)
