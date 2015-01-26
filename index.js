@@ -26,6 +26,6 @@ sigineRouter.get('/meta',sigine.meta);
 sigineRouter.post('/input',urlencodedParser,sigine.geo2me);
 
 
-app.use('/lssr',sigineRouter);
+app.use('/L1000CDS',sigineRouter);
 
 app.listen(8182);

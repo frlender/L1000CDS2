@@ -1,12 +1,13 @@
 var indexControllers = angular.module('indexControllers', []);
 
 
-var baseURL = window.location.protocol+"//"+window.location.host + "/lssr/";
+var baseURL = window.location.protocol+"//"+window.location.host + "/L1000CDS/";
 
 var process = _.identity;
 indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http){
 		
-		$scope.aggravate = true;
+		//default reverse
+		$scope.aggravate = false;
 
 		$scope.fillInText = function(){
 			$http.get(baseURL+'data/example-up-genes-remove-first-three.txt').success(function(data){
@@ -43,6 +44,10 @@ indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http
 			}
 		}
 
+		$scope.clear = function(geneListKey){
+			$scope[geneListKey] = "";
+		}
+
 		$scope.downloadMeta = function(sig_id){
 			var url = baseURL+"meta?sig_id="+sig_id;
 			window.location = url;
@@ -53,7 +58,7 @@ indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http
 			// Also search them if exist
 			$scope.upGenes = JSON.parse(input.upGenes).join('\n');
 			$scope.dnGenes = JSON.parse(input.dnGenes).join('\n');
-			// $scope.search();
+			$scope.search();
 		}
 	}
 ]);

@@ -29,9 +29,6 @@ body{
 }
 
 .search-button{
-	font-size:0.75em;
-	vertical-align: 10%;
-	float:right;
 	margin-right: 0.8em;
 }
 
@@ -175,4 +172,18 @@ th{
 
 .noerr{
 	display: none;
+}
+
+
+.input-title-wrapper{
+	/*match input textarea*/
+	width:168px;
+	/*align at center*/
+	display: inline-block;
+}
+
+.eraser-btn{
+	margin:0;
+	padding: 0;
+	float:right;
 }

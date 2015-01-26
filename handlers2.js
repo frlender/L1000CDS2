@@ -27,19 +27,19 @@ var getMetas = function(topExpms,res){
     var query = Expm.find({sig_id:{$in:topExpms["sig_ids"]}})
         .select('-_id sig_id pert_id pert_type pert_desc cell_id pert_dose pert_dose_unit pert_time pert_time_unit').lean();
     
-    console.log(map);
+    // console.log(map);
     query.exec(function(err,queryRes){
         if(err) throw err;
-        console.log(queryRes.slice(0,2),'aaaa');
+        // console.log(queryRes.slice(0,2),'aaaa');
         var topMeta = [];
         queryRes.forEach(function(e){
             var idx = map[e["sig_id"]];
-            console.log(idx);
+            // console.log(idx);
             topMeta[idx] = e;
             topMeta[idx].score = topExpms["scores"][idx];
         });
-        console.log('topMeta',topMeta.slice(0,3))
-        res.send(topMeta.slice(0,36));
+        // console.log('topMeta',topMeta.slice(0,3))
+        res.send(topMeta.slice(0,50));
     });
 }
 
@@ -78,7 +78,7 @@ exports.query = function(req,res){
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
-            console.log(body,typeof(body))
+            // console.log(body,typeof(body))
             // res.send(body);
             // var enrichRes = JSON.parse(body);
             var topMatches = JSON.parse(body);
@@ -94,7 +94,7 @@ exports.query = function(req,res){
 exports.meta = function(req,res){
     res.header('Access-Control-Allow-Origin','*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    
+
     var sig_id = req.param('sig_id');
     var query = Expm.findOne({sig_id:sig_id}).lean().exec(function(err,doc){
         if(err) throw err;
@@ -108,7 +108,6 @@ exports.geo2me = function(req,res){
     res.header('Access-Control-Allow-Origin','*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
 
-    console.log(req.body);
     res.render('index',{root:'', input:req.body});
 
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="Sigine">
   <head>
-    <title>L1kSigSrchR</title>
+    <title>L1000CDS</title>
     <!-- root variable to adjust the loading path for resources for geo2me-->
     <link rel="shortcut icon" href="CSS/images/sigine.ico" type="image/x-icon">    
     <link rel="stylesheet" href="libraries/font-awesome/css/font-awesome.min.css">    
@@ -27,23 +27,27 @@
     <script src="scripts/controllers.js"></script>
   </head>  
   <body style="text-align:center" ng-controller="GeneList">
-    <div class="pure-menu pure-menu-horizontal custom-menu"><img src="CSS/images/sigine.png" alt="Sigine" class="rubic">    &#x9;<span class="rubic-title"> L1kSigSrchR </span>      
-      <div class="description">A <span class="highlight">lightning-fast</span> search engine for LINCS L1000 gene expression signatures</div>
-      <!-- <input placeholder="click a tile to show its label here so that you can copy it : )" class="labelBox">-->
-      <button ng-class="{'disabled':!upGenes||!dnGenes}" ng-click="search()" class="btn btn-info custom-button search-button">Search</button>
-    </div>    
+    <div class="pure-menu pure-menu-horizontal custom-menu"><img src="CSS/images/sigine.png" alt="Sigine" class="rubic">    &#x9;<span class="rubic-title"> L1000CDS </span>      
+      <div class="description">A <span class="highlight">lightning-fast</span> search engine for LINCS <span class="highlight">L1000 </span><span class="highlight">C</span>haracteristic <span class="highlight">D</span>irection <span class="highlight">S</span>ignatures</div>
+    </div>
     <div id="container" class="row custom-container">
       <div class="col-sm-3">
         <!-- <input class="pure-input-2-3" placeholder="description of gene list"></input>-->
         <div class="input-margin">
-          <div><b>up genes</b></div>            
+          <div>
+            <div class="input-title-wrapper"><b>up genes</b><a title="clear" ng-click="clear('upGenes')" class="btn eraser-btn"><i class="fa fa-eraser"></i></a></div>
+          </div>            
           <textarea placeholder="up genes" ng-model="upGenes" class="form-control input-gene-list"></textarea>
         </div>          
         <div class="input-margin">
-          <div><b>down genes</b></div>            
+          <div>
+            <div class="input-title-wrapper"><b>down genes</b><a title="clear" ng-click="clear('dnGenes')" class="btn eraser-btn"><i class="fa fa-eraser"></i></a></div>
+          </div>            
           <textarea placeholder="down genes" ng-model="dnGenes" class="form-control input-gene-list"></textarea>
         </div>          
-        <div class="input-margin"><a ng-click="fillInText()" class="btn btn-success custom-button example-button">Example</a></div>          
+        <div class="input-margin">
+          <button ng-class="{'disabled':!upGenes||!dnGenes}" ng-click="search()" class="btn btn-primary search-button">Search</button><a ng-click="fillInText()" class="btn btn-success custom-button example-button">Example</a>
+        </div>          
         <div style="padding:0" class="input-margin">
           <toggle-switch model="aggravate" on-label="aggravate" off-label="reverse" class="switch-default">
             <toggle-switch></toggle-switch>
