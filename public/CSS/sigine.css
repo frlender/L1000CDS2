@@ -14,10 +14,10 @@ body{
 }
 
 
-.custom-container{
+/*.custom-container{
 	margin-top:5em;
 	
-}
+}*/
 
 .custom-table{
 	font-size:0.9em;
@@ -190,4 +190,16 @@ th{
 
 .lightning-fast{
 	font-style: italic;
+}
+
+
+.header-board{
+	margin-top: 3em;
+	text-align: right;
+}
+
+.share-button{
+	margin: 0px 0.5em 0px 0px;
+	padding: 0px;
+	font-size: 1.5em;
 }

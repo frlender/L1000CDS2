@@ -38,7 +38,7 @@ indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http
 						if("err" in data){
 							$scope.err = data["err"][0];
 						}else{
-							$scope.entries = process(data);
+							$scope.entries = process(data["topMeta"]);
 						}
 				});
 			}
