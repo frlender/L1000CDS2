@@ -30,21 +30,24 @@ html(lang='en', ng-app='Sigine')
     .pure-menu.pure-menu-horizontal.custom-menu
       img.rubic(src=root+'CSS/images/sigine.png', alt='Sigine')
       |     &#x9;
-      span.rubic-title  L1000CDS 
+      span.rubic-title  L1000CDS
+        sup 2 
       |       
       .description
         | A 
         span.highlight.lightning-fast lightning-fast
-        |  search engine for LINCS 
+        |  LINCS 
         span.highlight L1000 
         span.highlight C
         |haracteristic 
         span.highlight D
         |irection 
         span.highlight S
-        |ignatures
+        |ignature
+        span.highlight S
+        |earch Engine
     .header-board
-      a.btn.share-button(ng-click="share()")
+      a.btn.share-button(ng-style="{'visibility':(shareURL?'visible':'hidden')}" ng-click="share()")
         i.fa.fa-share-alt-square
     #container.row
       .col-sm-3

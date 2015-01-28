@@ -1,7 +1,7 @@
 var indexControllers = angular.module('indexControllers', []);
 
 
-var baseURL = window.location.protocol+"//"+window.location.host + "/L1000CDS/";
+var baseURL = window.location.protocol+"//"+window.location.host + "/L1000CDS2/";
 
 var process = _.identity;
 indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 
@@ -9,7 +9,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 		
 		//default reverse
 		$scope.aggravate = false;
-		$scope.test = "abc";
+		$scope.shareURL = "";
 
 		$scope.fillInText = function(){
 			$http.get(baseURL+'data/example-up-genes-remove-first-three.txt').success(function(data){
@@ -63,7 +63,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
       			controller: 'ModalInstanceCtrl',
       			resolve: {
         			shareURL: function () {
-          			return "abcde";
+          			return $scope.shareURL;
         			}
       			}
     			});
