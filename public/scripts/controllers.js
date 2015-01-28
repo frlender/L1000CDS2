@@ -4,10 +4,12 @@ var indexControllers = angular.module('indexControllers', []);
 var baseURL = window.location.protocol+"//"+window.location.host + "/L1000CDS/";
 
 var process = _.identity;
-indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http){
+indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 
+	function($scope,$http,$modal){
 		
 		//default reverse
 		$scope.aggravate = false;
+		$scope.test = "abc";
 
 		$scope.fillInText = function(){
 			$http.get(baseURL+'data/example-up-genes-remove-first-three.txt').success(function(data){
@@ -39,6 +41,8 @@ indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http
 							$scope.err = data["err"][0];
 						}else{
 							$scope.entries = process(data["topMeta"]);
+							// rest API
+							$scope.shareURL = baseURL+data["shareId"];
 						}
 				});
 			}
@@ -53,6 +57,18 @@ indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http
 			window.location = url;
 		}
 
+		$scope.share = function(){
+			var modalInstance = $modal.open({
+      			templateUrl: 'share.html',
+      			controller: 'ModalInstanceCtrl',
+      			resolve: {
+        			shareURL: function () {
+          			return "abcde";
+        			}
+      			}
+    			});
+		}
+
 		if(input){
 			// initialize up/dn genes if any input from geo2me. 
 			// Also search them if exist
@@ -62,3 +78,14 @@ indexControllers.controller('GeneList', ['$scope', '$http',function($scope,$http
 		}
 	}
 ]);
+
+
+indexControllers.controller('ModalInstanceCtrl', 
+	['$scope', '$modalInstance', 'shareURL', 
+	function($scope, $modalInstance, shareURL) {
+  
+ $scope.shareURL = shareURL;
+ $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+}]);

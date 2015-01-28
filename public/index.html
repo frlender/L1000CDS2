@@ -5,32 +5,31 @@
     <!-- root variable to adjust the loading path for resources for geo2me-->
     <link rel="shortcut icon" href="CSS/images/sigine.ico" type="image/x-icon">    
     <link rel="stylesheet" href="libraries/font-awesome/css/font-awesome.min.css">    
-    <link rel="stylesheet" href="libraries/datatables/media/css/jquery.dataTables.min.css">    
-    <link rel="stylesheet" type="text/css" href="libraries/bootstrap/dist/css/bootstrap.min.css">    
-    <link rel="stylesheet" href="CSS/sigine.css">    
-    <link rel="stylesheet" href="libraries/bootstrap-toggle/css/bootstrap-toggle.min.css">    
+    <link rel="stylesheet" type="text/css" href="libraries/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="CSS/sigine.css">
     <link rel="stylesheet" href="CSS/angular-toggle-switch-bootstrap-3.css">
     <!-- global variables if any. Pass "" if null.-->
     <script type="text/javascript">
       var input= ""
       
     </script>
-    <!-- libraries-->
-    <script src="libraries/angular/angular.js"></script>    
-    <script src="libraries/jquery/jquery.min.js"></script>    
-    <script src="libraries/string/lib/string.min.js"></script>    
-    <script src="libraries/underscore/underscore-min.js"></script>    
-    <script src="libraries/angular-smart-table/dist/smart-table.min.js"></script>    
+    <!-- libraries    -->
+    <script src="libraries/jquery/jquery.min.js"></script>
+    <script src="libraries/string/lib/string.min.js"></script>
+    <script src="libraries/underscore/underscore-min.js"></script>
+    <script src="libraries/angular/angular.js">    </script>
+    <script src="libraries/angular-smart-table/dist/smart-table.min.js"></script>
     <script src="libraries/angular-bootstrap-toggle-switch/angular-toggle-switch.min.js"></script>
+    <script src="libraries/ui-bootstrap-tpls-0.12.0.min.js"></script>
     <!-- scripts-->
-    <script src="scripts/app.js"></script>    
+    <script src="scripts/app.js"></script>
     <script src="scripts/controllers.js"></script>
   </head>  
   <body style="text-align:center" ng-controller="GeneList">
     <div class="pure-menu pure-menu-horizontal custom-menu"><img src="CSS/images/sigine.png" alt="Sigine" class="rubic">    &#x9;<span class="rubic-title"> L1000CDS </span>      
       <div class="description">A <span class="highlight lightning-fast">lightning-fast</span> search engine for LINCS <span class="highlight">L1000 </span><span class="highlight">C</span>haracteristic <span class="highlight">D</span>irection <span class="highlight">S</span>ignatures</div>
     </div>
-    <div class="header-board"><a class="btn share-button"><i class="fa fa-share-alt-square"></i></a></div>
+    <div class="header-board"><a ng-click="share()" class="btn share-button"><i class="fa fa-share-alt-square"></i></a></div>
     <div id="container" class="row">
       <div class="col-sm-3">
         <!-- <input class="pure-input-2-3" placeholder="description of gene list"></input>-->

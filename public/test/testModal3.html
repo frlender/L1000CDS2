@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="test.modal3">
+<head>
+    <script src="../libraries/jquery/jquery.min.js"></script>      
+    <link rel="stylesheet" type="text/css" href="../libraries/bootstrap/dist/css/bootstrap.min.css">
+    <script src="../libraries/angular/angular.js"></script>    
+    <script src="../libraries/ui-bootstrap-tpls-0.12.0.min.js"></script>
+
+    <!-- scripts -->
+    <script src="testModal3.js"></script>
+
+
+</head>
+<body ng-controller="ModalCtrl">
+
+	<script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Im a modal!</h3>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li ng-repeat="item in items">
+                    <a ng-click="selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            Selected: <b>{{ selected.item }}</b>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+
+	<p><a href class="btn btn-default btn-lg " ng-click="open()">Show Yes No</a></p>
+
+</body>
+</html>

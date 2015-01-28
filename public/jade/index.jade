@@ -7,34 +7,23 @@ html(lang='en', ng-app='Sigine')
     |     
     link(rel='stylesheet', href=root+'libraries/font-awesome/css/font-awesome.min.css')
     |     
-    link(rel='stylesheet', href=root+'libraries/datatables/media/css/jquery.dataTables.min.css')
-    |     
     link(rel='stylesheet', type='text/css', href=root+'libraries/bootstrap/dist/css/bootstrap.min.css')
-    |     
-    link(rel='stylesheet', href=root+'CSS/sigine.css')
-    |     
-    link(rel='stylesheet', href=root+'libraries/bootstrap-toggle/css/bootstrap-toggle.min.css')
-    |     
+    link(rel='stylesheet', href=root+'CSS/sigine.css')     
     link(rel='stylesheet', href=root+'CSS/angular-toggle-switch-bootstrap-3.css')
     // global variables if any. Pass "" if null.
     script(type='text/javascript').
       var input= !{JSON.stringify(input)}
 
-    // libraries
-    script(src=root+'libraries/angular/angular.js')
-    |     
+    // libraries    
     script(src=root+'libraries/jquery/jquery.min.js')
-    |     
     script(src=root+'libraries/string/lib/string.min.js')
-    |     
     script(src=root+'libraries/underscore/underscore-min.js')
-    |     
+    script(src=root+'libraries/angular/angular.js')     
     script(src=root+'libraries/angular-smart-table/dist/smart-table.min.js')
-    |     
     script(src=root+'libraries/angular-bootstrap-toggle-switch/angular-toggle-switch.min.js')
+    script(src=root+'libraries/ui-bootstrap-tpls-0.12.0.min.js')
     // scripts
     script(src=root+'scripts/app.js')
-    |     
     script(src=root+'scripts/controllers.js')
   |   
   body(style='text-align:center', ng-controller='GeneList')
@@ -55,7 +44,7 @@ html(lang='en', ng-app='Sigine')
         span.highlight S
         |ignatures
     .header-board
-      a.btn.share-button
+      a.btn.share-button(ng-click="share()")
         i.fa.fa-share-alt-square
     #container.row
       .col-sm-3
