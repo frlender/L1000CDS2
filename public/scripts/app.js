@@ -6,10 +6,11 @@ var Sigine = angular.module('Sigine', [
   'indexControllers','smart-table','toggle-switch','ui.bootstrap']);
 
 
-Sigine.directive('selectText',function(){
-	return function(scope,element,attrs){
-		console.log('de');
-		$(element).focus();
-		$(element).select();
-	}
+Sigine.directive('focusMe', function($timeout, $parse) {
+  return {
+    link: function(scope, element, attrs) {
+      // $(element[0]).select()
+      setTimeout(function(){$(element[0]).select()},100);
+    }
+  };
 });

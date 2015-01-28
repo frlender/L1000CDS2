@@ -84,6 +84,7 @@ indexControllers.controller('ModalInstanceCtrl',
 	['$scope', '$modalInstance', 'shareURL', 
 	function($scope, $modalInstance, shareURL) {
   
+ $scope.shouldBeOpened = true;
  $scope.shareURL = shareURL;
  $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
