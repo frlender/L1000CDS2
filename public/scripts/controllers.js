@@ -7,9 +7,16 @@ var process = _.identity;
 indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 
 	function($scope,$http,$modal){
 		
-		//default reverse
+		//default values: reverse
 		$scope.aggravate = false;
 		$scope.shareURL = "";
+		$scope.searchCount = null;
+
+		var updateCount = function(){
+			$http.get(baseURL+'count').success(function(data){
+				$scope.searchCount = data;
+			});
+		}
 
 		$scope.fillInText = function(){
 			$http.get(baseURL+'data/example-up-genes-remove-first-three.txt').success(function(data){
@@ -42,7 +49,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 						}else{
 							$scope.entries = process(data["topMeta"]);
 							// rest API
-							$scope.shareURL = baseURL+data["shareId"];
+							$scope.shareURL = baseURL+'history/'+data["shareId"];
 						}
 				});
 			}
@@ -59,7 +66,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 
 		$scope.share = function(){
 			var modalInstance = $modal.open({
-      			templateUrl: 'share.html',
+      			templateUrl: baseURL+'share.html',
       			controller: 'ModalInstanceCtrl',
       			resolve: {
         			shareURL: function () {
@@ -69,13 +76,23 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
     			});
 		}
 
+
+		// initialization
 		if(input){
-			// initialize up/dn genes if any input from geo2me. 
-			// Also search them if exist
-			$scope.upGenes = JSON.parse(input.upGenes).join('\n');
-			$scope.dnGenes = JSON.parse(input.dnGenes).join('\n');
-			$scope.search();
+			$scope.upGenes = input.upGenes.join('\n');
+			$scope.dnGenes = input.dnGenes.join('\n');
+			if(results){
+				// for history route
+				$scope.aggravate = input.aggravate;
+				$scope.entries = process(results["topMeta"]);
+				$scope.shareURL = baseURL+'history/'+results["shareId"];
+			}else{
+				// for geo2me route. 				
+				$scope.search();
+			}
 		}
+
+		updateCount();
 	}
 ]);
 

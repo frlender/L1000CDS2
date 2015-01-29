@@ -5,13 +5,6 @@ var bodyParser = require('body-parser');
 var sigine = require('./handlers2.js');
 
 
-// sigineRouter.use('/CSS',express.static(__dirname + '/public/CSS'));
-// sigineRouter.use('/libraries',express.static(__dirname + '/public/libraries'));
-// sigineRouter.use('/scripts',express.static(__dirname + '/public/scripts'));
-// sigineRouter.use('/data',express.static(__dirname + '/public/data'));
-
-
-
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({extended:false});
 
@@ -22,8 +15,10 @@ sigineRouter.use('/',express.static(__dirname + '/public'));
 
 sigineRouter.post('/query',jsonParser,sigine.query);
 sigineRouter.get('/meta',sigine.meta);
+sigineRouter.get('/count',sigine.count);
 
 sigineRouter.post('/input',urlencodedParser,sigine.geo2me);
+sigineRouter.get('/:id',sigine.history);
 
 
 app.use('/L1000CDS2',sigineRouter);

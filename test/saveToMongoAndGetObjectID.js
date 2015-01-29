@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://readWriteUser:askQiaonan@localhost/LINCS_L1000');
+mongoose.connect('mongodb://readWriteUser:askQiaonan@localhost/L1000CDS2');
 var Schema = mongoose.Schema({"map":String},{collection:"sigine-share"})
 var Share = mongoose.model('Share',Schema);
 var Schema2 = mongoose.Schema({"db-version":String,"upGenes":[String],
@@ -29,7 +29,7 @@ share.save(function(err,share){
 
 
 // to be tested
-shareId = '54c7e4b911a6d20000d5236b'
+shareId = '54c96552be40a20000125379'
 Share.findOne({_id:shareId})
 	.exec(function(err,queryRes){
 		if(err) throw err;
@@ -46,9 +46,14 @@ Share.findOne({_id:shareId})
 var query = Share.findOne({_id:shareId})
 query.exec(function(err,queryRes){
 	if(err) throw err;
-	var query = Store.findOne({_id:queryRes.map});
+	var query = Store.findOne({_id:queryRes.map}).select('-_id-__v-res');
 	query.exec(function(err,queryRes){
 		if(err) throw err;
 		console.log(queryRes);
 	})
 });
+
+
+query.exec(function(err,queryRes){
+	if(err) throw err;
+	console.log(queryRes);});

@@ -13,6 +13,7 @@ html(lang='en', ng-app='Sigine')
     // global variables if any. Pass "" if null.
     script(type='text/javascript').
       var input= !{JSON.stringify(input)}
+      var results = !{JSON.stringify(results)}
 
     // libraries    
     script(src=root+'libraries/jquery/jquery.min.js')
@@ -46,6 +47,9 @@ html(lang='en', ng-app='Sigine')
         |ignature
         span.highlight S
         |earch Engine
+      span.search-count-text
+        span.search-count {{searchCount}} 
+        | searches performed!
     .header-board
       a.btn.share-button(ng-style="{'visibility':(shareURL?'visible':'hidden')}" ng-click="share()")
         i.fa.fa-share-alt-square

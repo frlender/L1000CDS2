@@ -57,8 +57,8 @@ body{
 	vertical-align: text-bottom;
 	margin-top: 0.4em;
 	margin-left: 2em;
-	margin-right: 3em;
-	font-size: 0.8em;
+/*	margin-right: 3em;
+*/	font-size: 0.8em;
 	display: inline-block;
 	color:white;
 }
@@ -206,4 +206,20 @@ th{
 
 .share-input{
 	width:90%;
+}
+
+.search-count-text{
+	color: white;
+	font-size: 0.8em;
+	right: 0.8em;
+	position: relative;
+	float: right;
+	margin-top: 0.4em;
+	min-width: 150px;
+}
+
+.search-count{
+	font-size: 1.5em;
+	vertical-align: -8%;
+	color: #d6e7d0;
 }

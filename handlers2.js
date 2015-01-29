@@ -1,18 +1,16 @@
 var request = require('request');
-var us = require('underscore');
 var fs = require('fs');
+var R = require('./query-R.js');
 var mongo = require('./query-mongodb.js');
+
+// subject to change.
+// var baseURL = "http://localhost:8182/L1000CDS2/"
 
 var jade = require('jade');
 var indexFun = jade.compileFile('public/jade/index.jade',{pretty:true});
-fs.writeFileSync('public/index.html',indexFun({root:'',input:""}));
+fs.writeFileSync('public/index.html',indexFun({root:'',input:"",results:""}));
 
 
-// Set the headers
-var headers = {
-    'User-Agent':       'Super Agent/0.0.1',
-    'Content-Type':     'application/x-www-form-urlencoded'
-}
 
 exports.query = function(req,res){
     // input should be processed in front-end into a unique array of 
@@ -24,49 +22,25 @@ exports.query = function(req,res){
     // pass by reference!
     var saveDoc = req.body;
     saveDoc["db-version"] = 'cpcd-v1.0';
-    var shareId = mongo.saveInput(saveDoc);
 
-
-    if(req.body.aggravate){
-        var upGenes = JSON.stringify(req.body.upGenes),
-            dnGenes = JSON.stringify(req.body.dnGenes);
-    }else{
-        // reverse search
-        var upGenes = JSON.stringify(req.body.dnGenes),
-            dnGenes = JSON.stringify(req.body.upGenes);
-    }
-    
-    var options = {
-        url: 'http://127.0.0.1:23239/custom/Sigine',
-        method: 'POST',
-        headers: headers,
-        form: {'upGenes': upGenes,
-            'dnGenes':dnGenes}
-    }
-
-
-    // Start the request
-    request(options, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            // Print out the response body
-            // console.log(body,typeof(body))
-            // res.send(body);
-            // var enrichRes = JSON.parse(body);
-            var topMatches = JSON.parse(body);
-
-            // if err send err messenge
-            if("err" in topMatches) res.send(topMatches);
-            else {
+    var callback = function(topMatches){
+        // if err messenge
+        if("err" in topMatches) res.send(topMatches);
+        else {  
+                var shareId = mongo.saveInput(saveDoc);
                 var callback = function(topMeta){
+
                     var dataToUser = {};
                     dataToUser.shareId = shareId;
                     dataToUser.topMeta = topMeta;
                     res.send(dataToUser);
+                    console.log('x');
+                    mongo.incCount();
                 }
                 mongo.getMetas(topMatches,callback);
             }
-        }
-    });
+    }
+    R.query(req.body,callback)   
 }
 
 
@@ -87,11 +61,33 @@ exports.geo2me = function(req,res){
     res.header('Access-Control-Allow-Origin','*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
 
-    res.render('index',{root:'', input:req.body});
+    res.render('index',{root:'', results:'',input:req.body});
 
 }
 
-// exports.index = function(req,res){
-//     res.render('index',{root:'', input:""});
-// }
 
+exports.history = function(req,res){
+    var id = req.params["id"];
+    var inputCallback = function(input){
+        if("err" in input){
+            res.send(input["err"]);
+        }else{
+            var RCallback = function(topMatches){
+                var metaCallback = function(topMeta){
+                    var dataToUser = {};
+                    dataToUser.shareId = id;
+                    dataToUser.topMeta = topMeta;
+                    res.render('index',{root:'',input:input,results:dataToUser});
+                }
+                mongo.getMetas(topMatches,metaCallback);
+            }
+            R.query(input,RCallback);
+        }  
+    }
+    mongo.getSharedInput(id,inputCallback);
+}
+
+
+exports.count = function(req,res){
+    mongo.getCount(res);
+};
