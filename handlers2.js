@@ -34,7 +34,6 @@ exports.query = function(req,res){
                     dataToUser.shareId = shareId;
                     dataToUser.topMeta = topMeta;
                     res.send(dataToUser);
-                    console.log('x');
                     mongo.incCount();
                 }
                 mongo.getMetas(topMatches,callback);

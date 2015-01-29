@@ -109,12 +109,9 @@ exports.getCount = function(res){
 };
 
 exports.incCount = function(){
-	var query = Count.findOne();
-	query.exec(function(err,queryRes){
+	Count.update({$inc:{count:1}},function(err,num){
 		if(err) throw err;
-		console.log(queryRes);
-		queryRes.count.$inc();
-		queryRes.save();
+		// console.log(num);
 	});
 };
 

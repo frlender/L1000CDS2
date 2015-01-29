@@ -7,7 +7,8 @@ var process = _.identity;
 indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 
 	function($scope,$http,$modal){
 		
-		//default values: reverse
+		//default values
+		// reverse
 		$scope.aggravate = false;
 		$scope.shareURL = "";
 		$scope.searchCount = null;
@@ -49,8 +50,9 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 						}else{
 							$scope.entries = process(data["topMeta"]);
 							// rest API
-							$scope.shareURL = baseURL+'history/'+data["shareId"];
+							$scope.shareURL = baseURL+data["shareId"];
 						}
+						updateCount();
 				});
 			}
 		}
@@ -85,7 +87,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 				// for history route
 				$scope.aggravate = input.aggravate;
 				$scope.entries = process(results["topMeta"]);
-				$scope.shareURL = baseURL+'history/'+results["shareId"];
+				$scope.shareURL = baseURL+results["shareId"];
 			}else{
 				// for geo2me route. 				
 				$scope.search();
