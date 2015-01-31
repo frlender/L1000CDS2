@@ -53,7 +53,7 @@ html(lang='en', ng-app='Sigine')
     .header-board
       a.btn.share-button(ng-style="{'visibility':(shareURL?'visible':'hidden')}" ng-click="share()")
         i.fa.fa-share-alt-square
-    #container.row
+    #container.row.custom-row
       .col-sm-3
         // <input class="pure-input-2-3" placeholder="description of gene list"></input>
         .input-margin
@@ -111,7 +111,7 @@ html(lang='en', ng-app='Sigine')
               td {{entry[&quot;pert_time&quot;]+entry[&quot;pert_time_unit&quot;]}}
               |               
               td
-                a.btn.download-icon(ng-click="downloadMeta(entry['sig_id'])")
+                a.btn.download-icon(ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])")
                   i.fa.fa-download
           |           
           tfoot
@@ -121,3 +121,6 @@ html(lang='en', ng-app='Sigine')
                 |                   
                 .custom-pagination(st-pagination='', st-items-by-page='12', st-displayed-pages='')
         h3(ng-class="{err:err,noerr:!err}") {{err}}
+    footer.footer
+      .container 
+        p.text-muted L1000CDS² is being developed by the <a target="_blank" href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a target="_blank" href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a> for the <a target="_blank" href="http://lincs-dcic.org/">BD2K-LINCS DCIC</a> and the <a target="_blank" href="http://commonfund.nih.gov/idg/overview">KMC-IDG</a>. The L1000CDS² tool underlying dataset is the <a target="_blank" href="http://www.lincscloud.org/">LINCS L1000</a> small molecule expression profiles generated at the Broad Institute by the <a target="_blank" href="http://lincscloud.org/about/cmap-team/">Connectivity Map Group</a>. This work is supported by NIH Grants <a target="_blank" href="http://bd2k.nih.gov/FY14/LINCS/LINCS.html">U54HL127624</a> and <a target="_blank" href="http://projectreporter.nih.gov/project_description.cfm?projectnumber=1U54CA189201-01">U54CA189201</a>.

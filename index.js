@@ -5,8 +5,8 @@ var bodyParser = require('body-parser');
 var sigine = require('./handlers2.js');
 
 
-var jsonParser = bodyParser.json();
-var urlencodedParser = bodyParser.urlencoded({extended:false});
+var jsonParser = bodyParser.json({limit:'50mb'});
+var urlencodedParser = bodyParser.urlencoded({limit:'50mb',extended:false});
 
 app.set('views','./public/jade');
 app.set('view engine','jade');

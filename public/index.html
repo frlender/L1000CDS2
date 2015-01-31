@@ -31,7 +31,7 @@
       <div class="description">A <span class="highlight lightning-fast">lightning-fast</span> LINCS <span class="highlight">L1000 </span><span class="highlight">C</span>haracteristic <span class="highlight">D</span>irection <span class="highlight">S</span>ignature<span class="highlight">S</span>earch Engine</div><span class="search-count-text"><span class="search-count">{{searchCount}} </span>searches performed!</span>
     </div>
     <div class="header-board"><a ng-style="{'visibility':(shareURL?'visible':'hidden')}" ng-click="share()" class="btn share-button"><i class="fa fa-share-alt-square"></i></a></div>
-    <div id="container" class="row">
+    <div id="container" class="row custom-row">
       <div class="col-sm-3">
         <!-- <input class="pure-input-2-3" placeholder="description of gene list"></input>-->
         <div class="input-margin">
@@ -72,7 +72,7 @@
               <td>{{entry[&quot;cell_id&quot;]}}</td>              
               <td>{{entry[&quot;pert_dose&quot;]+entry[&quot;pert_dose_unit&quot;]}}</td>              
               <td>{{entry[&quot;pert_time&quot;]+entry[&quot;pert_time_unit&quot;]}}</td>              
-              <td><a ng-click="downloadMeta(entry['sig_id'])" class="btn download-icon"><i class="fa fa-download"></i></a></td>
+              <td><a ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])" class="btn download-icon"><i class="fa fa-download"></i></a></td>
             </tr>
           </tbody>          
           <tfoot>
@@ -87,5 +87,10 @@
         <h3 ng-class="{err:err,noerr:!err}">{{err}}</h3>
       </div>
     </div>
+    <footer class="footer">
+      <div class="container"> 
+        <p class="text-muted">L1000CDS² is being developed by the <a target="_blank" href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a target="_blank" href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a> for the <a target="_blank" href="http://lincs-dcic.org/">BD2K-LINCS DCIC</a> and the <a target="_blank" href="http://commonfund.nih.gov/idg/overview">KMC-IDG</a>. The L1000CDS² tool underlying dataset is the <a target="_blank" href="http://www.lincscloud.org/">LINCS L1000</a> small molecule expression profiles generated at the Broad Institute by the <a target="_blank" href="http://lincscloud.org/about/cmap-team/">Connectivity Map Group</a>. This work is supported by NIH Grants <a target="_blank" href="http://bd2k.nih.gov/FY14/LINCS/LINCS.html">U54HL127624</a> and <a target="_blank" href="http://projectreporter.nih.gov/project_description.cfm?projectnumber=1U54CA189201-01">U54CA189201</a>.</p>
+      </div>
+    </footer>
   </body>
 </html>

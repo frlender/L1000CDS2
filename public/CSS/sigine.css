@@ -223,3 +223,36 @@ th{
 	vertical-align: -8%;
 	color: #d6e7d0;
 }
+
+.custom-row{
+	margin-right: 0;
+}
+
+
+/*for sticky footer fixed to the bottom*/
+/*http://getbootstrap.com/examples/sticky-footer-navbar/*/
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  /*adjust this value accordingly*/
+  margin-bottom: 65px;
+}
+
+.footer {
+position: absolute;
+bottom: 0;
+width: 100%;
+min-height: 60px;
+background-color: #f5f5f5;
+}
+
+footer div{
+	margin-top: 12px;
+	font-size:0.8em;
+}
+
+/*end for sticky footer fixed to the bottom*/
