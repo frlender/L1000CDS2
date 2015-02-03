@@ -42,7 +42,7 @@ exports.getMetas = function(topExpms,callback){
     });
 
     var query = Expm.find({sig_id:{$in:topExpms["sig_ids"]}})
-        .select('-_id sig_id pert_id pert_type pert_desc cell_id pert_dose pert_dose_unit pert_time pert_time_unit').lean();
+        .select('-_id sig_id pert_id pert_desc cell_id pert_dose pert_dose_unit pert_time pert_time_unit').lean();
     
     // console.log(map);
     query.exec(function(err,queryRes){

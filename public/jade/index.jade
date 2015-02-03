@@ -95,7 +95,7 @@ html(lang='en', ng-app='Sigine')
             |             
             th  Time 
             |             
-            th  Meta-data 
+            th  Signature 
           tbody           
             tr(ng-class="{'up-signature': (entry['posPercent']>=0.5), 'dn-signature': (entry['posPercent']<0.5)}", ng-repeat='entry in displayedEntries')
               td {{entry[&quot;score&quot;].toFixed(4)}}
