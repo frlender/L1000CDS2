@@ -14,6 +14,8 @@ app.set('view engine','jade');
 sigineRouter.use('/',express.static(__dirname + '/public'));
 
 sigineRouter.post('/query',jsonParser,sigine.query);
+sigineRouter.post('/signatures',jsonParser,sigine.signatures);
+
 sigineRouter.get('/meta',sigine.meta);
 sigineRouter.get('/count',sigine.count);
 

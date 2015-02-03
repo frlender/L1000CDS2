@@ -90,3 +90,11 @@ exports.history = function(req,res){
 exports.count = function(req,res){
     mongo.getCount(res);
 };
+
+
+exports.signatures = function(req,res){
+    res.header('Access-Control-Allow-Origin','*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    
+    mongo.signaturesFromIDs(req.body,res);
+};

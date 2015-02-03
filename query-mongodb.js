@@ -60,6 +60,29 @@ exports.getMetas = function(topExpms,callback){
     });
 }
 
+exports.signaturesFromIDs = function(sig_ids,res){
+	var map = {};
+   	sig_ids.forEach(function(e,i) {
+        	map[e] = i;
+    });
+
+    var query = Expm.find({sig_id:{$in:sig_ids}})
+        .select('-_id').lean();
+    
+    // console.log(map);
+    query.exec(function(err,queryRes){
+        if(err) throw err;
+        // console.log(queryRes.slice(0,2),'aaaa');
+        var signatures = [];
+        queryRes.forEach(function(e){
+            var idx = map[e["sig_id"]];
+            // console.log(idx);
+            signatures[idx] = e;
+        });
+        // console.log('topMeta',topMeta.slice(0,3))
+        res.send(signatures);
+    });
+}
 
 // save search input
 exports.saveInput = function(saveDoc){

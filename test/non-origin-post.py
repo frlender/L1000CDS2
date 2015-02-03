@@ -17,3 +17,9 @@ headers = {'content-type':'application/json'}
 r = requests.post(url,data=json.dumps(payload),headers=headers)
 
 print(r.json)
+
+
+url = 'http://localhost:8182/L1000CDS2/signatures'
+payload = ["CPC001_HA1E_24H:BRD-A07875874:10.0","CPC001_HA1E_24H:BRD-A43974499:10.0"]
+headers = {'content-type':'application/json'}
+r = requests.post(url,data=json.dumps(payload),headers=headers)
