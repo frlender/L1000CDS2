@@ -256,3 +256,19 @@ footer div{
 }
 
 /*end for sticky footer fixed to the bottom*/
+
+
+/*CSS required for smart table sort*/
+.st-sort-ascent:before {
+    content: '\25B2';
+}
+.st-sort-descent:before {
+    content: '\25BC';
+}
+
+
+/*CSS required for smart table row selection*/
+.st-selected{
+	background: #428bca !important;
+	color: white !important;
+}

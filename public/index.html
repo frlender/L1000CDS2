@@ -19,10 +19,11 @@
     <script src="libraries/string/lib/string.min.js"></script>
     <script src="libraries/underscore/underscore-min.js"></script>
     <script src="libraries/angular/angular.js">    </script>
-    <script src="libraries/angular-smart-table/dist/smart-table.min.js"></script>
+    <script src="versioned/smart-table.debug.js"></script>
     <script src="libraries/angular-bootstrap-toggle-switch/angular-toggle-switch.min.js"></script>
-    <script src="libraries/ui-bootstrap-tpls-0.12.0.min.js"></script>
+    <script src="versioned/ui-bootstrap-tpls-0.12.0.min.js"></script>
     <!-- scripts-->
+    <script src="scripts/services.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers.js"></script>
   </head>  
@@ -47,7 +48,7 @@
           <textarea placeholder="down genes" ng-model="dnGenes" class="form-control input-gene-list"></textarea>
         </div>          
         <div class="input-margin">
-          <button ng-class="{'disabled':!upGenes||!dnGenes}" ng-click="search()" class="btn btn-primary search-button">Search</button><a ng-click="fillInText()" class="btn btn-success custom-button example-button">Example</a>
+          <button ng-class="{'disabled':!upGenes||!dnGenes}" ng-click="search()" class="btn btn-primary search-button">Search</button><a ng-click="showExamples()" class="btn btn-success custom-button example-button">Example</a>
         </div>          
         <div style="padding:0" class="input-margin">
           <toggle-switch model="aggravate" on-label="aggravate" off-label="reverse" class="switch-default">

@@ -1,4 +1,4 @@
-var indexControllers = angular.module('indexControllers', []);
+var indexControllers = angular.module('indexControllers', ["services"]);
 
 
 var baseURL = window.location.protocol+"//"+window.location.host + "/L1000CDS2/";
@@ -19,14 +19,14 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 			});
 		}
 
-		$scope.fillInText = function(){
-			$http.get(baseURL+'data/example-up-genes-remove-first-three.txt').success(function(data){
-				$scope.upGenes = data;
-			});
-			$http.get(baseURL+'data/example-dn-genes.txt').success(function(data){
-				$scope.dnGenes = data;
-			});
-		}
+		// $scope.fillInText = function(){
+		// 	$http.get(baseURL+'data/example-up-genes-remove-first-three.txt').success(function(data){
+		// 		$scope.upGenes = data;
+		// 	});
+		// 	$http.get(baseURL+'data/example-dn-genes.txt').success(function(data){
+		// 		$scope.dnGenes = data;
+		// 	});
+		// }
 
 		var tidyUp = function(genes){
 			 var newGenes = _.unique(S(genes.toUpperCase())
@@ -78,6 +78,19 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
     			});
 		}
 
+		$scope.showExamples = function(){
+			var modalInstance = $modal.open({
+      			templateUrl: baseURL+'examples.html',
+      			controller: 'exampleModalCtrl',
+      			size:"lg"
+    		});
+
+    		modalInstance.result.then(function (res) {
+      			$scope.upGenes = res.up.join('\n');
+      			$scope.dnGenes = res.dn.join('\n');
+    		});
+		}
+
 
 		// initialization
 		if(input){
@@ -108,4 +121,40 @@ indexControllers.controller('ModalInstanceCtrl',
  $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
+}]);
+
+
+indexControllers.controller('exampleModalCtrl', 
+	['$scope', '$modalInstance', 'loadExamples', 'matchByNameFactory', 
+	function($scope, $modalInstance, loadExamples, matchByNameFactory) {
+  
+ // $scope.shouldBeOpened = true;
+ // $scope.shareURL = shareURL;
+ // $scope.cancel = function () {
+ //    $modalInstance.dismiss('cancel');
+ //  };
+
+ 	var matchByName;
+ 	$('.st-selected').removeClass('st-selected');
+ 	loadExamples.then(function(diseases){
+ 		matchByName = matchByNameFactory(diseases);
+ 		$scope.diseases = diseases;
+ 	});
+
+ 	$scope.selectedEntry = 'not-yet';
+
+ 	$scope.cancel = function() {
+    	$modalInstance.dismiss('cancel');
+  	};
+
+  	$scope.ok = function(){
+  		var selectedName = $('.st-selected td:first-child').text();
+  		if(selectedName){
+  			$modalInstance.close(matchByName(selectedName));
+  		}else{
+  			$modalInstance.dismiss('cancel');
+  		}
+  		
+  	};
+
 }]);

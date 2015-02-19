@@ -1,0 +1,36 @@
+<div class="modal-header">
+	<button type="button" class="close"   ng-click="cancel()" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h4 class="modal-title">Select a disease as an example input from the table below :</h4>
+</div>
+<div class="modal-body">
+	<table st-table="displayedEntries" st-safe-src="diseases" class="table">
+    	<thead>
+        	<tr>
+            	<th st-sort="term">Disease</th>
+            	<th st-sort="desc">Tissue</th>
+        	</tr>
+            <tr>
+                 <th colspan="2">
+                 <input placeholder="Search by disease or tissue" st-search type="search" class="form-control" />
+                  </th>
+            </tr>
+       </thead>
+       <tbody>
+       		<tr st-select-row="entry" st-selected-entry="selectedEntry" ng-repeat="entry in displayedEntries">
+             	<td class="">{{entry["term"]}}</td>
+                <td>{{entry["desc"]}}</td>
+            </tr>
+       </tbody>
+        <tfoot>
+            <tr>
+              <td colspan="2">               
+                <div st-pagination="" st-items-by-page="12" st-displayed-pages="" class="custom-pagination"></div>
+              </td>
+            </tr>
+        </tfoot>
+       </table>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+</div>

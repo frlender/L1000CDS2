@@ -14,3 +14,26 @@ Sigine.directive('focusMe', function($timeout, $parse) {
     }
   };
 });
+
+
+Sigine.directive('watchStSelected',function(){
+	return {
+		link:function(scope,element,attrs){
+			console.log('watchStSelected',attrs.watchStSelected,
+				scope);
+			scope.$watch(function(){return element.attr('class')},
+				function(newValue){
+					if(element.hasClass('st-selected')){
+						attrs.watchStSelected = {id:scope.$id,
+							entry:scope.entry};
+					}else{
+						if(attrs.watchStSelected){
+							if(scope.$id==attrs.watchStSelected.id){
+								attrs.watchStSelected = null;
+							}
+						}
+					}
+			});
+		}
+	}
+});
