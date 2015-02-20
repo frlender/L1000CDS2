@@ -88,6 +88,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
     		modalInstance.result.then(function (res) {
       			$scope.upGenes = res.up.join('\n');
       			$scope.dnGenes = res.dn.join('\n');
+      			$scope.search();
     		});
 		}
 

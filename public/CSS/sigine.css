@@ -272,3 +272,8 @@ footer div{
 	background: #428bca !important;
 	color: white !important;
 }
+
+
+.no-border-radius{
+	border-radius: 0;
+}
