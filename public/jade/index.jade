@@ -54,7 +54,7 @@ html(lang='en', ng-app='Sigine')
     .header-board
       a.btn.share-button(ng-style="{'visibility':(shareURL?'visible':'hidden')}" ng-click="share()")
         i.fa.fa-share-alt-square
-      a.btn.share-button(href="http://localhost:8182/L1000CDS2/help" target="_blank")
+      a.btn.share-button(href="help" target="_blank")
         i.fa.fa-question-circle
     #container.row.custom-row
       .col-sm-3
@@ -80,9 +80,11 @@ html(lang='en', ng-app='Sigine')
         .input-margin
           button.btn.btn-primary.search-button(ng-class="{'disabled':!upGenes||!dnGenes}", ng-click='search()') Search
           a.btn.btn-success.custom-button.example-button(ng-click='showExamples()') Example
-        |           
+        |
+        .input-margin
+
         .input-margin(style='padding:0')
-          toggle-switch.switch-default(model='aggravate', on-label='aggravate', off-label='reverse')
+          toggle-switch.switch-default(model='aggravate', on-label='mimic', off-label='reverse')
             toggle-switch
       |     
       .col-sm-9
