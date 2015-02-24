@@ -80,9 +80,7 @@ html(lang='en', ng-app='Sigine')
         .input-margin
           button.btn.btn-primary.search-button(ng-class="{'disabled':!upGenes||!dnGenes}", ng-click='search()') Search
           a.btn.btn-success.custom-button.example-button(ng-click='showExamples()') Example
-        |
-        .input-margin
-
+        |           
         .input-margin(style='padding:0')
           toggle-switch.switch-default(model='aggravate', on-label='mimic', off-label='reverse')
             toggle-switch
