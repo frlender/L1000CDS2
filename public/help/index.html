@@ -18,7 +18,9 @@
             <ul id='sideBarSub'>
                 <li><a href='#search'>Search</a></li>
                 <li><a href='#example'>Example</a></li>
+                <li><a href='#EBOV'>EBOV</a></li>
                 <li><a href='#aggravate'>Aggravate/Reverse</a></li>
+                <li><a href='#diseases'>Diseases</a></li>
                 <li><a href='#table'>Table</a></li>
                 <li><a href='#share'>Share</a></li>
             </ul>
@@ -45,24 +47,31 @@
             <h3>Tutorial</h3>
             <div class="col-left">
                 <h5 id="search">Search</h5>
-                <p>The entry point of L1000CDS² is to paste up/down gene lists into the up/down gene text boxes. The search button will only be enabled when both up/down genes are filled in. Click the search button and the information of the top 50 signatures will be displayed in a table (link) on the right side.</p>
+                <p>The entry point of L1000CDS² is to paste up/down gene lists into the up/down gene text boxes. The search button will only be enabled when both up/down genes are filled in. Click the search button and the information of the top 50 signatures will be displayed in a <a href="#table">table</a> on the right side.</p>
                 <h5 id="example">Example</h5>
                 <p>Clicking the Example button will fill in example up/down gene lists in the text boxes for a demo search.</p>
+                <h5 id="EBOV">EBOV</h5>
+                <p>Clicking the EBOV Signature button will fill in the up/down gene lists of an EBOV signature in the text boxes for a demo search.</p>
                 <h5 id="aggravate">Aggravate/Reverse</h5>
                 <p>In aggravate mode, input up genes are intersected with up genes of the gene expression profiles in the L1000CDS² database and input down genes are intersected with down genes of the gene expression profiles in the database. In reverse mode, input up genes are intersected with down genes of the gene expression profiles in the L1000CDS² database and input down genes are intersected with up genes of the gene expression profiles in the database. <strong>The default mode is reverse.</strong></p>
 
             </div>
             <div class="col-right">
-                <img src='images/search.png'/>
-                <p class='caption'>Fig. 1 Screenshot that shows the input text boxes, the search button, the example button and the aggravate/reverse slider.</p>
+                <img id="fig1" src='images/search.png'/>
+                <p class='caption'>Fig. 1 Screenshot that shows the input text boxes, the search button, the example button, the EBOV signature button, the diesease signatures button  and the mimic/reverse slider.</p>
             </div>
 
+            <h5 id="diseases">Diseases</h5>
+            <p>Clicking on the Diseases Signature button will open a table of disease names and their tissue types (Fig 2). The table is searchable by disease name or tissue type and can be sorted by either column. Each row represents a differential expression signature of a disease and consists of 300 up-regulated genes and 300 down-regulated genes. These signatures were calculated from gene expression data deposited in GEO.  Clicking on a row will select that disease. Clicking on the search button will fill in the up/down gene lists of the selected disease in the up/down gene text boxes and perform a search at the same time. </p>
+            <img id="fig2" class="diseases-figure" src="images/diseases.png"/>
+            <p class="caption">Fig 2 Screenshot that shows the disease table</p>
+
             <h5 id="table">Table</h5>
-            <p>The search results are rendered as a paginated table with 12 entries on each page (Fig 2). Each entry provides 5 pieces of information about the signature: score, perturbation, cell-line, dose and time point. The score is the overlap between the input DE genes and the signature DE genes divided by the effective input. The effective input is the length of intersection between input genes and the L1000 genome since some input genes may not be measured in the L1000 platform. The consensus signatures are sorted by score in descending order. Perturbation column shows the names of the chemical perturbations. Clicking on a name will direct user to a web page provided by the <a target="_blank" href="http://life.ccs.miami.edu/life/">LIFE app</a> that catalogs the detailed information of the chemical compound. There is also a signature column in the table. Clicking a download button in that column will download all the information of a signature as a JSON file. </p>
-            <img src='images/table.png'/>
-            <p id='fig1' class='caption'>Fig. 2 Screenshot that shows the paginated results table and the share button.</p>
+            <p>The search results are rendered as a paginated table with 12 entries on each page (Fig 3). Each entry provides 5 pieces of information about the signature: score, perturbation, cell-line, dose and time point. The score is the overlap between the input DE genes and the signature DE genes divided by the effective input. The effective input is the length of intersection between input genes and the L1000 genome since some input genes may not be measured in the L1000 platform. The consensus signatures are sorted by score in descending order. Perturbation column shows the names of the chemical perturbations. Clicking on a name will direct user to a web page provided by the <a target="_blank" href="http://life.ccs.miami.edu/life/">LIFE app</a> that catalogs the detailed information of the chemical compound. There is also a signature column in the table. Clicking a download button in that column will download all the information of a signature as a JSON file. </p>
+            <img id="fig3" src='images/table.png'/>
+            <p class='caption'>Fig. 3 Screenshot that shows the paginated results table and the share button.</p>
             <h5 id="share">Share</h5>
-            <p>After performing a search, a share button (Fig 2) will appear on the top right of the result table. Clicking on the button will show a unique URL for sharing the search results.</p>
+            <p>After performing a search, a share button (Fig 3) will appear on the top right of the result table. Clicking on the button will show a unique URL for sharing the search results.</p>
             
         </section>
         

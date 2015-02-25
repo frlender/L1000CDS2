@@ -81,7 +81,7 @@ html(lang='en', ng-app='Sigine')
           button.btn.btn-primary.custom-button.search-button(ng-class="{'disabled':!upGenes||!dnGenes}", ng-click='search()') Search
           a.btn.btn-success.custom-button.example-button(ng-click='loadDefaultExample()') Example
         .input-margin
-          a.btn.btn-warning.custom-button.long-button(ng-click='loadEboveExample()') Ebola Signature
+          a.btn.btn-warning.custom-button.long-button(ng-click='loadEboveExample()') EBOV Signature
         .narrow-margin
           a.btn.btn-success.custom-button.long-button(ng-click='showExamples()') Disease Signatures                
         .input-margin(style='padding:0')
@@ -125,7 +125,7 @@ html(lang='en', ng-app='Sigine')
               td(colspan='6')
                 .table-label  Chemical Perturbations
                 |                   
-                .custom-pagination(st-pagination='', st-items-by-page='12', st-displayed-pages='')
+                .custom-pagination(st-pagination='', st-items-by-page='14', st-displayed-pages='')
         h3(ng-class="{err:err,noerr:!err}") {{err}}
     footer.footer
       .container 

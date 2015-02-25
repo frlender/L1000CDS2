@@ -207,3 +207,9 @@ pre{
     font-size:1.1em;
     color:rgb(66, 184, 221);
 }
+
+.diseases-figure{
+border: gainsboro;
+border-style: solid;
+border-width: thin;
+}
