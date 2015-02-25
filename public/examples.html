@@ -1,6 +1,6 @@
 <div class="modal-header">
 	<button type="button" class="close"   ng-click="cancel()" data-dismiss="modal" aria-hidden="true">&times;</button>
-	<h4 class="modal-title example-header">Select one of the 142 disease signatures processed from  GEO as an example input from the table below. L1000CDS² will predict drugs that potentially reverse the disease state:</h4>
+	<h4 class="modal-title example-header">Select one of the 142 disease signatures processed from  GEO in the table below and click search button to find drugs that would potentially reverse the disease state:</h4>
 </div>
 <div class="modal-body">
 	<table st-table="displayedEntries" st-safe-src="diseases" class="table">
@@ -31,6 +31,6 @@
        </table>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-primary" ng-click="ok()">Select</button>
+	<button class="btn btn-primary" ng-click="ok()">Search</button>
     <!-- <button class="btn btn-warning" ng-click="cancel()">Cancel</button> -->
 </div>

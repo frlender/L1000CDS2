@@ -24,12 +24,16 @@ body{
 }
 
 .custom-button{
-	background: rgb(66, 184, 221);
 	color:white;
+	font-size: 0.8em;
+padding: 5px;
 }
 
 .search-button{
-	margin-right: 0.8em;
+	font-size: 15px;
+width: 90px;
+margin-right: 0.2em;
+margin-right: 0.2em;
 }
 
 
@@ -283,4 +287,12 @@ footer div{
 padding-left: 50px;
 padding-right: 50px;
 padding-top: 5px;
+}
+
+.long-button{
+	width:149px;
+}
+
+.narrow-margin{
+	margin-top:0.5em;
 }

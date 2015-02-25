@@ -4,8 +4,8 @@ var indexControllers = angular.module('indexControllers', ["services"]);
 var baseURL = window.location.protocol+"//"+window.location.host + "/L1000CDS2/";
 
 var process = _.identity;
-indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 
-	function($scope,$http,$modal){
+indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExample', 
+	function($scope,$http,$modal,loadExample){
 		
 		//default values
 		// reverse
@@ -18,15 +18,6 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 				$scope.searchCount = data;
 			});
 		}
-
-		// $scope.fillInText = function(){
-		// 	$http.get(baseURL+'data/example-up-genes-remove-first-three.txt').success(function(data){
-		// 		$scope.upGenes = data;
-		// 	});
-		// 	$http.get(baseURL+'data/example-dn-genes.txt').success(function(data){
-		// 		$scope.dnGenes = data;
-		// 	});
-		// }
 
 		var tidyUp = function(genes){
 			 var newGenes = _.unique(S(genes.toUpperCase())
@@ -90,6 +81,20 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
       			$scope.dnGenes = res.dn.join('\n');
       			$scope.search();
     		});
+		}
+
+		$scope.loadDefaultExample = function(){
+			loadExample.default().then(function(DEGs){
+				$scope.upGenes = DEGs.up;
+				$scope.dnGenes = DEGs.dn;
+			})
+		}
+
+		$scope.loadEboveExample = function(){
+			loadExample.ebov().then(function(DEGs){
+				$scope.upGenes = DEGs.up;
+				$scope.dnGenes = DEGs.dn;
+			})
 		}
 
 
