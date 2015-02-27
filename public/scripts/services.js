@@ -13,6 +13,31 @@ services.factory('loadExamples',['$http','$q',
 
 }]);
 
+
+services.factory('loadEbovs',['$http','$q',
+	function($http,$q){
+		var deferred = $q.defer();
+		
+		$http.get("data/ebovs.json")
+			.success(function(diseases){
+				var map = {'ebov30min':"EBOV signature 30 minutes",
+ 				"ebov60min":"EBOV signature 60 minutes",
+ 				"ebov120min":"EBOV signature 120 minutes"}
+ 				var order = ["ebov30min","ebov60min","ebov120min"];
+ 				var res = _.map(order,function(element){
+ 					var el = {};
+ 					el.name = map[element];
+ 					el.up = diseases[element].up;
+ 					el.dn = diseases[element].dn;
+ 					return el
+ 				})
+				deferred.resolve(res);
+		})
+
+		return deferred.promise;
+
+}]);
+
 services.factory('loadExample',['$http','$q',function($http,$q){
 	var examples = {}
 
@@ -40,10 +65,11 @@ services.factory('loadExample',['$http','$q',function($http,$q){
 }]);
 
 services.factory('matchByNameFactory',function(){
-	return  function(diseases){
+	return  function(diseases,key){
+		if(!key) key = 'term';
 		return function(name){
 			return _.filter(diseases,function(disease){
-				return disease.term==name;
+				return disease[key]==name;
 			})[0];
 		}
 	}

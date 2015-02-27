@@ -90,11 +90,17 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 			})
 		}
 
-		$scope.loadEboveExample = function(){
-			loadExample.ebov().then(function(DEGs){
-				$scope.upGenes = DEGs.up;
-				$scope.dnGenes = DEGs.dn;
-			})
+		$scope.showEbovs = function(){
+			var modalInstance = $modal.open({
+      			templateUrl: baseURL+'ebovs.html',
+      			controller: 'ebovsModalCtrl',
+    		});
+
+    		modalInstance.result.then(function (res) {
+      			$scope.upGenes = res.up.join('\n');
+      			$scope.dnGenes = res.dn.join('\n');
+      			$scope.search();
+    		});
 		}
 
 
@@ -144,6 +150,42 @@ indexControllers.controller('exampleModalCtrl',
  	$('.st-selected').removeClass('st-selected');
  	loadExamples.then(function(diseases){
  		matchByName = matchByNameFactory(diseases);
+ 		$scope.diseases = diseases;
+ 	});
+
+ 	$scope.selectedEntry = 'not-yet';
+
+ 	$scope.cancel = function() {
+    	$modalInstance.dismiss('cancel');
+  	};
+
+  	$scope.ok = function(){
+  		var selectedName = $('.st-selected td:first-child').text();
+  		if(selectedName){
+  			$modalInstance.close(matchByName(selectedName));
+  		}else{
+  			$modalInstance.dismiss('cancel');
+  		}
+  		
+  	};
+
+}]);
+
+
+indexControllers.controller('ebovsModalCtrl', 
+	['$scope', '$modalInstance', 'loadEbovs', 'matchByNameFactory', 
+	function($scope, $modalInstance, loadEbovs, matchByNameFactory) {
+  
+ // $scope.shouldBeOpened = true;
+ // $scope.shareURL = shareURL;
+ // $scope.cancel = function () {
+ //    $modalInstance.dismiss('cancel');
+ //  };
+
+ 	var matchByName;
+ 	$('.st-selected').removeClass('st-selected');
+ 	loadEbovs.then(function(diseases){
+ 		matchByName = matchByNameFactory(diseases,'name');
  		$scope.diseases = diseases;
  	});
 
