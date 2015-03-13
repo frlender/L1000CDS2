@@ -1,0 +1,65 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install' ]
+2 info using npm@2.5.1
+3 info using node@v0.12.0
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 verbose install where, deps [ 'C:\\Users\\Luke\\Documents\\nodejs_server\\Sigine\\sigine',
+5 verbose install   [ 'express', 'bower', 'request', 'mongoose', 'body-parser', 'jade' ] ]
+6 verbose install where, peers [ 'C:\\Users\\Luke\\Documents\\nodejs_server\\Sigine\\sigine',
+6 verbose install   [] ]
+7 info preinstall Sigine@0.0.1
+8 verbose already installed skipping request@* C:\Users\Luke\Documents\nodejs_server\Sigine\sigine
+9 verbose already installed skipping mongoose@3.8.x C:\Users\Luke\Documents\nodejs_server\Sigine\sigine
+10 verbose already installed skipping body-parser@1.10.0 C:\Users\Luke\Documents\nodejs_server\Sigine\sigine
+11 verbose already installed skipping jade@1.9.1 C:\Users\Luke\Documents\nodejs_server\Sigine\sigine
+12 verbose already installed skipping express@4.x C:\Users\Luke\Documents\nodejs_server\Sigine\sigine
+13 verbose already installed skipping bower@1.3.12 C:\Users\Luke\Documents\nodejs_server\Sigine\sigine
+14 silly install resolved []
+15 info build C:\Users\Luke\Documents\nodejs_server\Sigine\sigine
+16 verbose linkStuff [ false,
+16 verbose linkStuff   false,
+16 verbose linkStuff   false,
+16 verbose linkStuff   'C:\\Users\\Luke\\Documents\\nodejs_server\\Sigine' ]
+17 info linkStuff Sigine@0.0.1
+18 verbose linkBins Sigine@0.0.1
+19 verbose linkMans Sigine@0.0.1
+20 verbose rebuildBundles Sigine@0.0.1
+21 verbose rebuildBundles [ '.bin',
+21 verbose rebuildBundles   'body-parser',
+21 verbose rebuildBundles   'bower',
+21 verbose rebuildBundles   'express',
+21 verbose rebuildBundles   'jade',
+21 verbose rebuildBundles   'mongoose',
+21 verbose rebuildBundles   'request' ]
+22 info install Sigine@0.0.1
+23 info postinstall Sigine@0.0.1
+24 verbose unsafe-perm in lifecycle true
+25 info Sigine@0.0.1 Failed to exec postinstall script
+26 verbose stack Error: Sigine@0.0.1 postinstall: `bower install`
+26 verbose stack Exit status 1
+26 verbose stack     at EventEmitter.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\lifecycle.js:213:16)
+26 verbose stack     at EventEmitter.emit (events.js:110:17)
+26 verbose stack     at ChildProcess.<anonymous> (C:\Program Files\nodejs\node_modules\npm\lib\utils\spawn.js:14:12)
+26 verbose stack     at ChildProcess.emit (events.js:110:17)
+26 verbose stack     at maybeClose (child_process.js:1008:16)
+26 verbose stack     at Process.ChildProcess._handle.onexit (child_process.js:1080:5)
+27 verbose pkgid Sigine@0.0.1
+28 verbose cwd C:\Users\Luke\Documents\nodejs_server\Sigine\sigine
+29 error Windows_NT 6.1.7601
+30 error argv "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install"
+31 error node v0.12.0
+32 error npm  v2.5.1
+33 error code ELIFECYCLE
+34 error Sigine@0.0.1 postinstall: `bower install`
+34 error Exit status 1
+35 error Failed at the Sigine@0.0.1 postinstall script 'bower install'.
+35 error This is most likely a problem with the Sigine package,
+35 error not with npm itself.
+35 error Tell the author that this fails on your system:
+35 error     bower install
+35 error You can get their info via:
+35 error     npm owner ls Sigine
+35 error There is likely additional logging output above.
+36 verbose exit [ 1, true ]
