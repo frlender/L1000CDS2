@@ -3,7 +3,7 @@
 /* App Module */
 
 var Sigine = angular.module('Sigine', [
-  'indexControllers','smart-table','toggle-switch','ui.bootstrap']);
+  'indexControllers','smart-table','toggle-switch','ui.bootstrap','blockUI']);
 
 
 Sigine.directive('focusMe', function($timeout, $parse) {
