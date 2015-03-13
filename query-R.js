@@ -8,23 +8,37 @@ var headers = {
 
 
 exports.query = function(input,cb){
-	if(input.aggravate){
+    if(input.searchMethod == "geneSet"){
+        if(input.aggravate){
         var upGenes = JSON.stringify(input.upGenes),
             dnGenes = JSON.stringify(input.dnGenes);
+        }else{
+            // reverse search
+            var upGenes = JSON.stringify(input.dnGenes),
+                dnGenes = JSON.stringify(input.upGenes);
+        }
+
+        var options = {
+            url: 'http://127.0.0.1:23239/custom/Sigine',
+            method: 'POST',
+            headers: headers,
+            form: {'upGenes': upGenes,
+                'dnGenes':dnGenes,
+                'method':'"geneSet"'}
+        }
     }else{
-        // reverse search
-        var upGenes = JSON.stringify(input.dnGenes),
-            dnGenes = JSON.stringify(input.upGenes);
+        // input.searchMethod == "CD"
+        if(input.aggravate) direction = 'mimic';
+        else direction = 'reverse';
+        var options = {
+            url: 'http://127.0.0.1:23239/custom/Sigine',
+            method: 'POST',
+            headers: headers,
+            form: {'input': JSON.stringify(input.input),
+                'method':'"CD"',
+                'direction':'"'+direction+'"'}
+        }
     }
-
-    var options = {
-        url: 'http://127.0.0.1:23239/custom/Sigine',
-        method: 'POST',
-        headers: headers,
-        form: {'upGenes': upGenes,
-            'dnGenes':dnGenes}
-    }
-
 
     // Start the request
     request(options, function (error, response, body) {

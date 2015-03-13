@@ -62,13 +62,13 @@ html(lang='en', ng-app='Sigine')
         .input-margin
           div
             .input-title-wrapper
-              b up genes
+              b {{inputType()=="CD"?"signature":"up genes"}}
               a.btn.eraser-btn(title="clear" ng-click="clear('upGenes')")
                 i.fa.fa-eraser
           |             
-          textarea.form-control.input-gene-list(placeholder='up genes', ng-model='upGenes')
+          textarea.form-control.input-gene-list(placeholder='up genes or a signature', ng-model='upGenes' ng-style="{height:(inputType()=='CD'?'35em':'16em')}")
         |           
-        .input-margin
+        .input-margin(ng-style="{display:(inputType()=='CD'?'none':'block')}")
           div
             .input-title-wrapper
               b down genes
@@ -78,7 +78,7 @@ html(lang='en', ng-app='Sigine')
           textarea.form-control.input-gene-list(placeholder='down genes', ng-model='dnGenes')
         |           
         .input-margin
-          button.btn.btn-primary.custom-button.search-button(ng-class="{'disabled':!upGenes||!dnGenes}", ng-click='search()') Search
+          button.btn.btn-primary.custom-button.search-button(ng-class="{disabled:!inputType()}", ng-click='search()') Search
           a.btn.btn-success.custom-button.example-button(ng-click='loadDefaultExample()') Example
         .input-margin
           a.btn.btn-warning.custom-button.long-button(ng-click='showEbovs()') EBOV Signatures

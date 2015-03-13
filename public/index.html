@@ -37,18 +37,18 @@
         <!-- <input class="pure-input-2-3" placeholder="description of gene list"></input>-->
         <div class="input-margin">
           <div>
-            <div class="input-title-wrapper"><b>up genes</b><a title="clear" ng-click="clear('upGenes')" class="btn eraser-btn"><i class="fa fa-eraser"></i></a></div>
+            <div class="input-title-wrapper"><b>{{inputType()=="CD"?"signature":"up genes"}}</b><a title="clear" ng-click="clear('upGenes')" class="btn eraser-btn"><i class="fa fa-eraser"></i></a></div>
           </div>            
-          <textarea placeholder="up genes" ng-model="upGenes" class="form-control input-gene-list"></textarea>
+          <textarea placeholder="up genes or a signature" ng-model="upGenes" ng-style="{height:(inputType()=='CD'?'35em':'16em')}" class="form-control input-gene-list"></textarea>
         </div>          
-        <div class="input-margin">
+        <div ng-style="{display:(inputType()=='CD'?'none':'block')}" class="input-margin">
           <div>
             <div class="input-title-wrapper"><b>down genes</b><a title="clear" ng-click="clear('dnGenes')" class="btn eraser-btn"><i class="fa fa-eraser"></i></a></div>
           </div>            
           <textarea placeholder="down genes" ng-model="dnGenes" class="form-control input-gene-list"></textarea>
         </div>          
         <div class="input-margin">
-          <button ng-class="{'disabled':!upGenes||!dnGenes}" ng-click="search()" class="btn btn-primary custom-button search-button">Search</button><a ng-click="loadDefaultExample()" class="btn btn-success custom-button example-button">Example</a>
+          <button ng-class="{disabled:!inputType()}" ng-click="search()" class="btn btn-primary custom-button search-button">Search</button><a ng-click="loadDefaultExample()" class="btn btn-success custom-button example-button">Example</a>
         </div>
         <div class="input-margin"><a ng-click="showEbovs()" class="btn btn-warning custom-button long-button">EBOV Signatures</a></div>
         <div class="narrow-margin"><a ng-click="showExamples()" class="btn btn-success custom-button long-button">Disease Signatures                </a></div>

@@ -13,11 +13,43 @@ services.factory('loadExamples',['$http','$q',
 
 }]);
 
+services.factory('buildQueryData',[function(){
+
+	return function(scope){
+		var res = {}
+		res.aggravate = scope.aggravate;
+		var lines = S(scope.upGenes.toUpperCase()).trim().split('\n');
+		var splits = lines[0].split(',');
+		if(splits.length>1){
+			res.searchMethod = 'CD';
+			res.input = {};
+			res.input.genes = [],
+			res.input.vals = [];
+			lines.forEach(function(e){
+				var splits = e.split(',')
+				res.input.genes.push(S(splits[0]).trim().s);
+				res.input.vals.push(parseFloat(S(splits[1]).trim().s));
+			});
+			return res;
+		}else{
+			res.searchMethod = "geneSet";
+			var upLines = _.uniq(lines);
+			res.upGenes = _.map(lines,function(gene){
+				return S(gene).trim().s;
+			});
+			var dnLines = _.uniq(S(scope.dnGenes.toUpperCase()).trim().split('\n'));
+			res.dnGenes = _.map(dnLines,function(gene){
+				return S(gene).trim().s;
+			});
+			return res;
+		}
+	}
+}])
+
 
 services.factory('loadEbovs',['$http','$q',
 	function($http,$q){
 		var deferred = $q.defer();
-		
 		$http.get("data/ebovs.json")
 			.success(function(diseases){
 				var map = {'ebov30min':"EBOV signature 30 minutes",
@@ -27,15 +59,13 @@ services.factory('loadEbovs',['$http','$q',
  				var res = _.map(order,function(element){
  					var el = {};
  					el.name = map[element];
- 					el.up = diseases[element].up;
- 					el.dn = diseases[element].dn;
+ 					el.genes = diseases[element].genes;
+ 					el.vals = diseases[element].vals;
  					return el
  				})
 				deferred.resolve(res);
 		})
-
 		return deferred.promise;
-
 }]);
 
 services.factory('loadExample',['$http','$q',function($http,$q){

@@ -4,8 +4,9 @@ var indexControllers = angular.module('indexControllers', ["services"]);
 var baseURL = window.location.protocol+"//"+window.location.host + "/L1000CDS2/";
 
 var process = _.identity;
-indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExample', 
-	function($scope,$http,$modal,loadExample){
+indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 
+	'loadExample', 'buildQueryData', 
+	function($scope,$http,$modal,loadExample,buildQueryData){
 		
 		//default values
 		// reverse
@@ -19,33 +20,34 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 			});
 		}
 
-		var tidyUp = function(genes){
-			 var newGenes = _.unique(S(genes.toUpperCase())
-					.trim().s.split("\n"));
-				//trim unvisible char like \r after each gene if any
-			  newGenes = _.map(newGenes,function(gene){
-					return S(gene).trim().s;
-				});
-			  return newGenes
+		$scope.inputType = function(){
+			var res = false;
+			if($scope.upGenes){
+				var splits = S($scope.upGenes).trim().split('\n')[0].split(',')
+				if(splits.length>1){
+					var val = parseFloat(splits[1])
+					if(!isNaN(val)&&isFinite(val))
+						res = "CD"
+				}else{
+					if($scope.dnGenes) res = "geneSet"
+				}
+			}
+			return res
 		}
 
 		$scope.search = function(){
-			if($scope.upGenes&&$scope.dnGenes){
-				$scope.err = false;
-				$http.post(baseURL+"query",{upGenes:tidyUp($scope.upGenes),
-											dnGenes:tidyUp($scope.dnGenes),
-											aggravate:$scope.aggravate})
-					.success(function(data) {
-						if("err" in data){
-							$scope.err = data["err"][0];
-						}else{
-							$scope.entries = process(data["topMeta"]);
-							// rest API
-							$scope.shareURL = baseURL+data["shareId"];
-						}
-						updateCount();
-				});
-			}
+			$scope.err = false;
+			$http.post(baseURL+"query",buildQueryData($scope))
+				.success(function(data) {
+					if("err" in data){
+						$scope.err = data["err"][0];
+					}else{
+						$scope.entries = process(data["topMeta"]);
+						// rest API
+						$scope.shareURL = baseURL+data["shareId"];
+					}
+					updateCount();
+			});
 		}
 
 		$scope.clear = function(geneListKey){
@@ -97,8 +99,11 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
     		});
 
     		modalInstance.result.then(function (res) {
-      			$scope.upGenes = res.up.join('\n');
-      			$scope.dnGenes = res.dn.join('\n');
+    			var lines = []
+    			res.genes.forEach(function(e,i){
+    				lines.push(e+','+res.vals[i])
+    			})
+      			$scope.upGenes = lines.join('\n');
       			$scope.search();
     		});
 		}
