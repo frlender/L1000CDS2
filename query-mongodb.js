@@ -13,13 +13,22 @@ var Expm = mongoose.model('Expm',Schema);
 // for sigine-share and sigine-store collections
 var Schema = mongoose.Schema({"map":String},{collection:"sigine-share"})
 var Share = mongoose.model('Share',Schema);
-var Schema2 = mongoose.Schema({"aggravate":Boolean,"db-version":String,"upGenes":[String],
-"dnGenes":[String],"map":String},{collection:"sigine-store"});
+
+var Schema2 = mongoose.Schema({"aggravate":Boolean,
+    "db-version":String,
+    "upGenes":[String],
+    "dnGenes":[String],
+    "map":String,
+    "searchMethod":String,
+    "input":{
+        "genes":[String],
+        "vals":[Number]}
+    },
+    {collection:"sigine-store"});
 var Store = mongoose.model('Store',Schema2);
 
 var Schema3 = mongoose.Schema({"count":Number},{collection:"sigine-count"});
 var Count = mongoose.model('Count',Schema3);
-
 
 
 exports.getMeta = function(sig_id,callback){
@@ -105,14 +114,14 @@ exports.getSharedInput = function(sharedId,cb){
 	if(!mongoose.Types.ObjectId.isValid(sharedId)){
 		cb({"err":"invalid URL!"})
 	}else{
-		var query = Share.findOne({_id:sharedId})
+		var query = Share.findOne({_id:sharedId});
 		query.exec(function(err,queryRes){
 			if(err) throw err;
 			if(!queryRes){
 				cb({"err":"invalid URL!"})
 			}else{
-				var query = Store.findOne({_id:queryRes.map});
-				query.select('upGenes dnGenes aggravate db-version -_id');
+				var query = Store.findOne({_id:queryRes.map}).lean();
+				// query.select('upGenes dnGenes aggravate db-version -_id');
 				query.exec(function(err,queryRes){
 					if(err) throw err;
 					cb(queryRes);

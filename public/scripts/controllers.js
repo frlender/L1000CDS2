@@ -112,8 +112,18 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 
 		// initialization
 		if(input){
-			$scope.upGenes = input.upGenes.join('\n');
-			$scope.dnGenes = input.dnGenes.join('\n');
+			if(input.searchMethod == "geneSet"){
+				$scope.upGenes = input.upGenes.join('\n');
+				$scope.dnGenes = input.dnGenes.join('\n');
+			}else if(input.searchMethod == "CD"){
+				$scope.upGenes = _.map(_.zip(input.input.genes,input.input.vals),
+					function(component){
+						return component.join(',');
+					}).join('\n');
+			}else{
+				$scope.err = "Invalid initialization."
+			}
+
 			if(results){
 				// for history route
 				$scope.aggravate = input.aggravate;

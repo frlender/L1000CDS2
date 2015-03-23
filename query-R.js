@@ -26,8 +26,8 @@ exports.query = function(input,cb){
                 'dnGenes':dnGenes,
                 'method':'"geneSet"'}
         }
-    }else{
-        // input.searchMethod == "CD"
+    }else if(input.searchMethod == "CD"){
+        
         if(input.aggravate) direction = 'mimic';
         else direction = 'reverse';
         var options = {
@@ -38,6 +38,8 @@ exports.query = function(input,cb){
                 'method':'"CD"',
                 'direction':'"'+direction+'"'}
         }
+    }else{
+        cb({"err":"search method is not CD or geneSet. It is "+input.searchMethod+"."})
     }
 
     // Start the request

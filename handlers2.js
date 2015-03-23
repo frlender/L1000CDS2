@@ -68,6 +68,10 @@ exports.geo2me = function(req,res){
 exports.history = function(req,res){
     var id = req.params["id"];
     var inputCallback = function(input){
+        if(!("searchMethod" in input)){
+            // accomodation for user input of a previous version.
+            input.searchMethod = "geneSet";
+        }
         if("err" in input){
             res.send(input["err"]);
         }else{
