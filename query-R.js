@@ -31,7 +31,7 @@ exports.query = function(input,cb){
         if(input.aggravate) direction = 'mimic';
         else direction = 'reverse';
         var options = {
-            url: 'http://127.0.0.1:23239/custom/Sigine',
+            url: 'http://127.0.0.1:23236/custom/Sigine',
             method: 'POST',
             headers: headers,
             form: {'input': JSON.stringify(input.input),
