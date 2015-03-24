@@ -89,7 +89,13 @@ services.factory('loadExample',['$http','$q',function($http,$q){
 
 	examples.default = loadFactory('data/example-up-genes-remove-first-three.txt',
 		'data/example-dn-genes.txt');
-	examples.ebov = loadFactory('data/ebov120minUp.txt','data/ebov120minDn.txt');
+	examples.signature = function(){
+		var deferred = $q.defer();
+		$http.get('data/enrichrFuzzy.txt').success(function(data){
+			deferred.resolve(data);
+		});
+		return deferred.promise;
+	}
 
 	return examples;
 }]);

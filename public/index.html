@@ -50,10 +50,12 @@
           <textarea placeholder="down genes" ng-model="dnGenes" class="form-control input-gene-list"></textarea>
         </div>          
         <div class="input-margin">
-          <button ng-class="{disabled:!inputType()}" ng-click="search()" class="btn btn-primary custom-button search-button">Search</button><a ng-click="loadDefaultExample()" class="btn btn-success custom-button example-button">Example</a>
+          <button ng-class="{disabled:!inputType()}" ng-click="search()" class="btn btn-primary custom-button search-button">Search</button>
         </div>
+        <div class="input-margin"><a ng-click="loadDefaultExample()" class="btn btn-success custom-button long-button">Gene-set Example</a></div>
+        <div class="narrow-margin"><a ng-click="loadSignatureExample()" class="btn btn-success custom-button long-button">Signature Example</a></div>
         <div class="input-margin"><a ng-click="showEbovs()" class="btn btn-warning custom-button long-button">EBOV Signatures</a></div>
-        <div class="narrow-margin"><a ng-click="showExamples()" class="btn btn-success custom-button long-button">Disease Signatures                </a></div>
+        <div class="narrow-margin"><a ng-click="showExamples()" class="btn btn-warning custom-button long-button">Disease Signatures                </a></div>
         <div style="padding:0" class="input-margin">
           <toggle-switch model="aggravate" on-label="mimic" off-label="reverse" class="switch-default">
             <toggle-switch></toggle-switch>

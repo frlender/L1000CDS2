@@ -93,6 +93,12 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 			})
 		}
 
+		$scope.loadSignatureExample = function(){
+			loadExample.signature().then(function(data){
+				$scope.upGenes = data;
+			})
+		}
+
 		$scope.showEbovs = function(){
 			var modalInstance = $modal.open({
       			templateUrl: baseURL+'ebovs.html',

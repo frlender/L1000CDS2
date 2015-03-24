@@ -149,7 +149,7 @@ tfoot td{
 }
 
 .input-margin{
-	margin-top:1em;
+	margin-top:0.6em;
 }
 
 .example-button{
@@ -294,5 +294,5 @@ padding-top: 5px;
 }
 
 .narrow-margin{
-	margin-top:0.5em;
+	margin-top:0.3em;
 }

@@ -81,11 +81,14 @@ html(lang='en', ng-app='Sigine')
         |           
         .input-margin
           button.btn.btn-primary.custom-button.search-button(ng-class="{disabled:!inputType()}", ng-click='search()') Search
-          a.btn.btn-success.custom-button.example-button(ng-click='loadDefaultExample()') Example
+        .input-margin
+          a.btn.btn-success.custom-button.long-button(ng-click='loadDefaultExample()') Gene-set Example
+        .narrow-margin
+          a.btn.btn-success.custom-button.long-button(ng-click='loadSignatureExample()') Signature Example
         .input-margin
           a.btn.btn-warning.custom-button.long-button(ng-click='showEbovs()') EBOV Signatures
         .narrow-margin
-          a.btn.btn-success.custom-button.long-button(ng-click='showExamples()') Disease Signatures                
+          a.btn.btn-warning.custom-button.long-button(ng-click='showExamples()') Disease Signatures                
         .input-margin(style='padding:0')
           toggle-switch.switch-default(model='aggravate', on-label='mimic', off-label='reverse')
             toggle-switch
