@@ -19,7 +19,7 @@ exports.query = function(input,cb){
         }
 
         var options = {
-            url: 'http://127.0.0.1:23239/custom/Sigine',
+            url: 'http://127.0.0.1:23236/custom/Sigine',
             method: 'POST',
             headers: headers,
             form: {'upGenes': upGenes,
