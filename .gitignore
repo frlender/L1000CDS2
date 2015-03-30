@@ -11,3 +11,4 @@ R/sync.ffs_db
 .idea/searchEngine.iml
 .idea/vcs.xml
 .idea/workspace.xml
+public/data/ebovs_old.json
