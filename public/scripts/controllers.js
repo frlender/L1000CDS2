@@ -80,9 +80,15 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
     		});
 
     		modalInstance.result.then(function (res) {
-      			$scope.upGenes = res.up.join('\n');
-      			$scope.dnGenes = res.dn.join('\n');
-      			$scope.search();
+    			$http.get(baseURL+'disease?id='+res['_id'])
+    			.success(function(res){
+    				var lines = []
+	    			res.genes.forEach(function(e,i){
+	    				lines.push(e+','+res.vals[i])
+	    			})
+      				$scope.upGenes = lines.join('\n');
+      				$scope.search();
+    			});
     		});
 		}
 
@@ -157,10 +163,9 @@ indexControllers.controller('ModalInstanceCtrl',
   };
 }]);
 
-
 indexControllers.controller('exampleModalCtrl', 
-	['$scope', '$modalInstance', 'loadExamples', 'matchByNameFactory', 
-	function($scope, $modalInstance, loadExamples, matchByNameFactory) {
+	['$scope', '$modalInstance', 'loadGEO', 'matchByNameFactory', 
+	function($scope, $modalInstance, loadGEO, matchByNameFactory) {
   
  // $scope.shouldBeOpened = true;
  // $scope.shareURL = shareURL;
@@ -170,8 +175,10 @@ indexControllers.controller('exampleModalCtrl',
 
  	var matchByName;
  	$('.st-selected').removeClass('st-selected');
- 	loadExamples.then(function(diseases){
- 		matchByName = matchByNameFactory(diseases);
+ 	loadGEO.then(function(diseases){
+ 		matchByName = matchByNameFactory(diseases,function(disease){
+ 			return disease['term']+disease['desc'];
+ 		});
  		$scope.diseases = diseases;
  	});
 
@@ -182,9 +189,10 @@ indexControllers.controller('exampleModalCtrl',
   	};
 
   	$scope.ok = function(){
-  		var selectedName = $('.st-selected td:first-child').text();
-  		if(selectedName){
-  			$modalInstance.close(matchByName(selectedName));
+  		var term = $('.st-selected td:first-child').text();
+  		var desc = $('.st-selected td:last-child').text()
+  		if(term){
+  			$modalInstance.close(matchByName(term+desc));
   		}else{
   			$modalInstance.dismiss('cancel');
   		}
@@ -192,6 +200,44 @@ indexControllers.controller('exampleModalCtrl',
   	};
 
 }]);
+
+
+// indexControllers.controller('exampleModalCtrl', 
+// 	['$scope', '$modalInstance', 'loadExamples', 'matchByNameFactory', 
+// 	function($scope, $modalInstance, loadExamples, matchByNameFactory) {
+  
+//  // $scope.shouldBeOpened = true;
+//  // $scope.shareURL = shareURL;
+//  // $scope.cancel = function () {
+//  //    $modalInstance.dismiss('cancel');
+//  //  };
+
+//  	var matchByName;
+//  	$('.st-selected').removeClass('st-selected');
+//  	loadExamples.then(function(diseases){
+//  		matchByName = matchByNameFactory(diseases);
+//  		$scope.diseases = diseases;
+//  	});
+
+//  	$scope.selectedEntry = 'not-yet';
+
+//  	$scope.cancel = function() {
+//     	$modalInstance.dismiss('cancel');
+//   	};
+
+//   	$scope.ok = function(){
+//   		var selectedName = $('.st-selected td:first-child').text();
+//   		if(selectedName){
+//   			$modalInstance.close(matchByName(selectedName));
+//   		}else{
+//   			$modalInstance.dismiss('cancel');
+//   		}
+  		
+//   	};
+
+// }]);
+
+
 
 
 indexControllers.controller('ebovsModalCtrl', 
@@ -207,7 +253,9 @@ indexControllers.controller('ebovsModalCtrl',
  	var matchByName;
  	$('.st-selected').removeClass('st-selected');
  	loadEbovs.then(function(diseases){
- 		matchByName = matchByNameFactory(diseases,'name');
+ 		matchByName = matchByNameFactory(diseases,function(disease){
+ 			return disease['name'];
+ 		});
  		$scope.diseases = diseases;
  	});
 

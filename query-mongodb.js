@@ -14,6 +14,11 @@ var Expm = mongoose.model('Expm',Schema);
 var Schema = mongoose.Schema({"map":String},{collection:"sigine-share"})
 var Share = mongoose.model('Share',Schema);
 
+// for diseases collection
+var SchemaDisease = mongoose.Schema({"term":String,"desc":String,genes:[String],
+    vals:[Number]},{collection:"diseases"});
+var Disease = mongoose.model('Disease',SchemaDisease);
+
 var Schema2 = mongoose.Schema({"aggravate":Boolean,
     "db-version":String,
     "upGenes":[String],
@@ -118,7 +123,7 @@ exports.getSharedInput = function(sharedId,cb){
 		query.exec(function(err,queryRes){
 			if(err) throw err;
 			if(!queryRes){
-				cb({"err":"invalid URL!"})
+				cb({"err":"invalid history ID!"})
 			}else{
 				var query = Store.findOne({_id:queryRes.map}).lean();
 				// query.select('upGenes dnGenes aggravate db-version -_id');
@@ -146,6 +151,22 @@ exports.incCount = function(){
 		// console.log(num);
 	});
 };
+
+exports.diseases = function(res){
+    var query = Disease.find().select('term desc').lean();
+    query.exec(function(err,queryRes){
+        if(err) throw err;
+        res.send(queryRes);
+    });
+}
+
+exports.disease = function(id,res){
+    var query = Disease.findOne({_id:id}).sort('term').select('-_id -term -desc').lean();
+    query.exec(function(err,queryRes){
+        if(err) throw err;
+        res.send(queryRes);
+    });
+}
 
 
 

@@ -9,9 +9,17 @@
     "request":"*",
     "mongoose":"3.8.x",
     "body-parser":"1.10.0",
-    "jade":"1.9.1"
+    "jade":"1.9.1",
+    "connect-jade-static":"0.2.2"
   },
   "scripts": {
     "postinstall": "bower install"
-	}
+	},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-jade": "^0.5.1",
+    "grunt-contrib-jade": "^0.14.1",
+    "grunt-express-server": "^0.4.19"
+  }
 }

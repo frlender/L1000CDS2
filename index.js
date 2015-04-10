@@ -19,10 +19,17 @@ sigineRouter.post('/signatures',jsonParser,sigine.signatures);
 sigineRouter.get('/meta',sigine.meta);
 sigineRouter.get('/count',sigine.count);
 
+sigineRouter.get('/disease',sigine.disease);
+sigineRouter.get('/diseases',sigine.diseases);
+
 sigineRouter.post('/input',urlencodedParser,sigine.geo2me);
 sigineRouter.get('/:id',sigine.history);
 
 
+
+
 app.use('/L1000CDS2',sigineRouter);
 
-app.listen(8182);
+app.listen(8182,function(){
+	console.log('listen@8182');
+});

@@ -13,6 +13,17 @@ services.factory('loadExamples',['$http','$q',
 
 }]);
 
+services.factory('loadGEO',['$http','$q',
+	function($http, $q){
+		var deferred = $q.defer();
+
+		$http.get("diseases").success(function(diseases){
+			deferred.resolve(_.sortBy(diseases,'term'));
+		})
+
+		return deferred.promise;
+}]);
+
 services.factory('buildQueryData',[function(){
 
 	return function(scope){
@@ -101,11 +112,10 @@ services.factory('loadExample',['$http','$q',function($http,$q){
 }]);
 
 services.factory('matchByNameFactory',function(){
-	return  function(diseases,key){
-		if(!key) key = 'term';
-		return function(name){
+	return  function(diseases,uniqFunc){
+		return function(val){
 			return _.filter(diseases,function(disease){
-				return disease[key]==name;
+				return uniqFunc(disease)==val;
 			})[0];
 		}
 	}

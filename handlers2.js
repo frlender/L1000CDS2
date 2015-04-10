@@ -6,6 +6,7 @@ var mongo = require('./query-mongodb.js');
 // subject to change.
 // var baseURL = "http://localhost:8182/L1000CDS2/"
 
+
 var jade = require('jade');
 var indexFun = jade.compileFile('public/jade/index.jade',{pretty:true});
 fs.writeFileSync('public/index.html',indexFun({root:'',input:"",results:""}));
@@ -102,3 +103,12 @@ exports.signatures = function(req,res){
     
     mongo.signaturesFromIDs(req.body,res);
 };
+
+exports.diseases = function(req,res){
+    mongo.diseases(res);
+}
+
+exports.disease = function(req,res){
+    id = req.query['id'];
+    mongo.disease(id,res);
+}
