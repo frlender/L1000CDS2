@@ -5,8 +5,8 @@ var baseURL = window.location.protocol+"//"+window.location.host + "/L1000CDS2/"
 
 var process = _.identity;
 indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 
-	'loadExample', 'buildQueryData', 'blockUI',
-	function($scope,$http,$modal,loadExample,buildQueryData,blockUI){
+	'loadExample', 'buildQueryData', 
+	function($scope,$http,$modal,loadExample,buildQueryData){
 		
 		//default values
 		// reverse
@@ -14,7 +14,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 		$scope.shareURL = "";
 		$scope.searchCount = null;
 
-		blockUI.message('Please wait for a few seconds...')
+		// blockUI.message('Please wait for a few seconds...')
 		var updateCount = function(){
 			$http.get(baseURL+'count').success(function(data){
 				$scope.searchCount = data;
