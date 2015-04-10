@@ -14,7 +14,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 		$scope.shareURL = "";
 		$scope.searchCount = null;
 
-		blockUI.message('in 2 seconds...')
+		blockUI.message('Please wait for a few seconds...')
 		var updateCount = function(){
 			$http.get(baseURL+'count').success(function(data){
 				$scope.searchCount = data;
