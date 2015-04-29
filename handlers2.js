@@ -13,6 +13,7 @@ fs.writeFileSync('public/index.html',indexFun({root:'',input:"",results:""}));
 
 
 
+
 exports.query = function(req,res){
     // input should be processed in front-end into a unique array of 
     // uppercase gene symbols.
@@ -43,6 +44,27 @@ exports.query = function(req,res){
     R.query(req.body,callback)   
 }
 
+exports.multisearch = function(req,res){
+    R.multi(req.body,function(topMatches){
+        mongo.getMetas(topMatches,function(topMeta){
+            var wstr = [];
+            var tags = [];
+            req.body.input.forEach(function(e){
+                tags.push(e.tag)
+            });
+            wstr.push('id\tdrug\t'+tags.join('\t')+'\t'+'RP'+'\t'+'pval');
+            topMeta.forEach(function(e){
+                wstr.push(e['sig_id']+'\t'+e['pert_desc']+'\t'+e.score.join('\t'))
+            });
+            wstr = wstr.join('\n');
+            fs.writeFile('data/multi.txt',wstr,function(err){
+                if(err) throw err;
+            });
+            res.send(topMeta);
+        });
+    });
+}
+
 
 exports.meta = function(req,res){
     res.header('Access-Control-Allow-Origin','*');
@@ -57,13 +79,13 @@ exports.meta = function(req,res){
 }
 
 
-exports.geo2me = function(req,res){
-    res.header('Access-Control-Allow-Origin','*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+// exports.geo2me = function(req,res){
+//     res.header('Access-Control-Allow-Origin','*');
+//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
 
-    res.render('index',{root:'', results:'',input:req.body});
+//     res.render('index',{root:'', results:'',input:req.body});
 
-}
+// }
 
 
 exports.history = function(req,res){

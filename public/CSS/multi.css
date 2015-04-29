@@ -1,0 +1,57 @@
+textarea.form-control{
+	height:20em;
+}
+
+.input{
+	padding-left:30px;
+	padding-right: 20px;
+}
+
+
+.plus {
+  background-color: white;
+  margin-top: 7em;
+}
+
+.plus i{
+color: #ccc;
+  font-size: 6em;
+}
+
+.plus i:hover{
+color: black;
+  font-size: 6em;
+}
+
+input.description-tag{
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+textarea.signature{
+border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+
+.multi-search {
+  /*margin-top: 3.5em;*/
+  color:black;
+  border-width: 1.5px;
+  border-color: black;
+  /* border: black; */
+  background-color: transparent;
+  border-style: solid;
+  border-radius: 0;
+  margin-top: 2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-left: 20px;
+}
+
+
+.multi-search:hover {
+  /*margin-top: 3.5em;*/
+  color:white;
+  background-color: black;
+}

@@ -19,10 +19,13 @@ sigineRouter.post('/signatures',jsonParser,sigine.signatures);
 sigineRouter.get('/meta',sigine.meta);
 sigineRouter.get('/count',sigine.count);
 
+// diseases example
 sigineRouter.get('/disease',sigine.disease);
 sigineRouter.get('/diseases',sigine.diseases);
 
-sigineRouter.post('/input',urlencodedParser,sigine.geo2me);
+sigineRouter.post('/multisearch',jsonParser, sigine.multisearch);
+
+// sigineRouter.post('/input',urlencodedParser,sigine.geo2me);
 sigineRouter.get('/:id',sigine.history);
 
 

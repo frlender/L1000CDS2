@@ -7,6 +7,8 @@ var headers = {
 }
 
 
+var port = 23236
+// var port = 
 exports.query = function(input,cb){
     if(input.searchMethod == "geneSet"){
         if(input.aggravate){
@@ -19,7 +21,7 @@ exports.query = function(input,cb){
         }
 
         var options = {
-            url: 'http://127.0.0.1:23236/custom/Sigine',
+            url: 'http://127.0.0.1:'+port+'/custom/Sigine',
             method: 'POST',
             headers: headers,
             form: {'upGenes': upGenes,
@@ -31,7 +33,7 @@ exports.query = function(input,cb){
         if(input.aggravate) direction = 'mimic';
         else direction = 'reverse';
         var options = {
-            url: 'http://127.0.0.1:23236/custom/Sigine',
+            url: 'http://127.0.0.1:'+port+'/custom/Sigine',
             method: 'POST',
             headers: headers,
             form: {'input': JSON.stringify(input.input),
@@ -51,6 +53,27 @@ exports.query = function(input,cb){
             // var enrichRes = JSON.parse(body);
             var topMatches = JSON.parse(body);
 
+            cb(topMatches);
+        }
+    });
+}
+
+
+exports.multi = function(input,cb){
+    var options = {
+            url: 'http://127.0.0.1:'+port+'/custom/Sigine',
+            method: 'POST',
+            headers: headers,
+            form: {'input': JSON.stringify(input.input),
+                'method':'"multi"'}
+    }
+     request(options, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            // Print out the response body
+            // console.log(body,typeof(body))
+            // res.send(body);
+            // var enrichRes = JSON.parse(body);
+            var topMatches = JSON.parse(body);
             cb(topMatches);
         }
     });
