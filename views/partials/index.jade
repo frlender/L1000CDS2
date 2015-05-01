@@ -1,0 +1,64 @@
+.header-board
+    a.btn.share-button(ng-style="{'visibility':(shareURL?'visible':'hidden')}" ng-click="share()")
+      i.fa.fa-share-alt-square
+    a.btn.share-button(href="help" target="_blank")
+      i.fa.fa-question-circle
+  #container.row.custom-row
+    .col-sm-3
+      // <input class="pure-input-2-3" placeholder="description of gene list"></input>
+      .input-margin
+        div
+          .input-title-wrapper
+            b {{inputType()=="CD"?"signature":"up genes"}}
+            a.btn.eraser-btn(title="clear" ng-clic="clear('upGenes')")
+              i.fa.fa-eraser
+        |             
+        textarea.form-control.input-gene-list(placeholder='up genes or a signature', ng-model='upGenes' ng-style="{height:(inputType()=='CD'?'42.6em':'20em')}")
+      |           
+      .input-margin(ng-style="{display:(inputType()=='CD'?'none':'block')}")
+        div
+          .input-title-wrapper
+            b down genes
+            a.btn.eraser-btn(title="clear" ng-click="clear('dnGenes')")
+              i.fa.fa-eraser
+        |             
+        textarea.form-control.input-gene-list(placeholder='down genes', ng-model='dnGenes')
+      |           
+      .input-margin
+        button.btn.btn-primary.custom-button.search-button(ng-class="{disabled:!inputType()}", ng-click='search()') Search
+      //- .input-margin
+      //-   a.btn.btn-success.custom-button.long-button(ng-click='loadDefaultExample()') Gene-set Example
+      //- .narrow-margin
+      //-   a.btn.btn-success.custom-button.long-button(ng-click='loadSignatureExample()') Signature Example
+      //- .input-margin
+      //-   a.btn.btn-warning.custom-button.long-button(ng-click='showEbovs()') EBOV Signatures
+      //- .narrow-margin
+      //-   a.btn.btn-warning.custom-button.long-button(ng-click='showExamples()') Disease Signatures                
+    .col-sm-9.input-meta
+      .input-meta-block
+        .input-meta-title Examples and Signatures
+        .input-meta-content
+          .input-margin
+            a.btn.btn-success.custom-button.long-button(ng-click='loadDefaultExample()') Gene-set Example
+            span    Try an example of up/down gene lists as input.
+          .narrow-margin
+            a.btn.btn-success.custom-button.long-button(ng-click='loadSignatureExample()') Signature Example
+            span    Try an example of a signature as input.
+          .input-margin
+            a.btn.btn-warning.custom-button.long-button(ng-click='showEbovs()') EBOV Signatures
+          .narrow-margin
+            a.btn.btn-warning.custom-button.long-button(ng-click='showExamples()') Disease Signatures
+      .input-meta-block
+        .input-meta-title Configuration
+        .input-meta-content
+          .input-margin
+            toggle-switch.switch-default(model='aggravate', on-label='mimic', off-label='reverse')
+          .input-margin
+            input(type="checkbox") 
+            span      Yes. I agree to share my input signature and metadata for research purposes.
+      .input-meta-block
+        .input-meta-title Metadata
+        .input-meta-content
+
+
+

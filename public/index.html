@@ -9,17 +9,12 @@
     <link rel="stylesheet" href="CSS/sigine.css">
     <link rel="stylesheet" href="CSS/angular-toggle-switch-bootstrap-3.css">
     <link rel="stylesheet" href="versioned/angular-block-ui.min.css">
-    <!-- global variables if any. Pass "" if null.-->
-    <script type="text/javascript">
-      var input= ""
-      var results = ""
-      
-    </script>
     <!-- libraries    -->
     <script src="libraries/jquery/jquery.min.js"></script>
     <script src="libraries/string/lib/string.min.js"></script>
     <script src="libraries/underscore/underscore-min.js"></script>
-    <script src="libraries/angular/angular.min.js">    </script>
+    <script src="libraries/angular/angular.min.js"> </script>
+    <script src="libraries/angular-route/angular-route.min.js">   </script>
     <script src="versioned/smart-table.debug.js"></script>
     <script src="libraries/angular-bootstrap-toggle-switch/angular-toggle-switch.min.js"></script>
     <script src="versioned/ui-bootstrap-tpls-0.12.0.min.js"></script>
@@ -28,72 +23,13 @@
     <script src="scripts/services.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers.js"></script>
+    <script src="scripts/resultCtrl.js"></script>
   </head>  
-  <body style="text-align:center" ng-controller="GeneList">
+  <body style="text-align:center" ng-controller="index">
     <div class="pure-menu pure-menu-horizontal custom-menu"><img src="CSS/images/sigine.png" alt="Sigine" class="rubic">    &#x9;<span class="rubic-title"> L1000CDS<sup>2 </sup></span>      
       <div class="description">An <span class="highlight lightning-fast">ultra-fast</span> LINCS <span class="highlight">L1000 </span><span class="highlight">C</span>haracteristic <span class="highlight">D</span>irection <span class="highlight">S</span>ignature<span class="highlight">S</span>earch Engine</div><span class="search-count-text"><span class="search-count">{{searchCount}} </span>searches performed!</span>
     </div>
-    <div class="header-board"><a ng-style="{'visibility':(shareURL?'visible':'hidden')}" ng-click="share()" class="btn share-button"><i class="fa fa-share-alt-square"></i></a><a href="help" target="_blank" class="btn share-button"><i class="fa fa-question-circle"></i></a></div>
-    <div id="container" class="row custom-row">
-      <div class="col-sm-3">
-        <!-- <input class="pure-input-2-3" placeholder="description of gene list"></input>-->
-        <div class="input-margin">
-          <div>
-            <div class="input-title-wrapper"><b>{{inputType()=="CD"?"signature":"up genes"}}</b><a title="clear" ng-click="clear('upGenes')" class="btn eraser-btn"><i class="fa fa-eraser"></i></a></div>
-          </div>            
-          <textarea placeholder="up genes or a signature" ng-model="upGenes" ng-style="{height:(inputType()=='CD'?'34.6em':'16em')}" class="form-control input-gene-list"></textarea>
-        </div>          
-        <div ng-style="{display:(inputType()=='CD'?'none':'block')}" class="input-margin">
-          <div>
-            <div class="input-title-wrapper"><b>down genes</b><a title="clear" ng-click="clear('dnGenes')" class="btn eraser-btn"><i class="fa fa-eraser"></i></a></div>
-          </div>            
-          <textarea placeholder="down genes" ng-model="dnGenes" class="form-control input-gene-list"></textarea>
-        </div>          
-        <div class="input-margin">
-          <button ng-class="{disabled:!inputType()}" ng-click="search()" class="btn btn-primary custom-button search-button">Search</button>
-        </div>
-        <div class="input-margin"><a ng-click="loadDefaultExample()" class="btn btn-success custom-button long-button">Gene-set Example</a></div>
-        <div class="narrow-margin"><a ng-click="loadSignatureExample()" class="btn btn-success custom-button long-button">Signature Example</a></div>
-        <div class="input-margin"><a ng-click="showEbovs()" class="btn btn-warning custom-button long-button">EBOV Signatures</a></div>
-        <div class="narrow-margin"><a ng-click="showExamples()" class="btn btn-warning custom-button long-button">Disease Signatures                </a></div>
-        <div style="padding:0" class="input-margin">
-          <toggle-switch model="aggravate" on-label="mimic" off-label="reverse" class="switch-default">
-            <toggle-switch></toggle-switch>
-          </toggle-switch>
-        </div>
-      </div>    
-      <div class="col-sm-9">
-        <table st-table="displayedEntries" st-safe-src="entries" class="table table-striped">
-          <thead>
-            <th> Score </th>            
-            <th> Perturbation </th>            
-            <th> Cell-line </th>            
-            <th> Dose </th>            
-            <th> Time </th>            
-            <th> Signature </th>
-          </thead>
-          <tbody>          
-            <tr ng-class="{'up-signature': (entry['posPercent']&gt;=0.5), 'dn-signature': (entry['posPercent']&lt;0.5)}" ng-repeat="entry in displayedEntries">
-              <td>{{entry["score"].toFixed(4)}}</td>              
-              <td><a href="http://life.ccs.miami.edu/life/summary?mode=SmallMolecule&amp;input={{entry['pert_id']}}&amp;source=BROAD" target="_blank">{{entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"]}}</a></td>              
-              <td>{{entry["cell_id"]}}</td>              
-              <td>{{entry["pert_dose"]+entry["pert_dose_unit"]}}</td>              
-              <td>{{entry["pert_time"]+entry["pert_time_unit"]}}</td>              
-              <td><a ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])" class="btn download-icon"><i class="fa fa-download"></i></a></td>
-            </tr>
-          </tbody>          
-          <tfoot>
-            <tr>
-              <td colspan="6">
-                <div class="table-label"> Chemical Perturbations</div>                  
-                <div st-pagination="" st-items-by-page="14" st-displayed-pages="" class="custom-pagination"></div>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-        <h3 ng-class="{err:err,noerr:!err}">{{err}}</h3>
-      </div>
-    </div>
+    <div ng-view></div>
     <footer class="footer">
       <div class="container"> 
         <p class="text-muted">L1000CDS² is being developed by the <a target="_blank" href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a target="_blank" href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a> for the <a target="_blank" href="http://lincs-dcic.org/">BD2K-LINCS DCIC</a> and the <a target="_blank" href="http://commonfund.nih.gov/idg/overview">KMC-IDG</a>. The L1000CDS² tool underlying dataset is the <a target="_blank" href="http://www.lincscloud.org/">LINCS L1000</a> small molecule expression profiles generated at the Broad Institute by the <a target="_blank" href="http://lincscloud.org/about/cmap-team/">Connectivity Map Group</a>. This work is supported by NIH Grants <a target="_blank" href="http://bd2k.nih.gov/FY14/LINCS/LINCS.html">U54HL127624</a> and <a target="_blank" href="http://projectreporter.nih.gov/project_description.cfm?projectnumber=1U54CA189201-01">U54CA189201</a>.</p>

@@ -1,0 +1,32 @@
+
+<div class="col-sm-9">
+  <table st-table="displayedEntries" st-safe-src="entries" class="table table-striped">
+    <thead>
+      <th> Score </th>            
+      <th> Perturbation </th>            
+      <th> Cell-line </th>            
+      <th> Dose </th>            
+      <th> Time </th>            
+      <th> Signature </th>
+    </thead>
+    <tbody>          
+      <tr ng-class="{'up-signature': (entry['posPercent']&gt;=0.5), 'dn-signature': (entry['posPercent']&lt;0.5)}" ng-repeat="entry in displayedEntries">
+        <td>{{entry["score"].toFixed(4)}}</td>              
+        <td><a href="http://life.ccs.miami.edu/life/summary?mode=SmallMolecule&amp;input={{entry['pert_id']}}&amp;source=BROAD" target="_blank">{{entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"]}}</a></td>              
+        <td>{{entry["cell_id"]}}</td>              
+        <td>{{entry["pert_dose"]+entry["pert_dose_unit"]}}</td>              
+        <td>{{entry["pert_time"]+entry["pert_time_unit"]}}</td>              
+        <td><a ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])" class="btn download-icon"><i class="fa fa-download"></i></a></td>
+      </tr>
+    </tbody>          
+    <tfoot>
+      <tr>
+        <td colspan="6">
+          <div class="table-label"> Chemical Perturbations</div>                  
+          <div st-pagination="" st-items-by-page="14" st-displayed-pages="" class="custom-pagination"></div>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+  <h3 ng-class="{err:err,noerr:!err}">{{err}}</h3>
+</div>

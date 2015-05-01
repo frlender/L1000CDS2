@@ -158,11 +158,11 @@ tfoot td{
 
 .input-gene-list{
 	display: inline;
-	width:	12em;
+	width:	14em;
 }
 
 textarea.form-control{
-	height:16em;
+	height:20em;
 }
 
 th{
@@ -295,4 +295,35 @@ padding-top: 5px;
 
 .narrow-margin{
 	margin-top:0.3em;
+}
+
+
+.input-meta{
+ text-align: left;
+
+}
+
+.input-meta-block{
+	/*margin-top:1em;*/
+}
+
+.input-meta-title{
+	font-size: 1.2em;
+  position: relative;
+  top: 13px;
+  left: 12px;
+  background: white;
+  display: table;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.input-meta-content{
+	margin-right:5%;
+	border: solid;
+  padding-left: 12px;
+  padding-bottom: 10px;
+  border-width: thin;
+  border-radius: 5px;
+  padding-top: 9px;
 }

@@ -7,9 +7,9 @@ var mongo = require('./query-mongodb.js');
 // var baseURL = "http://localhost:8182/L1000CDS2/"
 
 
-var jade = require('jade');
-var indexFun = jade.compileFile('public/jade/index.jade',{pretty:true});
-fs.writeFileSync('public/index.html',indexFun({root:'',input:"",results:""}));
+// var jade = require('jade');
+// var indexFun = jade.compileFile('public/jade/index.jade',{pretty:true});
+// fs.writeFileSync('public/index.html',indexFun({root:'',input:"",results:""}));
 
 
 
@@ -103,7 +103,8 @@ exports.history = function(req,res){
                     var dataToUser = {};
                     dataToUser.shareId = id;
                     dataToUser.topMeta = topMeta;
-                    res.render('index',{root:'',input:input,results:dataToUser});
+                    res.send({input:input,results:dataToUser});
+                    //res.render('index',{root:'',input:input,results:dataToUser});
                 }
                 mongo.getMetas(topMatches,metaCallback);
             }

@@ -1,0 +1,48 @@
+
+<div class="header-board"><a ng-style="{'visibility':(shareURL?'visible':'hidden')}" ng-click="share()" class="btn share-button"><i class="fa fa-share-alt-square"></i></a><a href="help" target="_blank" class="btn share-button"><i class="fa fa-question-circle"></i></a></div>
+<div id="container" class="row custom-row">
+  <div class="col-sm-3">
+    <!-- <input class="pure-input-2-3" placeholder="description of gene list"></input>-->
+    <div class="input-margin">
+      <div>
+        <div class="input-title-wrapper"><b>{{inputType()=="CD"?"signature":"up genes"}}</b><a title="clear" ng-clic="clear('upGenes')" class="btn eraser-btn"><i class="fa fa-eraser"></i></a></div>
+      </div>            
+      <textarea placeholder="up genes or a signature" ng-model="upGenes" ng-style="{height:(inputType()=='CD'?'42.6em':'20em')}" class="form-control input-gene-list"></textarea>
+    </div>          
+    <div ng-style="{display:(inputType()=='CD'?'none':'block')}" class="input-margin">
+      <div>
+        <div class="input-title-wrapper"><b>down genes</b><a title="clear" ng-click="clear('dnGenes')" class="btn eraser-btn"><i class="fa fa-eraser"></i></a></div>
+      </div>            
+      <textarea placeholder="down genes" ng-model="dnGenes" class="form-control input-gene-list"></textarea>
+    </div>          
+    <div class="input-margin">
+      <button ng-class="{disabled:!inputType()}" ng-click="search()" class="btn btn-primary custom-button search-button">Search</button>
+    </div>
+  </div>
+  <div class="col-sm-9 input-meta">
+    <div class="input-meta-block">
+      <div class="input-meta-title">Examples and Signatures</div>
+      <div class="input-meta-content">
+        <div class="input-margin"><a ng-click="loadDefaultExample()" class="btn btn-success custom-button long-button">Gene-set Example</a><span>   Try an example of up/down gene lists as input.</span></div>
+        <div class="narrow-margin"><a ng-click="loadSignatureExample()" class="btn btn-success custom-button long-button">Signature Example</a><span>   Try an example of a signature as input.</span></div>
+        <div class="input-margin"><a ng-click="showEbovs()" class="btn btn-warning custom-button long-button">EBOV Signatures</a></div>
+        <div class="narrow-margin"><a ng-click="showExamples()" class="btn btn-warning custom-button long-button">Disease Signatures</a></div>
+      </div>
+    </div>
+    <div class="input-meta-block">
+      <div class="input-meta-title">Configuration</div>
+      <div class="input-meta-content">
+        <div class="input-margin">
+          <toggle-switch model="aggravate" on-label="mimic" off-label="reverse" class="switch-default"></toggle-switch>
+        </div>
+        <div class="input-margin">
+          <input type="checkbox"/><span>     Yes. I agree to share my input signature and metadata for research purposes.</span>
+        </div>
+      </div>
+    </div>
+    <div class="input-meta-block">
+      <div class="input-meta-title">Metadata</div>
+      <div class="input-meta-content"></div>
+    </div>
+  </div>
+</div>

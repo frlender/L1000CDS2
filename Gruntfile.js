@@ -9,16 +9,23 @@ module.exports = function(grunt) {
         },
         files: [{
           expand:true,
-          cwd:"public/jade/",
+          cwd:"views/",
           src: ["*.jade"],
           dest:'public/',
+          ext:'.html'
+        },
+        {
+          expand:true,
+          cwd:"views/partials/",
+          src: ["*.jade"],
+          dest:'public/partials/',
           ext:'.html'
         }]
       }
     },
     watch: {
       jade:{
-        files:["public/jade/*.jade"],
+        files:["views/*.jade","views/partials/*.jade"],
         tasks:["jade"]
       }
     },

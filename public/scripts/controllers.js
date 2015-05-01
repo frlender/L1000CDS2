@@ -1,25 +1,38 @@
 var indexControllers = angular.module('indexControllers', ["services"]);
-
-
 var baseURL = window.location.protocol+"//"+window.location.host + "/L1000CDS2/";
+
+
+
+indexControllers.controller('index',['$scope','$http',function($scope,$http){
+	$scope.searchCount = null;
+	$scope.updateCount = function(){
+		//this function will be inherited by any controller in ng-view
+		$http.get(baseURL+'count').success(function(data){
+			$scope.searchCount = data;
+		});
+	}
+	$scope.updateCount();
+}]);
+
+
 
 var process = _.identity;
 indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 
-	'loadExample', 'buildQueryData', 
-	function($scope,$http,$modal,loadExample,buildQueryData){
+	'loadExample', 'buildQueryData', 'resultStorage', '$location',
+	function($scope,$http,$modal,loadExample,buildQueryData,resultStorage,$location){
 		
 		//default values
 		// reverse
 		$scope.aggravate = false;
 		$scope.shareURL = "";
-		$scope.searchCount = null;
+		
 
 		// blockUI.message('Please wait for a few seconds...')
-		var updateCount = function(){
-			$http.get(baseURL+'count').success(function(data){
-				$scope.searchCount = data;
-			});
-		}
+		// var updateCount = function(){
+		// 	$http.get(baseURL+'count').success(function(data){
+		// 		$scope.searchCount = data;
+		// 	});
+		// }
 
 		$scope.inputType = function(){
 			var res = false;
@@ -43,11 +56,11 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 					if("err" in data){
 						$scope.err = data["err"][0];
 					}else{
-						$scope.entries = process(data["topMeta"]);
-						// rest API
-						$scope.shareURL = baseURL+data["shareId"];
+						$scope.updateCount();
+						resultStorage[data['shareId']] = {};
+						resultStorage[data['shareId']].entries = data["topMeta"];
+						$location.path('/result/'+data['shareId']);
 					}
-					updateCount();
 			});
 		}
 
@@ -123,31 +136,31 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 
 
 		// initialization
-		if(input){
-			if(input.searchMethod == "geneSet"){
-				$scope.upGenes = input.upGenes.join('\n');
-				$scope.dnGenes = input.dnGenes.join('\n');
-			}else if(input.searchMethod == "CD"){
-				$scope.upGenes = _.map(_.zip(input.input.genes,input.input.vals),
-					function(component){
-						return component.join(',');
-					}).join('\n');
-			}else{
-				$scope.err = "Invalid initialization."
-			}
+		// if(input){
+		// 	if(input.searchMethod == "geneSet"){
+		// 		$scope.upGenes = input.upGenes.join('\n');
+		// 		$scope.dnGenes = input.dnGenes.join('\n');
+		// 	}else if(input.searchMethod == "CD"){
+		// 		$scope.upGenes = _.map(_.zip(input.input.genes,input.input.vals),
+		// 			function(component){
+		// 				return component.join(',');
+		// 			}).join('\n');
+		// 	}else{
+		// 		$scope.err = "Invalid initialization."
+		// 	}
 
-			if(results){
-				// for history route
-				$scope.aggravate = input.aggravate;
-				$scope.entries = process(results["topMeta"]);
-				$scope.shareURL = baseURL+results["shareId"];
-			}else{
-				// for geo2me route. 				
-				$scope.search();
-			}
-		}
+		// 	if(results){
+		// 		// for history route
+		// 		$scope.aggravate = input.aggravate;
+		// 		$scope.entries = process(results["topMeta"]);
+		// 		$scope.shareURL = baseURL+results["shareId"];
+		// 	}else{
+		// 		// for geo2me route. 				
+		// 		$scope.search();
+		// 	}
+		// }
 
-		updateCount();
+		// $scope.updateCount();
 	}
 ]);
 
@@ -200,44 +213,6 @@ indexControllers.controller('exampleModalCtrl',
   	};
 
 }]);
-
-
-// indexControllers.controller('exampleModalCtrl', 
-// 	['$scope', '$modalInstance', 'loadExamples', 'matchByNameFactory', 
-// 	function($scope, $modalInstance, loadExamples, matchByNameFactory) {
-  
-//  // $scope.shouldBeOpened = true;
-//  // $scope.shareURL = shareURL;
-//  // $scope.cancel = function () {
-//  //    $modalInstance.dismiss('cancel');
-//  //  };
-
-//  	var matchByName;
-//  	$('.st-selected').removeClass('st-selected');
-//  	loadExamples.then(function(diseases){
-//  		matchByName = matchByNameFactory(diseases);
-//  		$scope.diseases = diseases;
-//  	});
-
-//  	$scope.selectedEntry = 'not-yet';
-
-//  	$scope.cancel = function() {
-//     	$modalInstance.dismiss('cancel');
-//   	};
-
-//   	$scope.ok = function(){
-//   		var selectedName = $('.st-selected td:first-child').text();
-//   		if(selectedName){
-//   			$modalInstance.close(matchByName(selectedName));
-//   		}else{
-//   			$modalInstance.dismiss('cancel');
-//   		}
-  		
-//   	};
-
-// }]);
-
-
 
 
 indexControllers.controller('ebovsModalCtrl', 

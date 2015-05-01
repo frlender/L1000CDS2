@@ -120,3 +120,8 @@ services.factory('matchByNameFactory',function(){
 		}
 	}
 });
+
+services.factory('resultStorage',function(){
+	var results = {};
+	return results;
+});

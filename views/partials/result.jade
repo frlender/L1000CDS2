@@ -1,0 +1,39 @@
+.col-sm-9
+  table.table.table-striped(st-table='displayedEntries', st-safe-src='entries')
+    thead
+      th  Score 
+      |             
+      th  Perturbation 
+      |             
+      th  Cell-line 
+      |             
+      th  Dose 
+      |             
+      th  Time 
+      |             
+      th  Signature 
+    tbody           
+      tr(ng-class="{'up-signature': (entry['posPercent']>=0.5), 'dn-signature': (entry['posPercent']<0.5)}", ng-repeat='entry in displayedEntries')
+        td {{entry["score"].toFixed(4)}}
+        |               
+        td
+          a(href="http://life.ccs.miami.edu/life/summary?mode=SmallMolecule&input={{entry['pert_id']}}&source=BROAD", target='_blank')
+            | {{entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"]}}
+        |               
+        td {{entry["cell_id"]}}
+        |               
+        td {{entry["pert_dose"]+entry["pert_dose_unit"]}}
+        |               
+        td {{entry["pert_time"]+entry["pert_time_unit"]}}
+        |               
+        td
+          a.btn.download-icon(ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])")
+            i.fa.fa-download
+    |           
+    tfoot
+      tr
+        td(colspan='6')
+          .table-label  Chemical Perturbations
+          |                   
+          .custom-pagination(st-pagination='', st-items-by-page='14', st-displayed-pages='')
+  h3(ng-class="{err:err,noerr:!err}") {{err}}

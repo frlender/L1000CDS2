@@ -2,8 +2,8 @@
 
 /* App Module */
 
-var Sigine = angular.module('Sigine', [
-  'indexControllers','smart-table','toggle-switch','ui.bootstrap','blockUI']);
+var Sigine = angular.module('Sigine', ['indexControllers','ngRoute',
+  'smart-table','toggle-switch','ui.bootstrap','blockUI']);
 
 
 Sigine.directive('focusMe', function($timeout, $parse) {
@@ -16,24 +16,18 @@ Sigine.directive('focusMe', function($timeout, $parse) {
 });
 
 
-Sigine.directive('watchStSelected',function(){
-	return {
-		link:function(scope,element,attrs){
-			console.log('watchStSelected',attrs.watchStSelected,
-				scope);
-			scope.$watch(function(){return element.attr('class')},
-				function(newValue){
-					if(element.hasClass('st-selected')){
-						attrs.watchStSelected = {id:scope.$id,
-							entry:scope.entry};
-					}else{
-						if(attrs.watchStSelected){
-							if(scope.$id==attrs.watchStSelected.id){
-								attrs.watchStSelected = null;
-							}
-						}
-					}
-			});
-		}
-	}
-});
+Sigine.config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider.
+      when('/index', {
+        templateUrl: 'partials/index.html',
+        controller: 'GeneList'
+      }).
+      when('/result/:shareID', {
+        templateUrl: 'partials/result.html',
+        controller: 'resultCtrl'
+      }).
+      otherwise({
+        redirectTo: '/index'
+      });
+  }]);
