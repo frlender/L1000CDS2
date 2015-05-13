@@ -18,13 +18,19 @@ indexControllers.controller('index',['$scope','$http',function($scope,$http){
 
 var process = _.identity;
 indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 
-	'loadExample', 'buildQueryData', 'resultStorage', '$location',
-	function($scope,$http,$modal,loadExample,buildQueryData,resultStorage,$location){
+	'loadExample', 'buildQueryData', 'resultStorage', '$location', 'ffBuild',
+	function($scope,$http,$modal,loadExample,buildQueryData,resultStorage,$location,ffBuild){
 		
 		//default values
 		// reverse
 		$scope.aggravate = false;
 		$scope.shareURL = "";
+		$scope.inputMeta = [
+			{key:"Tag",value:"",dataPlaceholder:"add a tag"},
+       		{key:"Cell", value:""},
+       		{key:"Perturbation", value:""},
+       		{key:"Manipulated gene", value:""}
+       	];
 		
 
 		// blockUI.message('Please wait for a few seconds...')
@@ -133,8 +139,6 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
       			$scope.search();
     		});
 		}
-
-
 		// initialization
 		// if(input){
 		// 	if(input.searchMethod == "geneSet"){

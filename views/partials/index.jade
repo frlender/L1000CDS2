@@ -25,15 +25,7 @@
         textarea.form-control.input-gene-list(placeholder='down genes', ng-model='dnGenes')
       |           
       .input-margin
-        button.btn.btn-primary.custom-button.search-button(ng-class="{disabled:!inputType()}", ng-click='search()') Search
-      //- .input-margin
-      //-   a.btn.btn-success.custom-button.long-button(ng-click='loadDefaultExample()') Gene-set Example
-      //- .narrow-margin
-      //-   a.btn.btn-success.custom-button.long-button(ng-click='loadSignatureExample()') Signature Example
-      //- .input-margin
-      //-   a.btn.btn-warning.custom-button.long-button(ng-click='showEbovs()') EBOV Signatures
-      //- .narrow-margin
-      //-   a.btn.btn-warning.custom-button.long-button(ng-click='showExamples()') Disease Signatures                
+        button.btn.btn-primary.custom-button.search-button(ng-class="{disabled:!inputType()}", ng-click='search()') Search                
     .col-sm-9.input-meta
       .input-meta-block
         .input-meta-title Examples and Signatures
@@ -46,19 +38,29 @@
             span    Try an example of a signature as input.
           .input-margin
             a.btn.btn-warning.custom-button.long-button(ng-click='showEbovs()') EBOV Signatures
+            span    Select one of three EBOV signatures at three time points as input.
           .narrow-margin
             a.btn.btn-warning.custom-button.long-button(ng-click='showExamples()') Disease Signatures
+            span    Select one of 670 disease signatures computed from GEO as input.
       .input-meta-block
         .input-meta-title Configuration
         .input-meta-content
           .input-margin
             toggle-switch.switch-default(model='aggravate', on-label='mimic', off-label='reverse')
+            span    Search for small molecule signatures that   
+              span(class="emphasize") {{aggravate?"mimic":"reverse"}}    
+              | my input.
           .input-margin
             input(type="checkbox") 
             span      Yes. I agree to share my input signature and metadata for research purposes.
       .input-meta-block
         .input-meta-title Metadata
         .input-meta-content
+          .input-margin
+            flex-form(data="inputMeta")
+
+
+          
 
 
 

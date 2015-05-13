@@ -326,4 +326,9 @@ padding-top: 5px;
   border-width: thin;
   border-radius: 5px;
   padding-top: 9px;
+  max-width: 660px;
+}
+
+.emphasize{
+	font-weight: bold;
 }
