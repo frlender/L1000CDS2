@@ -33,13 +33,6 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
        	];
 		
 
-		// blockUI.message('Please wait for a few seconds...')
-		// var updateCount = function(){
-		// 	$http.get(baseURL+'count').success(function(data){
-		// 		$scope.searchCount = data;
-		// 	});
-		// }
-
 		$scope.inputType = function(){
 			var res = false;
 			if($scope.upGenes){
@@ -139,32 +132,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
       			$scope.search();
     		});
 		}
-		// initialization
-		// if(input){
-		// 	if(input.searchMethod == "geneSet"){
-		// 		$scope.upGenes = input.upGenes.join('\n');
-		// 		$scope.dnGenes = input.dnGenes.join('\n');
-		// 	}else if(input.searchMethod == "CD"){
-		// 		$scope.upGenes = _.map(_.zip(input.input.genes,input.input.vals),
-		// 			function(component){
-		// 				return component.join(',');
-		// 			}).join('\n');
-		// 	}else{
-		// 		$scope.err = "Invalid initialization."
-		// 	}
 
-		// 	if(results){
-		// 		// for history route
-		// 		$scope.aggravate = input.aggravate;
-		// 		$scope.entries = process(results["topMeta"]);
-		// 		$scope.shareURL = baseURL+results["shareId"];
-		// 	}else{
-		// 		// for geo2me route. 				
-		// 		$scope.search();
-		// 	}
-		// }
-
-		// $scope.updateCount();
 	}
 ]);
 

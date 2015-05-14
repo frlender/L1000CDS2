@@ -1,12 +1,13 @@
 
-<div class="col-sm-9">
+<div class="result-container">
   <table st-table="displayedEntries" st-safe-src="entries" class="table table-striped">
     <thead>
       <th> Score </th>            
       <th> Perturbation </th>            
       <th> Cell-line </th>            
       <th> Dose </th>            
-      <th> Time </th>            
+      <th> Time</th>
+      <th> Overlap </th>            
       <th> Signature </th>
     </thead>
     <tbody>          
@@ -15,7 +16,8 @@
         <td><a href="http://life.ccs.miami.edu/life/summary?mode=SmallMolecule&amp;input={{entry['pert_id']}}&amp;source=BROAD" target="_blank">{{entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"]}}</a></td>              
         <td>{{entry["cell_id"]}}</td>              
         <td>{{entry["pert_dose"]+entry["pert_dose_unit"]}}</td>              
-        <td>{{entry["pert_time"]+entry["pert_time_unit"]}}</td>              
+        <td>{{entry["pert_time"]+entry["pert_time_unit"]}}</td>
+        <td><a popover="good" popover-title="overlap" class="btn download-icon"><i class="fa fa-pause"></i></a></td>              
         <td><a ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])" class="btn download-icon"><i class="fa fa-download"></i></a></td>
       </tr>
     </tbody>          

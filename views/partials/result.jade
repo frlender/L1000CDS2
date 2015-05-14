@@ -1,4 +1,4 @@
-.col-sm-9
+.result-container
   table.table.table-striped(st-table='displayedEntries', st-safe-src='entries')
     thead
       th  Score 
@@ -9,7 +9,8 @@
       |             
       th  Dose 
       |             
-      th  Time 
+      th  Time
+      th  Overlap 
       |             
       th  Signature 
     tbody           
@@ -25,6 +26,9 @@
         td {{entry["pert_dose"]+entry["pert_dose_unit"]}}
         |               
         td {{entry["pert_time"]+entry["pert_time_unit"]}}
+        td
+          a.btn.download-icon(popover="good" popover-title="overlap")
+            i.fa.fa-pause
         |               
         td
           a.btn.download-icon(ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])")

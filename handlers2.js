@@ -35,6 +35,7 @@ exports.query = function(req,res){
                     var dataToUser = {};
                     dataToUser.shareId = shareId;
                     dataToUser.topMeta = topMeta;
+                    dataToUser.searchMethod = req.body.searchMethod;
                     res.send(dataToUser);
                     mongo.incCount();
                 }
@@ -79,15 +80,6 @@ exports.meta = function(req,res){
 }
 
 
-// exports.geo2me = function(req,res){
-//     res.header('Access-Control-Allow-Origin','*');
-//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-
-//     res.render('index',{root:'', results:'',input:req.body});
-
-// }
-
-
 exports.history = function(req,res){
     var id = req.params["id"];
     var inputCallback = function(input){
@@ -103,6 +95,7 @@ exports.history = function(req,res){
                     var dataToUser = {};
                     dataToUser.shareId = id;
                     dataToUser.topMeta = topMeta;
+                    dataToUser.searchMethod = input.searchMethod;
                     res.send({input:input,results:dataToUser});
                     //res.render('index',{root:'',input:input,results:dataToUser});
                 }

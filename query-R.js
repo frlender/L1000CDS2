@@ -52,6 +52,30 @@ exports.query = function(input,cb){
             // res.send(body);
             // var enrichRes = JSON.parse(body);
             var topMatches = JSON.parse(body);
+            topMatches.overlap = [];
+            // restructure overlap
+            if(input.searchMethod == "geneSet"){
+                if(input.aggravate){
+                    topMatches.upGenes.forEach(function(e,i){
+                        var overlapItem = {};
+                        overlapItem['up/up'] =  e;
+                        overlapItem['dn/dn'] = topMatches.dnGenes[i];
+                        topMatches.overlap.push(overlapItem);
+                    });
+                }else{
+                    debugger;
+                    topMatches.upGenes.forEach(function(e,i){
+                        var overlapItem = {};
+                        overlapItem['up/dn'] =  topMatches.dnGenes[i];
+                        overlapItem['dn/up'] = e;
+                        topMatches.overlap.push(overlapItem);
+                    });
+                }
+                delete topMatches.upGenes;
+                delete topMatches.dnGenes;
+            }else{
+
+            }
 
             cb(topMatches);
         }

@@ -332,3 +332,14 @@ padding-top: 5px;
 .emphasize{
 	font-weight: bold;
 }
+
+.result-container{
+	margin-top:100px;
+}
+
+.overlap-popover-col{
+	display: inline;
+}
+.overlap-popover-header{
+	
+}
