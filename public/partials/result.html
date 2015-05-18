@@ -17,7 +17,7 @@
         <td>{{entry["cell_id"]}}</td>              
         <td>{{entry["pert_dose"]+entry["pert_dose_unit"]}}</td>              
         <td>{{entry["pert_time"]+entry["pert_time_unit"]}}</td>
-        <td><a popover="good" popover-title="overlap" class="btn download-icon"><i class="fa fa-pause"></i></a></td>              
+        <td><a popover-placement="left" popover-template="overlap.templateUrl" popover-title="overlap: input/result" class="btn download-icon"><i class="fa fa-pause"></i></a></td>              
         <td><a ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])" class="btn download-icon"><i class="fa fa-download"></i></a></td>
       </tr>
     </tbody>          
@@ -32,3 +32,7 @@
   </table>
   <h3 ng-class="{err:err,noerr:!err}">{{err}}</h3>
 </div>
+<script type="text/ng-template" id="pop.html">
+  <div>abcde</div>
+  <div>{{entry.cell_id}}</div>
+</script>

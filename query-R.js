@@ -63,7 +63,7 @@ exports.query = function(input,cb){
                         topMatches.overlap.push(overlapItem);
                     });
                 }else{
-                    debugger;
+                    // debugger;
                     topMatches.upGenes.forEach(function(e,i){
                         var overlapItem = {};
                         overlapItem['up/dn'] =  topMatches.dnGenes[i];
@@ -74,7 +74,14 @@ exports.query = function(input,cb){
                 delete topMatches.upGenes;
                 delete topMatches.dnGenes;
             }else{
-
+                topMatches.upCd.forEach(function(e,i){
+                    var overlapItem = {};
+                    overlapItem['up'] = e;
+                    overlapItem['dn'] = topMatches.dnCd[i];
+                    topMatches.overlap.push(overlapItem);
+                });
+                delete topMatches.upCd;
+                delete topMatches.dnCd;
             }
 
             cb(topMatches);

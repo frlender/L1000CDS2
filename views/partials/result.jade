@@ -27,7 +27,7 @@
         |               
         td {{entry["pert_time"]+entry["pert_time_unit"]}}
         td
-          a.btn.download-icon(popover="good" popover-title="overlap")
+          a.btn.download-icon(popover-placement="left" popover-template="overlap.templateUrl" popover-title="overlap: input/result")
             i.fa.fa-pause
         |               
         td
@@ -41,3 +41,7 @@
           |                   
           .custom-pagination(st-pagination='', st-items-by-page='14', st-displayed-pages='')
   h3(ng-class="{err:err,noerr:!err}") {{err}}
+
+script(type="text/ng-template" id="pop.html")
+  div abcde
+  div {{entry.cell_id}}

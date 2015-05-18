@@ -50,6 +50,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 
 		$scope.search = function(){
 			$scope.err = false;
+			var input = buildQueryData($scope);
 			$http.post(baseURL+"query",buildQueryData($scope))
 				.success(function(data) {
 					if("err" in data){
@@ -58,6 +59,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 						$scope.updateCount();
 						resultStorage[data['shareId']] = {};
 						resultStorage[data['shareId']].entries = data["topMeta"];
+						resultStorage[data['shareId']].input = input;
 						$location.path('/result/'+data['shareId']);
 					}
 			});
@@ -67,11 +69,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 			$scope[geneListKey] = "";
 		}
 
-		$scope.downloadMeta = function(sig_id){
-			var url = baseURL+"meta?sig_id="+sig_id;
-			window.location = url;
-		}
-
+		
 		$scope.share = function(){
 			var modalInstance = $modal.open({
       			templateUrl: baseURL+'share.html',

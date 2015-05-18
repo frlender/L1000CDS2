@@ -35,7 +35,9 @@ exports.query = function(req,res){
                     var dataToUser = {};
                     dataToUser.shareId = shareId;
                     dataToUser.topMeta = topMeta;
-                    dataToUser.searchMethod = req.body.searchMethod;
+                    if("uniqInput" in topMatches){
+                        dataToUser.uniqInput = topMatches.uniqInput;
+                    }
                     res.send(dataToUser);
                     mongo.incCount();
                 }
@@ -95,7 +97,9 @@ exports.history = function(req,res){
                     var dataToUser = {};
                     dataToUser.shareId = id;
                     dataToUser.topMeta = topMeta;
-                    dataToUser.searchMethod = input.searchMethod;
+                    if("uniqInput" in topMatches){
+                        dataToUser.uniqInput = topMatches.uniqInput;
+                    }
                     res.send({input:input,results:dataToUser});
                     //res.render('index',{root:'',input:input,results:dataToUser});
                 }
