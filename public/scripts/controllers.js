@@ -51,7 +51,8 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 		$scope.search = function(){
 			$scope.err = false;
 			var input = buildQueryData($scope);
-			$http.post(baseURL+"query",buildQueryData($scope))
+			input.meta = ffBuild($scope.inputMeta);
+			$http.post(baseURL+"query",input)
 				.success(function(data) {
 					if("err" in data){
 						$scope.err = data["err"][0];

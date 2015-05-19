@@ -19,16 +19,12 @@ var SchemaDisease = mongoose.Schema({"term":String,"desc":String,genes:[String],
     vals:[Number]},{collection:"diseases"});
 var Disease = mongoose.model('Disease',SchemaDisease);
 
-var Schema2 = mongoose.Schema({"aggravate":Boolean,
+var Schema2 = mongoose.Schema({
     "db-version":String,
-    "upGenes":[String],
-    "dnGenes":[String],
-    "map":String,
-    "searchMethod":String,
-    "input":{
-        "genes":[String],
-        "vals":[Number]}
-    },
+    "config":Object,
+    "data":Object,
+    "meta":Object
+},
     {collection:"sigine-store"});
 var Store = mongoose.model('Store',Schema2);
 

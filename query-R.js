@@ -10,14 +10,14 @@ var headers = {
 var port = 23236
 // var port = 
 exports.query = function(input,cb){
-    if(input.searchMethod == "geneSet"){
-        if(input.aggravate){
-        var upGenes = JSON.stringify(input.upGenes),
-            dnGenes = JSON.stringify(input.dnGenes);
+    if(input.config.searchMethod == "geneSet"){
+        if(input.config.aggravate){
+        var upGenes = JSON.stringify(input.data.upGenes),
+            dnGenes = JSON.stringify(input.data.dnGenes);
         }else{
             // reverse search
-            var upGenes = JSON.stringify(input.dnGenes),
-                dnGenes = JSON.stringify(input.upGenes);
+            var upGenes = JSON.stringify(input.data.dnGenes),
+                dnGenes = JSON.stringify(input.data.upGenes);
         }
 
         var options = {
@@ -28,20 +28,20 @@ exports.query = function(input,cb){
                 'dnGenes':dnGenes,
                 'method':'"geneSet"'}
         }
-    }else if(input.searchMethod == "CD"){
+    }else if(input.config.searchMethod == "CD"){
         
-        if(input.aggravate) direction = 'mimic';
+        if(input.config.aggravate) direction = 'mimic';
         else direction = 'reverse';
         var options = {
             url: 'http://127.0.0.1:'+port+'/custom/Sigine',
             method: 'POST',
             headers: headers,
-            form: {'input': JSON.stringify(input.input),
+            form: {'input': JSON.stringify(input.data),
                 'method':'"CD"',
                 'direction':'"'+direction+'"'}
         }
     }else{
-        cb({"err":"search method is not CD or geneSet. It is "+input.searchMethod+"."})
+        cb({"err":"search method is not CD or geneSet. It is "+input.config.searchMethod+"."})
     }
 
     // Start the request
@@ -54,8 +54,8 @@ exports.query = function(input,cb){
             var topMatches = JSON.parse(body);
             topMatches.overlap = [];
             // restructure overlap
-            if(input.searchMethod == "geneSet"){
-                if(input.aggravate){
+            if(input.config.searchMethod == "geneSet"){
+                if(input.config.aggravate){
                     topMatches.upGenes.forEach(function(e,i){
                         var overlapItem = {};
                         overlapItem['up/up'] =  e;

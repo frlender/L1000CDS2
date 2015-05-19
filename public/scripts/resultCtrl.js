@@ -8,7 +8,7 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 		if('uniqInput' in resultStorage[$routeParam.shareID]){
 			$scope.uniqInput = resultStorage[$routeParam.shareID].uniqInput;
 		}
-		debugger;
+		// debugger;
 		initialization();
 	}else{
 		$http.get(baseURL+$routeParam.shareID).success(function(data){

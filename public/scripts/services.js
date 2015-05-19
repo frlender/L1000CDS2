@@ -28,28 +28,31 @@ services.factory('buildQueryData',[function(){
 
 	return function(scope){
 		var res = {}
-		res.aggravate = scope.aggravate;
+		res.data = {};
+		res.config = {};
+		res.config.aggravate = scope.aggravate;
 		var lines = S(scope.upGenes.toUpperCase()).trim().split('\n');
 		var splits = lines[0].split(',');
 		if(splits.length>1){
-			res.searchMethod = 'CD';
-			res.input = {};
-			res.input.genes = [],
-			res.input.vals = [];
+			res.config.searchMethod = 'CD';
+			res.data = {};
+			res.data.genes = [],
+			res.data.vals = [];
 			lines.forEach(function(e){
 				var splits = e.split(',')
-				res.input.genes.push(S(splits[0]).trim().s);
-				res.input.vals.push(parseFloat(S(splits[1]).trim().s));
+				res.data.genes.push(S(splits[0]).trim().s);
+				res.data.vals.push(parseFloat(S(splits[1]).trim().s));
 			});
 			return res;
 		}else{
-			res.searchMethod = "geneSet";
+			res.config.searchMethod = "geneSet";
+			res.data = {};
 			var upLines = _.uniq(lines);
-			res.upGenes = _.map(lines,function(gene){
+			res.data.upGenes = _.map(lines,function(gene){
 				return S(gene).trim().s;
 			});
 			var dnLines = _.uniq(S(scope.dnGenes.toUpperCase()).trim().split('\n'));
-			res.dnGenes = _.map(dnLines,function(gene){
+			res.data.dnGenes = _.map(dnLines,function(gene){
 				return S(gene).trim().s;
 			});
 			return res;
