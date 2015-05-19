@@ -29,7 +29,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 			{key:"Tag",value:"",dataPlaceholder:"add a tag"},
        		{key:"Cell", value:""},
        		{key:"Perturbation", value:""},
-       		{key:"Manipulated gene", value:""}
+       		{key:"Time point", value:""}
        	];
 		
 
@@ -60,6 +60,9 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 						resultStorage[data['shareId']] = {};
 						resultStorage[data['shareId']].entries = data["topMeta"];
 						resultStorage[data['shareId']].input = input;
+						if('uniqInput' in data){
+							resultStorage[data['shareId']].uniqInput = data.uniqInput;
+						}
 						$location.path('/result/'+data['shareId']);
 					}
 			});

@@ -1,4 +1,6 @@
 
+<div class="header-board"><a href="help" target="_blank" class="btn share-button"><i class="fa fa-question-circle"></i></a>
+</div>
 <div class="result-container">
   <table st-table="displayedEntries" st-safe-src="entries" class="table table-striped">
     <thead>
@@ -17,13 +19,13 @@
         <td>{{entry["cell_id"]}}</td>              
         <td>{{entry["pert_dose"]+entry["pert_dose_unit"]}}</td>              
         <td>{{entry["pert_time"]+entry["pert_time_unit"]}}</td>
-        <td><a popover-placement="left" popover-template="overlap.templateUrl" popover-title="overlap: input/result" class="btn download-icon"><i class="fa fa-pause"></i></a></td>              
-        <td><a ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])" class="btn download-icon"><i class="fa fa-download"></i></a></td>
+        <td class="narrow"><a popover-placement="left" popover-template="overlap.templateUrl" popover-title="{{overlap.title}}" class="btn download-icon"><i class="fa fa-pause"></i></a></td>              
+        <td class="narrow"><a ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])" class="btn download-icon"><i class="fa fa-download"></i></a></td>
       </tr>
     </tbody>          
     <tfoot>
       <tr>
-        <td colspan="6">
+        <td colspan="7">
           <div class="table-label"> Chemical Perturbations</div>                  
           <div st-pagination="" st-items-by-page="14" st-displayed-pages="" class="custom-pagination"></div>
         </td>

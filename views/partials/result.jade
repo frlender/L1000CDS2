@@ -1,3 +1,8 @@
+.header-board
+    //- a.btn.share-button(ng-style="{'visibility':(shareURL?'visible':'hidden')}" ng-click="share()")
+    //-   i.fa.fa-share-alt-square
+    a.btn.share-button(href="help" target="_blank")
+      i.fa.fa-question-circle
 .result-container
   table.table.table-striped(st-table='displayedEntries', st-safe-src='entries')
     thead
@@ -26,17 +31,17 @@
         td {{entry["pert_dose"]+entry["pert_dose_unit"]}}
         |               
         td {{entry["pert_time"]+entry["pert_time_unit"]}}
-        td
-          a.btn.download-icon(popover-placement="left" popover-template="overlap.templateUrl" popover-title="overlap: input/result")
+        td.narrow
+          a.btn.download-icon(popover-placement="left" popover-template="overlap.templateUrl" popover-title="{{overlap.title}}")
             i.fa.fa-pause
         |               
-        td
+        td.narrow
           a.btn.download-icon(ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])")
             i.fa.fa-download
     |           
     tfoot
       tr
-        td(colspan='6')
+        td(colspan='7')
           .table-label  Chemical Perturbations
           |                   
           .custom-pagination(st-pagination='', st-items-by-page='14', st-displayed-pages='')

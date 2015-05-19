@@ -148,6 +148,10 @@ tfoot td{
 	text-align: left;
 }
 
+td.narrow{
+	width:50px;
+}
+
 .input-margin{
 	margin-top:0.6em;
 }
@@ -334,11 +338,11 @@ padding-top: 5px;
 }
 
 .result-container{
-	margin-top:100px;
+	margin-top:12px;
 }
 
 .overlap-popover-holder{
-	/*width:300px;*/
+	/*width:550px;*/
 }
 
 .overlap-popover-col{
@@ -352,8 +356,19 @@ padding-top: 5px;
 	
 }
 
-.overlap-popover-holder textarea{
+textarea.overlap-geneSet{
 	width:100px;
 	height:200px;
 	background-color:white;
+}
+
+textarea.overlap-cd{
+	width:250px;
+	height:200px;
+	background-color:white;
+}
+
+.popover{
+/*overwrite max-width in bootstrap .popover*/
+  max-width: 550px;
 }
