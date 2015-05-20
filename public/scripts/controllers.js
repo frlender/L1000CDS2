@@ -25,8 +25,8 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 		//default values
 		// reverse
 		$scope.aggravate = false;
-		$scope.shareURL = "";
-		// $scope.share = false;
+		// $scope.shareURL = "";
+		$scope.share = false;
 		$scope.inputMeta = [
 			{key:"Tag",value:"",dataPlaceholder:"add a tag"},
        		{key:"Cell", value:""},
@@ -78,17 +78,17 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 		}
 
 		
-		$scope.share = function(){
-			var modalInstance = $modal.open({
-      			templateUrl: baseURL+'share.html',
-      			controller: 'ModalInstanceCtrl',
-      			resolve: {
-        			shareURL: function () {
-          			return $scope.shareURL;
-        			}
-      			}
-    			});
-		}
+		// $scope.share = function(){
+		// 	var modalInstance = $modal.open({
+  //     			templateUrl: baseURL+'share.html',
+  //     			controller: 'ModalInstanceCtrl',
+  //     			resolve: {
+  //       			shareURL: function () {
+  //         			return $scope.shareURL;
+  //       			}
+  //     			}
+  //   			});
+		// }
 
 		$scope.showExamples = function(){
 			var modalInstance = $modal.open({
@@ -156,27 +156,21 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 ]);
 
 
-indexControllers.controller('ModalInstanceCtrl', 
-	['$scope', '$modalInstance', 'shareURL', 
-	function($scope, $modalInstance, shareURL) {
+// indexControllers.controller('ModalInstanceCtrl', 
+// 	['$scope', '$modalInstance', 'shareURL', 
+// 	function($scope, $modalInstance, shareURL) {
   
- $scope.shouldBeOpened = true;
- $scope.shareURL = shareURL;
- $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-}]);
+//  $scope.shouldBeOpened = true;
+//  $scope.shareURL = shareURL;
+//  $scope.cancel = function () {
+//     $modalInstance.dismiss('cancel');
+//   };
+// }]);
 
 indexControllers.controller('exampleModalCtrl', 
 	['$scope', '$modalInstance', 'loadGEO', 'matchByNameFactory', 
 	function($scope, $modalInstance, loadGEO, matchByNameFactory) {
   
- // $scope.shouldBeOpened = true;
- // $scope.shareURL = shareURL;
- // $scope.cancel = function () {
- //    $modalInstance.dismiss('cancel');
- //  };
-
  	var matchByName;
  	$('.st-selected').removeClass('st-selected');
  	loadGEO.then(function(diseases){
