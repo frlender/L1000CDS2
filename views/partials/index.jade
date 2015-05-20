@@ -1,69 +1,70 @@
-.header-board
-    a.btn.share-button(href="help" target="_blank")
-      i.fa.fa-question-circle
-  #container.row.custom-row.text-center
-    .col-sm-3
-      // <input class="pure-input-2-3" placeholder="description of gene list"></input>
-      .input-margin
-        div
-          .input-title-wrapper
-            b {{inputType()=="CD"?"signature":"up genes"}}
-            a.btn.eraser-btn(title="clear" ng-clic="clear('upGenes')")
-              i.fa.fa-eraser
-        |             
-        textarea.form-control.input-gene-list(placeholder='up genes or a signature', ng-model='upGenes' ng-style="{height:(inputType()=='CD'?'42.6em':'20em')}")
-      |           
-      .input-margin(ng-style="{display:(inputType()=='CD'?'none':'block')}")
-        div
-          .input-title-wrapper
-            b down genes
-            a.btn.eraser-btn(title="clear" ng-click="clear('dnGenes')")
-              i.fa.fa-eraser
-        |             
-        textarea.form-control.input-gene-list(placeholder='down genes', ng-model='dnGenes')
-      |           
-      .input-margin
-        button.btn.btn-primary.custom-button.search-button(ng-class="{disabled:!inputType()}", ng-click='search()') Search                
-    .col-sm-9.input-meta
-      .input-meta-block
-        .input-meta-title Examples and Signatures
-        .input-meta-content
-          .input-margin
-            a.btn.btn-success.custom-button.long-button(ng-click='loadDefaultExample()') Gene-set Example
-            span    Try an example of up/down gene lists as input.
-          .narrow-margin
-            a.btn.btn-success.custom-button.long-button(ng-click='loadSignatureExample()') Signature Example
-            span    Try an example of a signature as input.
-          .input-margin
-            a.btn.btn-warning.custom-button.long-button(ng-click='showEbovs()') EBOV Signatures
-            span    Select one of three EBOV signatures at three time points as input.
-          .narrow-margin
-            a.btn.btn-warning.custom-button.long-button(ng-click='showExamples()') Disease Signatures
-            span    Select one of 670 disease signatures computed from GEO as input.
-      .input-meta-block
-        .input-meta-title Configuration
-        .input-meta-content
-          .input-margin
-            toggle-switch.switch-default(model='aggravate', on-label='mimic', off-label='reverse')
-            span    Search for small molecule signatures that   
-              span(class="emphasize") {{aggravate?"mimic":"reverse"}}   
-              | my input.
-          .input-margin
-            input(type="checkbox" ng-model="share") 
-            span  Yes. I agree to share my input signature and metadata for research purposes.
-      .input-meta-block
-        .input-meta-title Metadata
-        .input-meta-content
-          .input-margin
-            flex-form(data="inputMeta")
-      .input-meta-block(ng-if="history.length > 0")
-        .input-meta-title Recent Searches
-        .input-meta-content
-          .input-margin
-            .history-link(ng-repeat="item in history")
-              a(ng-click="goToResultView(item.id,item.search)") {{item.tag.value?item.tag.value:"No tag"}}  ({{item.search.input.config.aggravate?"mimic":"reverse"}})
-            a.more(ng-click="addHistory()" ng-if="history.length<historyTotal") More...
-            .note * Recent searches are stored in the browser's local storage. Clearing browsing data would result in a loss of the records. 
+.input-view
+  .header-board
+      a.btn.share-button(href="help" target="_blank")
+        i.fa.fa-question-circle
+    #container.row.custom-row.text-center
+      .col-sm-3
+        // <input class="pure-input-2-3" placeholder="description of gene list"></input>
+        .input-margin
+          div
+            .input-title-wrapper
+              b {{inputType()=="CD"?"signature":"up genes"}}
+              a.btn.eraser-btn(title="clear" ng-clic="clear('upGenes')")
+                i.fa.fa-eraser
+          |             
+          textarea.form-control.input-gene-list(placeholder='up genes or a signature', ng-model='upGenes' ng-style="{height:(inputType()=='CD'?'42.6em':'20em')}")
+        |           
+        .input-margin(ng-style="{display:(inputType()=='CD'?'none':'block')}")
+          div
+            .input-title-wrapper
+              b down genes
+              a.btn.eraser-btn(title="clear" ng-click="clear('dnGenes')")
+                i.fa.fa-eraser
+          |             
+          textarea.form-control.input-gene-list(placeholder='down genes', ng-model='dnGenes')
+        |           
+        .input-margin
+          button.btn.btn-primary.custom-button.search-button(ng-class="{disabled:!inputType()}", ng-click='search()') Search                
+      .col-sm-9.input-meta
+        .input-meta-block
+          .input-meta-title Examples and Signatures
+          .input-meta-content
+            .input-margin
+              a.btn.btn-success.custom-button.long-button(ng-click='loadDefaultExample()') Gene-set Example
+              span    Try an example of up/down gene lists as input.
+            .narrow-margin
+              a.btn.btn-success.custom-button.long-button(ng-click='loadSignatureExample()') Signature Example
+              span    Try an example of a signature as input.
+            .input-margin
+              a.btn.btn-warning.custom-button.long-button(ng-click='showEbovs()') EBOV Signatures
+              span    Select one of three EBOV signatures at three time points as input.
+            .narrow-margin
+              a.btn.btn-warning.custom-button.long-button(ng-click='showExamples()') Disease Signatures
+              span    Select one of 670 disease signatures computed from GEO as input.
+        .input-meta-block
+          .input-meta-title Configuration
+          .input-meta-content
+            .input-margin
+              toggle-switch.switch-default(model='aggravate', on-label='mimic', off-label='reverse')
+              span    Search for small molecule signatures that   
+                span(class="emphasize") {{aggravate?"mimic":"reverse"}}   
+                | my input.
+            .input-margin
+              input(type="checkbox" ng-model="share") 
+              span  Yes. I agree to share my input signature and metadata for research purposes.
+        .input-meta-block
+          .input-meta-title Metadata
+          .input-meta-content
+            .input-margin
+              flex-form(data="inputMeta")
+        .input-meta-block(ng-if="history.length > 0")
+          .input-meta-title Recent Searches
+          .input-meta-content
+            .input-margin
+              .history-link(ng-repeat="item in history")
+                a(ng-click="goToResultView(item.id,item.search)") {{item.tag.value?item.tag.value:"No tag"}}  ({{item.search.input.config.aggravate?"mimic":"reverse"}})
+              a.more(ng-click="addHistory()" ng-if="history.length<historyTotal") More...
+              .note * Recent searches are stored in the browser's local storage. Clearing browsing data would result in a loss of the records. 
               //- span   
 
           
