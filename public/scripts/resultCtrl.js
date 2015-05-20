@@ -68,6 +68,4 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 			window.location = url;
 	}
 
-
-
 }]);

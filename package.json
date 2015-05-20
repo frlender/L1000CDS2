@@ -20,6 +20,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-jade": "^0.5.1",
     "grunt-contrib-jade": "^0.14.1",
-    "grunt-express-server": "^0.4.19"
+    "grunt-express-server": "^0.4.19",
+    "grunt-contrib-uglify":"latest"
   }
 }

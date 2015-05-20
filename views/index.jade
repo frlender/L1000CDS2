@@ -3,37 +3,40 @@ html(lang='en', ng-app='Sigine')
   head
     title L1000CDS²
     // root variable to adjust the loading path for resources for geo2me
-    link(rel='shortcut icon', href=root+'CSS/images/sigine.ico', type='image/x-icon')
+    link(rel='shortcut icon', href='CSS/images/sigine.ico', type='image/x-icon')
     |     
-    link(rel='stylesheet', href=root+'libraries/font-awesome/css/font-awesome.min.css')
+    link(rel='stylesheet', href='libraries/font-awesome/css/font-awesome.min.css')
     |     
-    link(rel='stylesheet', type='text/css', href=root+'libraries/bootstrap/dist/css/bootstrap.min.css')
-    link(rel='stylesheet', href=root+'CSS/sigine.css')     
-    link(rel='stylesheet', href=root+'CSS/angular-toggle-switch-bootstrap-3.css')
-    link(rel='stylesheet', href=root+'versioned/angular-block-ui.min.css')
-    link(rel="stylesheet", href=root+'libraries/angular-flex-form/css/form.css')
+    link(rel='stylesheet', type='text/css', href='libraries/bootstrap/dist/css/bootstrap.min.css')
+    link(rel='stylesheet', href='CSS/sigine.css')     
+    link(rel='stylesheet', href='CSS/angular-toggle-switch-bootstrap-3.css')
+    link(rel='stylesheet', href='versioned/angular-block-ui.min.css')
+    link(rel="stylesheet", href='libraries/angular-flex-form/css/form.css')
 
     // libraries    
-    script(src=root+'libraries/jquery/jquery.min.js')
-    script(src=root+'libraries/string/lib/string.min.js')
-    script(src=root+'libraries/underscore/underscore-min.js')
-    script(src=root+'libraries/angular/angular.min.js') 
-    script(src=root+'libraries/angular-route/angular-route.min.js')    
-    script(src=root+'versioned/smart-table.debug.js')
-    script(src=root+'libraries/angular-bootstrap-toggle-switch/angular-toggle-switch.min.js')
-    script(src=root+'versioned/ui-bootstrap-tpls-0.13.0.min.js')
-    script(src=root+'versioned/angular-block-ui.min.js')
-    script(src=root+'libraries/angular-flex-form/flex-form.js')
-    script(src=root+'libraries/angular-local-storage/dist/angular-local-storage.min.js')
+    script(src='libraries/jquery/jquery.min.js')
+    script(src='libraries/string/lib/string.min.js')
+    script(src='libraries/underscore/underscore-min.js')
+    script(src='libraries/angular/angular.min.js') 
+    script(src='libraries/angular-route/angular-route.min.js')    
+    script(src='versioned/smart-table.debug.js')
+    script(src='libraries/angular-bootstrap-toggle-switch/angular-toggle-switch.min.js')
+    script(src='versioned/ui-bootstrap-tpls-0.13.0.min.js')
+    script(src='versioned/angular-block-ui.min.js')
+    script(src='libraries/angular-flex-form/flex-form.js')
+    script(src='libraries/angular-local-storage/dist/angular-local-storage.min.js')
     // scripts
-    script(src=root+'scripts/services.js')
-    script(src=root+'scripts/app.js')
-    script(src=root+'scripts/controllers.js')
-    script(src=root+'scripts/resultCtrl.js')
+    if dev
+        script(src='scripts/services.js')
+        script(src='scripts/app.js')
+        script(src='scripts/controllers.js')
+        script(src='scripts/resultCtrl.js')
+    else
+        script(src='dist/main.min.js')
   |   
   body(ng-controller='index')
     .pure-menu.pure-menu-horizontal.custom-menu
-      img.rubic(src=root+'CSS/images/sigine.png', alt='Sigine')
+      img.rubic(src='CSS/images/sigine.png', alt='Sigine')
       |     &#x9;
       span.rubic-title  L1000CDS
         sup 2 
