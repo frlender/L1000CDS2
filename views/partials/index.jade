@@ -1,6 +1,4 @@
 .header-board
-    a.btn.share-button(ng-style="{'visibility':(shareURL?'visible':'hidden')}" ng-click="share()")
-      i.fa.fa-share-alt-square
     a.btn.share-button(href="help" target="_blank")
       i.fa.fa-question-circle
   #container.row.custom-row
@@ -48,11 +46,11 @@
           .input-margin
             toggle-switch.switch-default(model='aggravate', on-label='mimic', off-label='reverse')
             span    Search for small molecule signatures that   
-              span(class="emphasize") {{aggravate?"mimic":"reverse"}}    
+              span(class="emphasize") {{aggravate?"mimic":"reverse"}}   
               | my input.
           .input-margin
-            input(type="checkbox") 
-            span      Yes. I agree to share my input signature and metadata for research purposes.
+            input(type="checkbox" ng-model="share") 
+            span  Yes. I agree to share my input signature and metadata for research purposes.
       .input-meta-block
         .input-meta-title Metadata
         .input-meta-content

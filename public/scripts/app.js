@@ -3,7 +3,7 @@
 /* App Module */
 
 var Sigine = angular.module('Sigine', ['indexControllers','ngRoute',
-  'smart-table','toggle-switch','ui.bootstrap','blockUI','flexForm']);
+  'smart-table','toggle-switch','ui.bootstrap','blockUI','flexForm','LocalStorageModule']);
 
 
 Sigine.directive('focusMe', function($timeout, $parse) {
@@ -31,3 +31,11 @@ Sigine.config(['$routeProvider',
         redirectTo: '/index'
       });
   }]);
+
+
+Sigine.config(['localStorageServiceProvider', function (localStorageServiceProvider) {
+  localStorageServiceProvider
+    .setPrefix('Sigine')
+    .setStorageType('localStorage')
+    .setNotify(true, true)
+}]);

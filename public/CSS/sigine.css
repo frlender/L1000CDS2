@@ -372,3 +372,21 @@ textarea.overlap-cd{
 /*overwrite max-width in bootstrap .popover*/
   max-width: 550px;
 }
+
+.result-input-meta{
+	padding:5px;
+	padding-bottom: 10px;
+}
+
+.dropdown-custom{
+   float: left;
+  left: 5px;
+}
+
+.dropdown-toggle-custom{
+  font-size: 0.8em;
+  margin-top: 7px;
+}
+
+
+/*customize flex-form css*/

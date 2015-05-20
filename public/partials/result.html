@@ -1,5 +1,14 @@
 
-<div class="header-board"><a href="help" target="_blank" class="btn share-button"><i class="fa fa-question-circle"></i></a>
+<div class="header-board">
+  <div dropdown="dropdown" ng-if="tag" class="btn-group dropdown-custom"><a dropdown-toggle="dropdown-toggle" class="btn btn-primary dropdown-toggle dropdown-toggle-custom">{{tag.value}} <span class="caret"></span></a>
+    <ul role="menu" class="dropdown-menu">
+      <li>
+        <div class="result-input-meta">
+          <flex-form data="input.meta" static="true"></flex-form>
+        </div>
+      </li>
+    </ul>
+  </div><a href="help" target="_blank" class="btn share-button"><i class="fa fa-question-circle"></i></a>
 </div>
 <div class="result-container">
   <table st-table="displayedEntries" st-safe-src="entries" class="table table-striped">

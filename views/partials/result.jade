@@ -1,6 +1,10 @@
 .header-board
-    //- a.btn.share-button(ng-style="{'visibility':(shareURL?'visible':'hidden')}" ng-click="share()")
-    //-   i.fa.fa-share-alt-square
+    .btn-group.dropdown-custom(dropdown ng-if="tag")
+      a.btn.btn-primary.dropdown-toggle.dropdown-toggle-custom(dropdown-toggle) {{tag.value}} <span class="caret"></span>
+      ul(class="dropdown-menu" role="menu")
+        li
+          .result-input-meta
+            flex-form(data="input.meta" static="true")
     a.btn.share-button(href="help" target="_blank")
       i.fa.fa-question-circle
 .result-container

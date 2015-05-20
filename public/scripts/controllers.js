@@ -17,14 +17,16 @@ indexControllers.controller('index',['$scope','$http',function($scope,$http){
 
 
 var process = _.identity;
-indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 
-	'loadExample', 'buildQueryData', 'resultStorage', '$location', 'ffBuild',
-	function($scope,$http,$modal,loadExample,buildQueryData,resultStorage,$location,ffBuild){
+indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExample', 
+	'buildQueryData', 'resultStorage', '$location', 'ffClean', 'localStorageService',
+	function($scope,$http,$modal,loadExample,buildQueryData,resultStorage,$location,
+		ffClean,local){
 		
 		//default values
 		// reverse
 		$scope.aggravate = false;
 		$scope.shareURL = "";
+		// $scope.share = false;
 		$scope.inputMeta = [
 			{key:"Tag",value:"",dataPlaceholder:"add a tag"},
        		{key:"Cell", value:""},
@@ -51,7 +53,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 		$scope.search = function(){
 			$scope.err = false;
 			var input = buildQueryData($scope);
-			input.meta = ffBuild($scope.inputMeta);
+			input.meta = ffClean($scope.inputMeta);
 			$http.post(baseURL+"query",input)
 				.success(function(data) {
 					if("err" in data){
@@ -64,6 +66,8 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 						if('uniqInput' in data){
 							resultStorage[data['shareId']].uniqInput = data.uniqInput;
 						}
+						// local  storage for history functionality
+						local.set(data['shareId'],resultStorage[data['shareId']]);
 						$location.path('/result/'+data['shareId']);
 					}
 			});
@@ -94,6 +98,10 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
     		});
 
     		modalInstance.result.then(function (res) {
+    			$scope.inputMeta = [
+					{key:"Tag",value:res.term},
+       				{key:"Tissue", value:res.desc}
+       			];
     			$http.get(baseURL+'disease?id='+res['_id'])
     			.success(function(res){
     				var lines = []
@@ -110,12 +118,14 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
 			loadExample.default().then(function(DEGs){
 				$scope.upGenes = DEGs.up;
 				$scope.dnGenes = DEGs.dn;
-			})
+				$scope.inputMeta[0].value = "Gene-set Example";
+			});
 		}
 
 		$scope.loadSignatureExample = function(){
 			loadExample.signature().then(function(data){
 				$scope.upGenes = data;
+				$scope.inputMeta[0].value = "Signature Example";
 			})
 		}
 
@@ -126,6 +136,13 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal',
     		});
 
     		modalInstance.result.then(function (res) {
+    			var time = res.name.split(' ')[2] + res.name.split(' ')[3];
+    			$scope.inputMeta = [
+					{key:"Tag",value:res.name},
+       				{key:"Cell", value:"Hela"},
+       				{key:"Perturbation", value:"Ebola virus"},
+       				{key:"Time point", value:time}
+       			];
     			var lines = []
     			res.genes.forEach(function(e,i){
     				lines.push(e+','+res.vals[i])

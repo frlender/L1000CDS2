@@ -1,5 +1,5 @@
 
-<div class="header-board"><a ng-style="{'visibility':(shareURL?'visible':'hidden')}" ng-click="share()" class="btn share-button"><i class="fa fa-share-alt-square"></i></a><a href="help" target="_blank" class="btn share-button"><i class="fa fa-question-circle"></i></a></div>
+<div class="header-board"><a href="help" target="_blank" class="btn share-button"><i class="fa fa-question-circle"></i></a></div>
 <div id="container" class="row custom-row">
   <div class="col-sm-3">
     <!-- <input class="pure-input-2-3" placeholder="description of gene list"></input>-->
@@ -33,10 +33,10 @@
       <div class="input-meta-title">Configuration</div>
       <div class="input-meta-content">
         <div class="input-margin">
-          <toggle-switch model="aggravate" on-label="mimic" off-label="reverse" class="switch-default"></toggle-switch><span>   Search for small molecule signatures that   <span class="emphasize">{{aggravate?"mimic":"reverse"}}    </span>my input.</span>
+          <toggle-switch model="aggravate" on-label="mimic" off-label="reverse" class="switch-default"></toggle-switch><span>   Search for small molecule signatures that   <span class="emphasize">{{aggravate?"mimic":"reverse"}}   </span>my input.</span>
         </div>
         <div class="input-margin">
-          <input type="checkbox"/><span>     Yes. I agree to share my input signature and metadata for research purposes.</span>
+          <input type="checkbox" ng-model="share"/><span> Yes. I agree to share my input signature and metadata for research purposes.</span>
         </div>
       </div>
     </div>
