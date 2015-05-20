@@ -388,5 +388,27 @@ textarea.overlap-cd{
   margin-top: 7px;
 }
 
+a{
+	cursor:pointer;
+}
+
+.note{
+	font-size: 0.8em;
+  font-style: italic;
+  color: grey;
+  margin-top: 0.5em;
+  margin-right: 2em;
+}
+
+.more{
+	text-decoration: underline;
+  font-weight: bold;
+  /* border-style: solid; */
+  padding-top: 0.5em;
+}
+
+.view{
+	margin-bottom: 80px;
+}
 
 /*customize flex-form css*/

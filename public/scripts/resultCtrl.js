@@ -1,6 +1,6 @@
 indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStorage', 
-	'$http', 'localStorageService',
-	function($scope, $routeParam, resultStorage, $http, local){
+	'$http', 'util',
+	function($scope, $routeParam, resultStorage, $http, util){
 
 	if($routeParam.shareID in resultStorage){
 		$scope.entries = resultStorage[$routeParam.shareID].entries;
@@ -24,14 +24,7 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 
 	function initialization(){
 		$scope.overlap = {};
-		if($scope.input.meta && $scope.input.meta.length>0){
-			$scope.tag = $scope.input.meta.filter(function(item){
-				return item.key.toLowerCase() == "tag";
-			})[0];
-			if(!$scope.tag){
-				$scope.tag = $scope.input.meta[0];
-			}
-		}
+		$scope.tag = util.getTag($scope.input.meta);
 		
 		if($scope.input.config.searchMethod=="geneSet"){
 			$scope.overlap.templateUrl = "partials/overlap_geneSet.html";

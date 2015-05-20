@@ -19,8 +19,9 @@ indexControllers.controller('index',['$scope','$http',function($scope,$http){
 var process = _.identity;
 indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExample', 
 	'buildQueryData', 'resultStorage', '$location', 'ffClean', 'localStorageService',
+	'util',
 	function($scope,$http,$modal,loadExample,buildQueryData,resultStorage,$location,
-		ffClean,local){
+		ffClean,local,util){
 		
 		//default values
 		// reverse
@@ -33,7 +34,46 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
        		{key:"Perturbation", value:""},
        		{key:"Time point", value:""}
        	];
+
+       	$scope.history = [];
+       	var maxLocal = 50; // set Max storage number
+       	var showCount = 5; // number of items to be shown in recent searches.
+       	var localKeys = local.keys(); 
+       	if(localKeys.length>0){
+       		// get recent searches.
+       		localKeys.sort(function(a,b){
+       			return util.getTimeStamp(b) - util.getTimeStamp(a) 
+       		});
+       		
+       		if(localKeys.length>maxLocal){
+       			// remove old IDs
+       			var removeIds = localKeys.splice(maxLocal,localKeys.length-maxLocal);
+       			local.remove.apply(this,removeIds);
+       		}
+
+       		$scope.historyTotal = localKeys.length;
+
+       		$scope.addHistory = function(){
+       			$scope.history = $scope.history
+       			.concat(localKeys.slice($scope.history.length,$scope.history.length+showCount)
+       				.map(function(id){
+       				var item = {};
+       				item.search = local.get(id);
+       				item.tag = util.getTag(item.search.input.meta);
+       				item.id = id;
+       				return item;
+       			}));
+       		}
+       		$scope.addHistory();
+       	}
 		
+		$scope.goToResultView = function(id,search){
+			// search is an object.
+			if(!(id in resultStorage)){
+				resultStorage[id] = search;
+			}
+			$location.path('/result/'+id);
+		};
 
 		$scope.inputType = function(){
 			var res = false;
@@ -60,15 +100,15 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 						$scope.err = data["err"][0];
 					}else{
 						$scope.updateCount();
-						resultStorage[data['shareId']] = {};
-						resultStorage[data['shareId']].entries = data["topMeta"];
-						resultStorage[data['shareId']].input = input;
+						var search = {};
+						search.entries = data["topMeta"];
+						search.input = input;
 						if('uniqInput' in data){
-							resultStorage[data['shareId']].uniqInput = data.uniqInput;
+							search.uniqInput = data.uniqInput;
 						}
 						// local  storage for history functionality
-						local.set(data['shareId'],resultStorage[data['shareId']]);
-						$location.path('/result/'+data['shareId']);
+						local.set(data['shareId'],search);
+						$scope.goToResultView(data['shareId'],search);
 					}
 			});
 		}

@@ -129,3 +129,27 @@ services.factory('resultStorage',function(){
 	var results = {};
 	return results;
 });
+
+services.factory('util',function(){
+	// trivial util functions placed here
+	var util = {};
+	util.getTag = function(meta){
+		// get tag object from meta array
+		var tag;
+		if(meta && meta.length>0){
+			tag = meta.filter(function(item){
+				return item.key.toLowerCase() == "tag";
+			})[0];
+			if(!tag){
+				tag = meta[0];
+			}
+		}
+		return tag
+	}
+	util.getTimeStamp = function(id){
+		// get the date from a Mongodb ObjectID string.
+		var timestamp = id.substring(0,8)
+		return new Date( parseInt( timestamp, 16 ) * 1000 )
+	}
+	return util;
+});
