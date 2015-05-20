@@ -1,6 +1,6 @@
 indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStorage', 
-	'$http', 'util',
-	function($scope, $routeParam, resultStorage, $http, util){
+	'$http', 'util', 'localStorageService',
+	function($scope, $routeParam, resultStorage, $http, util, local){
 
 	if($routeParam.shareID in resultStorage){
 		$scope.entries = resultStorage[$routeParam.shareID].entries;
@@ -8,6 +8,15 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 		$scope.input = resultStorage[$routeParam.shareID].input;
 		if('uniqInput' in resultStorage[$routeParam.shareID]){
 			$scope.uniqInput = resultStorage[$routeParam.shareID].uniqInput;
+		}
+		initialization();
+	}else if(_.contains(local.keys(),$routeParam.shareID)){
+		var item = local.get($routeParam.shareID)
+		$scope.entries = item.entries;
+		$scope.shareURL = baseURL+$routeParam.shareID;
+		$scope.input = item.input;
+		if('uniqInput' in item){
+			$scope.uniqInput = item.uniqInput;
 		}
 		initialization();
 	}else{
@@ -31,7 +40,13 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 			var overlapKeys = Object.keys($scope.entries[0].overlap).sort();
 			$scope.overlap.key1 = overlapKeys[1];
 			$scope.overlap.key2 = overlapKeys[0];
-			$scope.overlap.title = "overlap: input/signature"
+			$scope.overlap.title = "overlap: input/signature";
+			$scope.buildOverlap = function(key,entry){
+				var overlapStr = entry.overlap[key].join('\n');
+				var inputDirection = key.slice(0,2);
+				var sigDirection = key.slice(3,5);
+				return overlapStr?overlapStr:("The input "+inputDirection+ " genes has no overlap with the "+sigDirection+" genes in signature.");
+			}
 		}else{
 			$scope.overlap.templateUrl = "partials/overlap_CD.html";
 			var overlapKeys = Object.keys($scope.entries[0].overlap).sort();
@@ -39,10 +54,11 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 			$scope.overlap.key2 = overlapKeys[0];
 			$scope.overlap.title = "overlap: (gene symbol) (input value) (signature value)"
 			$scope.buildOverlap = function(key,cdVec){
-				return _.map(_.zip($scope.uniqInput[key].genes,
+				var overlapStr = _.map(_.zip($scope.uniqInput[key].genes,
 				$scope.uniqInput[key].vals, cdVec),function(arr){
 					return arr.join('\t');
 				}).join('\n');
+				return overlapStr?overlapStr:("The input "+key.slice(0,2)+ " genes has no overlap with the genes in signature.");
 			}
 		}
 	}

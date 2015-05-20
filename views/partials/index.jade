@@ -9,7 +9,7 @@
           div
             .input-title-wrapper
               b {{inputType()=="CD"?"signature":"up genes"}}
-              a.btn.eraser-btn(title="clear" ng-clic="clear('upGenes')")
+              a.btn.eraser-btn(title="clear" ng-click="clear('upGenes')")
                 i.fa.fa-eraser
           |             
           textarea.form-control.input-gene-list(placeholder='up genes or a signature', ng-model='upGenes' ng-style="{height:(inputType()=='CD'?'42.6em':'20em')}")

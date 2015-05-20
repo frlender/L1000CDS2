@@ -1,7 +1,7 @@
 .overlap-popover-holder 
 	.overlap-popover-col.overlap-popover-col-margin
 		.overlap-popover-header {{overlap.key1}} 
-		textarea(disabled).overlap-geneSet {{entry.overlap[overlap.key1].join('\n')}}
+		textarea(disabled).overlap-geneSet {{buildOverlap(overlap.key1,entry)}}
 	.overlap-popover-col
 		.overlap-popover-header {{overlap.key2}}
-		textarea(disabled).overlap-geneSet {{entry.overlap[overlap.key2].join('\n')}}
+		textarea(disabled).overlap-geneSet {{buildOverlap(overlap.key2,entry)}}

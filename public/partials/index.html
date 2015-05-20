@@ -6,7 +6,7 @@
       <!-- <input class="pure-input-2-3" placeholder="description of gene list"></input>-->
       <div class="input-margin">
         <div>
-          <div class="input-title-wrapper"><b>{{inputType()=="CD"?"signature":"up genes"}}</b><a title="clear" ng-clic="clear('upGenes')" class="btn eraser-btn"><i class="fa fa-eraser"></i></a></div>
+          <div class="input-title-wrapper"><b>{{inputType()=="CD"?"signature":"up genes"}}</b><a title="clear" ng-click="clear('upGenes')" class="btn eraser-btn"><i class="fa fa-eraser"></i></a></div>
         </div>            
         <textarea placeholder="up genes or a signature" ng-model="upGenes" ng-style="{height:(inputType()=='CD'?'42.6em':'20em')}" class="form-control input-gene-list"></textarea>
       </div>          
