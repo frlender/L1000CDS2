@@ -33,7 +33,8 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 
 	function initialization(){
 		$scope.overlap = {};
-		$scope.tag = util.getTag($scope.input.meta);
+		var tag = util.getTag($scope.input.meta);
+		$scope.tag = tag?tag:{value:"No tag"};
 		$scope.direction = $scope.input.config.aggravate?"mimic":"reverse";
 		if($scope.input.config.searchMethod=="geneSet"){
 			$scope.overlap.templateUrl = "partials/overlap_geneSet.html";
