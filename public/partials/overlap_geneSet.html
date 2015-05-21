@@ -1,11 +1,13 @@
 
 <div class="overlap-popover-holder"> 
   <div class="overlap-popover-col overlap-popover-col-margin">
-    <div class="overlap-popover-header">{{overlap.key1}} </div>
+    <div class="overlap-popover-header">input {{_keyMap(overlap.key1).input}} / signature {{_keyMap(overlap.key1).sig}}</div>
     <textarea disabled="disabled" class="overlap-geneSet">{{buildOverlap(overlap.key1,entry)}}</textarea>
+    <div ng-if="entry.overlap[overlap.key1].length&gt;5" title="send {{overlap.key1}} genes to Enrichr for enrichment analysis" class="enrichr"><a ng-click="enrichr(overlap.key1,entry)" class="btn">En<span>rich</span>r     <i class="fa fa-external-link"></i></a></div>
   </div>
   <div class="overlap-popover-col">
-    <div class="overlap-popover-header">{{overlap.key2}}</div>
+    <div class="overlap-popover-header">input {{_keyMap(overlap.key2).input}} / signature {{_keyMap(overlap.key2).sig}}</div>
     <textarea disabled="disabled" class="overlap-geneSet">{{buildOverlap(overlap.key2,entry)}}</textarea>
+    <div ng-if="entry.overlap[overlap.key2].length&gt;5" title="send {{overlap.key2}} genes to Enrichr for enrichment analysis" class="enrichr"><a ng-click="enrichr(overlap.key2,entry)" class="btn">En<span>rich</span>r      <i class="fa fa-external-link"></i></a></div>
   </div>
 </div>

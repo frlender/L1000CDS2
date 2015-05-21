@@ -1,6 +1,6 @@
 .header-board
     .btn-group.dropdown-custom(dropdown ng-if="tag")
-      a.btn.btn-primary.dropdown-toggle.dropdown-toggle-custom(dropdown-toggle) {{tag.value}} <span class="caret"></span>
+      a.btn.btn-primary.dropdown-toggle.dropdown-toggle-custom(dropdown-toggle) {{tag.value}} ({{direction}}) <span class="caret"></span>
       ul(class="dropdown-menu" role="menu")
         li
           .result-input-meta
@@ -36,7 +36,7 @@
         |               
         td {{entry["pert_time"]+entry["pert_time_unit"]}}
         td.narrow
-          a.btn.download-icon(popover-placement="left" popover-template="overlap.templateUrl" popover-title="{{overlap.title}}")
+          a.btn.download-icon(popover-placement="left" popover-template="overlap.templateUrl")
             i.fa.fa-pause
         |               
         td.narrow

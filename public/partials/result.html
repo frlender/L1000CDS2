@@ -1,6 +1,6 @@
 
 <div class="header-board">
-  <div dropdown="dropdown" ng-if="tag" class="btn-group dropdown-custom"><a dropdown-toggle="dropdown-toggle" class="btn btn-primary dropdown-toggle dropdown-toggle-custom">{{tag.value}} <span class="caret"></span></a>
+  <div dropdown="dropdown" ng-if="tag" class="btn-group dropdown-custom"><a dropdown-toggle="dropdown-toggle" class="btn btn-primary dropdown-toggle dropdown-toggle-custom">{{tag.value}} ({{direction}}) <span class="caret"></span></a>
     <ul role="menu" class="dropdown-menu">
       <li>
         <div class="result-input-meta">
@@ -28,7 +28,7 @@
         <td>{{entry["cell_id"]}}</td>              
         <td>{{entry["pert_dose"]+entry["pert_dose_unit"]}}</td>              
         <td>{{entry["pert_time"]+entry["pert_time_unit"]}}</td>
-        <td class="narrow"><a popover-placement="left" popover-template="overlap.templateUrl" popover-title="{{overlap.title}}" class="btn download-icon"><i class="fa fa-pause"></i></a></td>              
+        <td class="narrow"><a popover-placement="left" popover-template="overlap.templateUrl" class="btn download-icon"><i class="fa fa-pause"></i></a></td>              
         <td class="narrow"><a ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])" class="btn download-icon"><i class="fa fa-download"></i></a></td>
       </tr>
     </tbody>          

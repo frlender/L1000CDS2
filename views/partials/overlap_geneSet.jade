@@ -1,7 +1,13 @@
 .overlap-popover-holder 
 	.overlap-popover-col.overlap-popover-col-margin
-		.overlap-popover-header {{overlap.key1}} 
+		.overlap-popover-header input {{_keyMap(overlap.key1).input}} / signature {{_keyMap(overlap.key1).sig}}
 		textarea(disabled).overlap-geneSet {{buildOverlap(overlap.key1,entry)}}
+		.enrichr(ng-if="entry.overlap[overlap.key1].length>5" title="send {{overlap.key1}} genes to Enrichr for enrichment analysis")
+			a.btn(ng-click="enrichr(overlap.key1,entry)") En<span>rich</span>r     
+				i.fa.fa-external-link
 	.overlap-popover-col
-		.overlap-popover-header {{overlap.key2}}
+		.overlap-popover-header input {{_keyMap(overlap.key2).input}} / signature {{_keyMap(overlap.key2).sig}}
 		textarea(disabled).overlap-geneSet {{buildOverlap(overlap.key2,entry)}}
+		.enrichr(ng-if="entry.overlap[overlap.key2].length>5" title="send {{overlap.key2}} genes to Enrichr for enrichment analysis")
+			a.btn(ng-click="enrichr(overlap.key2,entry)") En<span>rich</span>r      
+				i.fa.fa-external-link

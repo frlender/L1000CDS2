@@ -359,6 +359,7 @@ padding-top: 5px;
 
 .overlap-popover-holder{
 	/*width:550px;*/
+	padding-top:10px;
 }
 
 .overlap-popover-col{
@@ -369,11 +370,35 @@ padding-top: 5px;
 	margin-right:0.8em;
 }
 .overlap-popover-header{
-	
+	font-size: 0.8em;
+}
+
+.enrichr a{
+	color:black;
+	padding:0;
+	float:right;
+	padding-left: 2px;
+  padding-right: 2px;
+	/*text-decoration: underline;*/
+}
+
+.enrichr a:hover{
+	border-bottom: solid;
+  border-bottom-width: thin;
+  border-radius: 0;
+  /*border-color:#D90000;*/
+}
+
+.enrichr span{
+	color:#D90000;
+}
+
+.enrichr i{
+	color:#D90000;
 }
 
 textarea.overlap-geneSet{
-	width:100px;
+	width:150px;
 	height:200px;
 	background-color:white;
 }
