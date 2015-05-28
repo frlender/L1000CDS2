@@ -39,7 +39,7 @@ strong {
     padding: 30px 20px 20px 20px;
     position: fixed;
     top: 0;
-    width: 150px;
+    width: 175px;
 }
 #sidebar a {
     color: #000;
@@ -60,7 +60,7 @@ strong {
 
 /* Content */
 #content {
-    margin-left: 220px;
+    margin-left: 240px;
     padding-bottom: 50px;
     position: relative;
     width: 600px;
@@ -148,11 +148,12 @@ strong {
 }
 .caption {
     font-style: italic;
+    margin-bottom: 25px;
 }
 
 #sideBarSub a{
     font-weight: normal;
-    margin-left: 1.2em;
+    margin-left: 0.8em;
 }
 
 img{
@@ -165,14 +166,14 @@ img{
     vertical-align: top;
 }
 
-.col-right{
+.col{
     display: inline-block;
     width:31%;
-    margin-left:30px;
+    margin-left:75px;
     padding-top:27px;
 }
 
-.col-right img{
+.col img{
     width:160px;
 }
 
@@ -213,3 +214,27 @@ border: gainsboro;
 border-style: solid;
 border-width: thin;
 }
+
+#sideBarSub a.subtitle{
+font-weight: bold;
+  font-style: italic;
+  color: #555;
+  margin-left: 0.6em;
+}
+
+
+#sideBarSub a.subtitle:hover {
+    color: #009DFF;
+    text-decoration: none;
+}
+
+#content h3.subheader{
+   font-style: italic;
+  color: #333;
+  padding-top: 15px;
+}
+
+span.highlight2{
+    font-weight: bold;
+}
+

@@ -188,7 +188,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
     				lines.push(e+','+res.vals[i])
     			})
       			$scope.upGenes = lines.join('\n');
-      			$scope.search();
+      			// $scope.search();
     		});
 		}
 
