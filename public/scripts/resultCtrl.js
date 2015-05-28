@@ -32,6 +32,10 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 	}
 
 	function initialization(){
+		$scope.pubchemURL = "http://pubchem.ncbi.nlm.nih.gov/summary/summary.cgi?cid=";
+		$scope.drugbankURL = "http://www.drugbank.ca/drugs/";
+		$scope.lifeURL = "http://life.ccs.miami.edu/life/summary?mode=SmallMolecule&source=BROAD&input="
+		$scope.helpURL = baseURL+'help/';
 		$scope.overlap = {};
 		var tag = util.getTag($scope.input.meta);
 		$scope.tag = tag?tag:{value:"No tag"};

@@ -238,3 +238,25 @@ span.highlight2{
     font-weight: bold;
 }
 
+.pert-link{
+  font-weight: bolder;
+  color: white;
+  padding-top: 3px;
+  border-radius: 4px;
+  padding-bottom: 3px;
+  padding-left: 5.5px;
+  padding-right: 5.5px;
+  font-size:0.8em;
+}
+
+.life{
+    background-color: palevioletred;
+}
+.pubchem{
+    background-color: #4991CF;
+    margin-left:3px;
+}
+.drugbank{
+    background-color:#EA62FF;
+    margin-left: 3px;
+}

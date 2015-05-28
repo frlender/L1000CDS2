@@ -12,9 +12,12 @@
 .result-container
   table.table.table-striped(st-table='displayedEntries', st-safe-src='entries')
     thead
-      th  Score 
+      th  Score       
+        a(ng-href="{{helpURL}}#{{input.config.searchMethod}}Score" target="_b")
+          i.fa.fa-question-circle 
       |             
-      th  Perturbation 
+      th  Perturbation
+      th  
       |             
       th  Cell-line 
       |             
@@ -28,9 +31,11 @@
       tr(ng-class="{'up-signature': (entry['posPercent']>=0.5), 'dn-signature': (entry['posPercent']<0.5)}", ng-repeat='entry in displayedEntries')
         td {{entry["score"].toFixed(4)}}
         |               
-        td
-          a(href="http://life.ccs.miami.edu/life/summary?mode=SmallMolecule&input={{entry['pert_id']}}&source=BROAD", target='_blank')
-            | {{entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"]}}
+        td.pert {{entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"]}}  
+        td.links
+          | <a title="Look up the perturbation in LIFE" class="pert-link life" ng-href="{{lifeURL}}{{entry['pert_id']}}", target='_blank')>L</a> 
+          | <a title="Look up the perturbation in PubChem" class="pert-link pubchem" ng-if="entry['pubchem_id']" ng-href="{{pubchemURL}}{{entry['pubchem_id']}}" target='_blank'>P</a>  
+          | <a title="Look up the perturbation in DrugBank" class="pert-link drugbank" ng-if="entry['drugbank_id']" ng-href="{{drugbankURL}}{{entry['drugbank_id']}}" target='_blank'>D</a>
         |               
         td {{entry["cell_id"]}}
         |               

@@ -453,3 +453,49 @@ a{
 }
 
 /*customize flex-form css*/
+.pert-link{
+  font-weight: bolder;
+  color: white;
+  padding-top: 3px;
+  border-radius: 4px;
+  padding-bottom: 3px;
+  padding-left: 5.5px;
+  padding-right: 5.5px;
+  font-size:0.8em;
+}
+
+.life{
+	background-color: palevioletred;
+}
+.pubchem{
+	background-color: #4991CF;
+	margin-left:3px;
+}
+.drugbank{
+	background-color:#EA62FF;
+	margin-left: 3px;
+}
+
+.pert-link:hover{
+	color:white;
+	text-decoration: none;
+}
+
+.pert-link:visited{
+	color:white;
+	text-decoration: none;
+}
+
+.pert-link:focus{
+	color:white;
+	text-decoration: none;
+}
+
+
+td.pert{
+	text-align: center;
+}
+.table>tbody>tr>td.links{
+	text-align: left;
+	padding-left:0;
+}

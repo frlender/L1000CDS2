@@ -2,6 +2,7 @@ var request = require('request');
 var fs = require('fs');
 var R = require('./query-R.js');
 var mongo = require('./query-mongodb.js');
+var util = require('./util.js');
 
 // subject to change.
 // var baseURL = "http://localhost:8182/L1000CDS2/"
@@ -34,7 +35,10 @@ exports.query = function(req,res){
 
                     var dataToUser = {};
                     dataToUser.shareId = shareId;
-                    dataToUser.topMeta = topMeta;
+                    topMeta.forEach(function(e){
+                        util.addExternalPertIDs(e);
+                    });
+                    dataToUser.topMeta = topMeta
                     if("uniqInput" in topMatches){
                         dataToUser.uniqInput = topMatches.uniqInput;
                     }
@@ -96,7 +100,10 @@ exports.history = function(req,res){
                 var metaCallback = function(topMeta){
                     var dataToUser = {};
                     dataToUser.shareId = id;
-                    dataToUser.topMeta = topMeta;
+                    util.addExternalIDs(topMeta);
+                     topMeta.forEach(function(e){
+                        util.addExternalPertIDs(e);
+                    });
                     if("uniqInput" in topMatches){
                         dataToUser.uniqInput = topMatches.uniqInput;
                     }

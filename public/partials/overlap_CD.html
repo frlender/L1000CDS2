@@ -1,12 +1,12 @@
 
 <div class="overlap-popover-holder">
   <div class="overlap-popover-col overlap-popover-col-margin">
-    <div class="overlap-popover-header">(gene)  (input {{overlap.key1}} value) (signature value)</div>
+    <div class="overlap-popover-header">(gene)  (input {{overlap.key1}} value) (signature value)       <a ng-href="{{helpURL}}#{{input.config.searchMethod}}Overlap" target="_blank"><i class="fa fa-question-circle"> </i></a></div>
     <textarea disabled="disabled" class="overlap-cd">{{buildOverlap(overlap.key1,entry)}}</textarea>
     <div ng-if="entry._dynamic[overlap.key1].length&gt;5" title="send the overlap bewteen input {{overlap.key1}} genes and signature {{_sigKeyMap[overlap.key1]}} genes to Enrichr for enrichment analysis" class="enrichr"><a ng-click="enrichr(overlap.key1,entry)" class="btn">En<span>rich</span>r     <i class="fa fa-external-link"></i></a></div>
   </div>
   <div class="overlap-popover-col">
-    <div class="overlap-popover-header">(gene)  (input {{overlap.key2}} value) (signature value)</div>
+    <div class="overlap-popover-header">(gene)  (input {{overlap.key2}} value) (signature value)        <a ng-href="{{helpURL}}#{{input.config.searchMethod}}Overlap" target="_blank"><i class="fa fa-question-circle"> </i></a></div>
     <textarea disabled="disabled" class="overlap-cd">{{buildOverlap(overlap.key2,entry)}}</textarea>
     <div ng-if="entry._dynamic[overlap.key2].length&gt;5" title="send the overlap bewteen input {{overlap.key2}} genes and signature {{_sigKeyMap[overlap.key2]}} genes to Enrichr for enrichment analysis" class="enrichr"><a ng-click="enrichr(overlap.key2,entry)" class="btn">En<span>rich</span>r <i class="fa fa-external-link"></i></a></div>
   </div>
