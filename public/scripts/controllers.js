@@ -118,17 +118,6 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 		}
 
 		
-		// $scope.share = function(){
-		// 	var modalInstance = $modal.open({
-  //     			templateUrl: baseURL+'share.html',
-  //     			controller: 'ModalInstanceCtrl',
-  //     			resolve: {
-  //       			shareURL: function () {
-  //         			return $scope.shareURL;
-  //       			}
-  //     			}
-  //   			});
-		// }
 
 		$scope.showExamples = function(){
 			var modalInstance = $modal.open({
@@ -188,7 +177,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
     				lines.push(e+','+res.vals[i])
     			})
       			$scope.upGenes = lines.join('\n');
-      			// $scope.search();
+      			$scope.search();
     		});
 		}
 
@@ -196,16 +185,6 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 ]);
 
 
-// indexControllers.controller('ModalInstanceCtrl', 
-// 	['$scope', '$modalInstance', 'shareURL', 
-// 	function($scope, $modalInstance, shareURL) {
-  
-//  $scope.shouldBeOpened = true;
-//  $scope.shareURL = shareURL;
-//  $scope.cancel = function () {
-//     $modalInstance.dismiss('cancel');
-//   };
-// }]);
 
 indexControllers.controller('exampleModalCtrl', 
 	['$scope', '$modalInstance', 'loadGEO', 'matchByNameFactory', 

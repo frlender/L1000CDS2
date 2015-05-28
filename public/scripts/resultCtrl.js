@@ -1,6 +1,6 @@
 indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStorage', 
-	'$http', 'util', 'localStorageService',
-	function($scope, $routeParam, resultStorage, $http, util, local){
+	'$http', 'util', 'localStorageService', '$modal',
+	function($scope, $routeParam, resultStorage, $http, util, local, $modal){
 
 	if($routeParam.shareID in resultStorage){
 		$scope.entries = resultStorage[$routeParam.shareID].entries;
@@ -116,4 +116,28 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 			window.location = url;
 	}
 
+
+		$scope.share = function(){
+			var modalInstance = $modal.open({
+      			templateUrl: baseURL+'share.html',
+      			controller: 'ModalInstanceCtrl',
+      			resolve: {
+        			shareURL: function () {
+          			return location.href;
+        			}
+      			}
+    			});
+		}
+
+}]);
+
+indexControllers.controller('ModalInstanceCtrl', 
+	['$scope', '$modalInstance', 'shareURL', 
+	function($scope, $modalInstance, shareURL) {
+  
+ $scope.shouldBeOpened = true;
+ $scope.shareURL = shareURL;
+ $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
 }]);

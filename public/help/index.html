@@ -83,21 +83,25 @@
             <h5 id="config">Configuration</h5>
             <p>Clicking the mimic/reverse slider can be used to switch between reverse and mimic modes (Fig. 3). In the mimic mode for the gene-set search, the input up genes are intersected with the up genes of the gene expression profiles in the L1000CDS² database, and the input down genes are intersected with the down genes for each entry in the database. In the reverse mode for the gene-set search, the input up- genes are intersected with the down- genes, and the input down- genes are intersected with the up- genes. When a cosine distance search is performed, the top 50 signatures will be those of the smallest cosine distances from the input signature in the mimic mode, or those with the largest cosine distances in the reverse mode. <strong>The default mode is reverse</strong>.</p>
             <p>
-            Users can share their input signatures and metadata so other users can query the signatures and gene sets they submitted. To make submitted input gene sets and signatures “public” for research purposes, a checkbox is available (Fig. 3). The default is set to “No” such that users’ input is made private. Users can still share their input lists, signatures, metadata and results using the share icon on the result page (Fig. ?). Clicking on the share icon produced a permenant URL that can be shared through e-mail, publications and other documentation.
+            Users can share their input signatures and metadata so other users can query the signatures and gene sets they submitted. To make submitted input gene sets and signatures “public” for research purposes, a checkbox is available (Fig. 3). The default is set to “No” such that users’ input is made private. Users can still share their input lists, signatures, metadata and results using the share icon on the result page <a href="#tableFig">(Fig. 6).</a> Clicking on the share icon produced a permenant URL that can be shared through e-mail, publications and other documentation.
             </p>
             <h5 id="metadata">Metadata</h5>
             <p>
             Any metadata associated with the input signature can be entered in the metadata section. By default, the section provides four input fields for metadata: Tag, Cell, Perturbation and Time Point (Fig. 3). Users can add new input fields for additional types of metadata by clicking the plus sign at the bottom or remove one by clicking the minus sign on the right of each row. The minus sign will only appear when the mouse cursor is hovering over a row. The tag field is used to enter few words which are most descriptive of the input signature.
             </p>
             <h5 id="recent">Recent Researches</h5>
-            <p>Recent search history will be displayed in this section as links (Fig 3). Clicking a link will show the results for that search. Recent searches are stored in the browser's local storage buffer. Clearing browsing data would result in a loss of these records. A maximum of 50 recent searches are stored for each user’s browser.</p>
+            <p>Recent search history will be displayed in this section as links (Fig. 3). Clicking a link will show the results for that search. Recent searches are stored in the browser's local storage buffer. Clearing browsing data would result in a loss of these records. A maximum of 50 recent searches are stored for each user’s browser.</p>
             <h3 id="result" class="subheader">Result</h3>
             <h5 id="table">Table</h5>
             <p>The search results are rendered as a paginated table with 12 entries per page (Fig 6). Each entry provides five pieces of information about the signature: score, perturbation, cell-line, dose, and time point. The score is the overlap between the input DE genes and the signature DE genes divided by the effective input. The effective input is the length of the intersection between the input genes and the L1000 genes since some input lists contain genes that are not present in the L1000 dataset. This includes all ~22,000 L1000 genes, not just the measured ~1000. For the cosine distance search, the score is the cosine distance between the input signature and the L1000 characteristic direction signatures. The consensus signatures are sorted by their scores in descending order in reverse mode and in ascending order in mimic mode. The perturbation column shows the names of the chemical perturbations. Clicking on a name will direct the user to a web page within <a target="_blank" href="http://life.ccs.miami.edu/life/">LIFE</a> that catalogs detailed information about the chemical compound. There is also a signature column in the table. Clicking the download button in that column will download all the information about a signature as a JavaScript Object Notation (JSON) file. </p>
 
-            <img id="fig3" src='images/table.png'/>
-            <p class='caption'>Fig. 3 Screenshot of the paginated results table and the share button.</p>
+            <img id="tableFig" src='images/table.png'/>
+            <p class='caption'>Fig. 6 Screenshot of the paginated results table, the header and the share button.</p>
             <p>Another column in the table is the overlap column. Clicking the overlap button will show the overlapping genes (and their values) in two text boxes. If the user input type is up/down gene lists, the first box will show the overlap genes between the input up genes and the signature up (down) genes and the second will show the overlap between the input down and the signature down (up) in mimic (reverse) mode. If the input is a signature, the first box will show genes with a positive value in input and their values in the signature; the second box will show genes with a negative value in input and their values in the signature. The signature values and input values in both boxes are expected to be mostly in the same sign in mimic mode and in the opposite sign in reverse mode. The Enrichr button under each text box will send the genes to Enrichr for enrichment analysis.</p>
+            <img id="overlapFig" src="images/overlap.png"/>
+            <p class='caption'>Fig.7 Screenshot of the overlap between the input signature and a small molecule signature.</p>
+            <h5 id="header">Header</h5>
+            A header that displays the tag and search mode is shown on the upper left corner of the result page (Fig. 7). Clicking the header will show the metadata of the input.
         </section>
         
         <section id='api'>
@@ -154,7 +158,7 @@
                 <tr>
                     <td>metadata[ ].value</td>
                     <td>String</td>
-                    <td>A metadata value</td>
+                    <td>A metadata value.</td>
                 </tr>
             </table>
             <table>
@@ -244,51 +248,190 @@
             <table>
                 <caption>Payload <span> (content-type: application/json)</span></caption>
                 <tr>
-                    <td>input</td>
+                    <td>data</td>
                     <td>Object</td>
-                    <td>A wrapper for input gene symbols and expression values.</td>
+                    <td>An object that saves the input signature.</td>
                 </tr>
                 <tr>
-                    <td>input.genes</td>
+                    <td>data.genes</td>
                     <td>[String]</td>
-                    <td>An array of Entrez gene symbols.</td>
+                    <td>An array of input genes.</td>
                 </tr>
                 <tr>
-                    <td>input.vals</td>
+                    <td>data.vals</td>
                     <td>[Number]</td>
-                    <td>An array of differential expression values, e.g. t-test statistics.</td>
-                </tr>
-                <tr>
-                    <td>aggravate</td>
-                    <td>Boolean</td>
-                    <td>True to perform the search in mimic mode and false in reverse mode.</td>
+                    <td>An array of input values that match to each input gene.</td>
                 </tr>
                  <tr>
-                    <td>searchMethod</td>
+                    <td>config</td>
+                    <td>Object</td>
+                    <td>An object that saves the search configuration.</td>
+                </tr>
+                <tr>
+                    <td>config.aggravate</td>
+                    <td>Object</td>
+                    <td>True to perform the search in aggravate mode and False in reverse mode.</td>
+                </tr>
+                <tr>
+                    <td>config.seachMethod</td>
                     <td>String</td>
                     <td>"CD"</td>
+                </tr>
                 <tr>
+                    <td>config.share</td>
+                    <td>Boolean</td>
+                    <td>True to agree to share input data and metadata.</td>
+                </tr>
+                <tr>
+                    <td>metadata</td>
+                    <td>[Object]</td>
+                    <td>An array of objects that saves the metadata of the input.</td>
+                </tr>
+                <tr>
+                    <td>metadata[ ].key</td>
+                    <td>String</td>
+                    <td>A metadata field.</td>
+                </tr>
+                <tr>
+                    <td>metadata[ ].value</td>
+                    <td>String</td>
+                    <td>A metadata value.</td>
+                </tr>
             </table>
-            
-
-            <table ><caption>P<span>ython</span> Example</caption></table>
+            <table>
+                <caption>Response <span>(JSON)</span></caption>
+                <tr>
+                    <td>shareId</td>
+                    <td>String</td>
+                    <td>Unique ID for sharing the search results</td>
+                </tr>
+                <tr>
+                    <td>uniqInput</td>
+                    <td>Object</td>
+                    <td>An object that stores unique input genes overlapped with L1000 genome and their averaged input values.</td>
+                </tr>
+                <tr>
+                    <td>uniqInput.up</td>
+                    <td>Object</td>
+                    <td>An object that stores Unique input up genes and their averaged input values.</td>
+                </tr>
+                <tr>
+                    <td>uniqInput.up.genes</td>
+                    <td>[String]</td>
+                    <td>Unique input up genes.</td>
+                </tr>
+                <tr>
+                    <td>uniqInput.up.vals</td>
+                    <td>[Number]</td>
+                    <td>Values of unique input up genes.</td>
+                </tr>
+                <tr>
+                    <td>uniqInput.dn</td>
+                    <td>Object</td>
+                    <td>An object that stores Unique input down genes and their averaged input values.</td>
+                </tr>
+                <tr>
+                    <td>uniqInput.dn.genes</td>
+                    <td>Object</td>
+                    <td>Unique input down genes.</td>
+                </tr>
+                <tr>
+                    <td>uniqInput.dn.vals</td>
+                    <td>Object</td>
+                    <td>Values of unique input down genes.</td>
+                </tr>
+                <tr>
+                    <td>topMeta</td>
+                    <td>[Object]</td>
+                    <td>Descriptive information of the top 50 consensus signatures</td>
+                </tr>
+                <tr>
+                    <td>topMeta[ ].score</td>
+                    <td>Double</td>
+                    <td>Score</td>
+                </tr>
+                <tr>
+                    <td>topMeta[ ].cell_id</td>
+                    <td>String</td>
+                    <td>Cell-line</td>
+                </tr>
+                <tr>
+                    <td>topMeta[ ].pert_desc</td>
+                    <td>String</td>
+                    <td>Perturbation name</td>
+                </tr>
+                <tr>
+                    <td>topMeta[ ].pert_id</td>
+                    <td>String</td>
+                    <td>Unique identifier for a perturbation</td>
+                </tr>
+                <tr>
+                    <td>topMeta[ ].pert_time</td>
+                    <td>String</td>
+                    <td>Time point</td>
+                </tr>
+                <tr>
+                    <td>topMeta[ ].pert_time_unit</td>
+                    <td>String</td>
+                    <td>Time point unit</td>
+                </tr>
+                <tr>
+                    <td>topMeta[ ].pert_dose</td>
+                    <td>String</td>
+                    <td>Dose</td>
+                </tr>
+                 <tr>
+                    <td>topMeta[ ].pert_dose_unit</td>
+                    <td>String</td>
+                    <td>Dose unit</td>
+                </tr>
+                 <tr>
+                    <td>topMeta[ ].sig_id</td>
+                    <td>String</td>
+                    <td>Unique identifier for a signature</td>
+                </tr>
+                <tr>
+                    <td>topMeta[ ].overlap</td>
+                    <td>Object</td>
+                    <td>A object that stores the signature values of unique input genes overlapped with L1000 genome.</td>
+                </tr>
+                <tr>
+                    <td>topMeta[ ].overlap.up</td>
+                    <td>[Number]</td>
+                    <td>The signature values of unique input up genes.</td>
+                </tr>
+                <tr>
+                    <td>topMeta[ ].overlap.dn</td>
+                    <td>[Number]</td>
+                    <td>The signature values of unique input down genes.</td>
+                </tr>
+            </table>
+            <table id="python"><caption>P<span>ython 3</span> Example</caption></table>
             <pre>
 import requests
 import json
 url = 'http://amp.pharm.mssm.edu/L1000CDS2/query'
+
 # gene-set search example
-payload = {"upGenes":["KDM5A","EGR1","RELB"],
-"dnGenes":["USP22","PHGDH","HADH"],"aggravate":True,"searchMethod":"geneSet"}
+data = {"upGenes":["KDM5A","EGR1","RELB"],
+"dnGenes":["USP22","PHGDH","HADH"]}
+config = {"aggravate":True,"searchMethod":"geneSet","share":True}
+metadata = [{"key":"Tag","value":"gene-set python example"},{key:"Cell","value":"MCF7"}];
+payload = {"data":data,"config":config,"metadata":metadata}
 headers = {'content-type':'application/json'}
 r = requests.post(url,data=json.dumps(payload),headers=headers)
 print(r.json)
+
 # cosine distance search example
-payload = {"input"{"genes":["DDIT4","HIG2","FLT1","ADM","SLC2A3","ZNF331"],
-"vals":[9.97,10.16,7.66,17.80,20.29,15.22]},"aggravate":True,"searchMethod":"CD"}
+data = {genes":["DDIT4","HIG2","FLT1","ADM","SLC2A3","ZNF331"],
+"vals":[9.97,10.16,7.66,17.80,20.29,15.22]}
+config = {"aggravate":False,"searchMethod":"CD","share":True}
+metadata = [{"key":"Tag","value":"CD python example"},{key:"Cell","value":"VCAP"}];
+payload = {"data":data,"config":config,"metadata":metadata}
 headers = {'content-type':'application/json'}
 r = requests.post(url,data=json.dumps(payload),headers=headers)
 print(r.json)
-            </pre>
+    </pre>
         </section>
         <section id='contact'>
             <h3>Contact</h3>
