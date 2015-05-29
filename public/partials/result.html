@@ -34,13 +34,13 @@
         <td>{{entry["cell_id"]}}</td>              
         <td>{{entry["pert_dose"]+entry["pert_dose_unit"]}}</td>              
         <td>{{entry["pert_time"]+entry["pert_time_unit"]}}</td>
-        <td class="narrow"><a popover-placement="left" popover-template="overlap.templateUrl" class="btn download-icon"><i class="fa fa-pause"></i></a></td>              
+        <td class="narrow"><a popover-append-to-body="true" popover-placement="left" popover-template="overlap.templateUrl" class="btn download-icon"><i class="fa fa-pause"></i></a></td>              
         <td class="narrow"><a ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])" class="btn download-icon"><i class="fa fa-download"></i></a></td>
       </tr>
     </tbody>          
     <tfoot>
       <tr>
-        <td colspan="7">
+        <td colspan="8">
           <div class="table-label"> Chemical Perturbations</div>                  
           <div st-pagination="" st-items-by-page="14" st-displayed-pages="" class="custom-pagination"></div>
         </td>

@@ -43,7 +43,7 @@
         |               
         td {{entry["pert_time"]+entry["pert_time_unit"]}}
         td.narrow
-          a.btn.download-icon(popover-placement="left" popover-template="overlap.templateUrl")
+          a.btn.download-icon(popover-append-to-body="true" popover-placement="left" popover-template="overlap.templateUrl")
             i.fa.fa-pause
         |               
         td.narrow
@@ -52,7 +52,7 @@
     |           
     tfoot
       tr
-        td(colspan='7')
+        td(colspan='8')
           .table-label  Chemical Perturbations
           |                   
           .custom-pagination(st-pagination='', st-items-by-page='14', st-displayed-pages='')

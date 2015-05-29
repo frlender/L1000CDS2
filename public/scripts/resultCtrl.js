@@ -1,6 +1,6 @@
 indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStorage', 
-	'$http', 'util', 'localStorageService', '$modal',
-	function($scope, $routeParam, resultStorage, $http, util, local, $modal){
+	'$http', 'util', 'localStorageService', '$modal', '$timeout',
+	function($scope, $routeParam, resultStorage, $http, util, local,$modal,$timeout){
 
 	if($routeParam.shareID in resultStorage){
 		$scope.entries = resultStorage[$routeParam.shareID].entries;
@@ -142,6 +142,14 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
       			}
     			});
 		}
+
+	$scope.$on('$viewContentLoaded',function(event){
+		$timeout(function(){
+			// hack to fix the overlap popover wrong position at first click bug in Firefox.
+			$('[popover-placement="left"]').first().click();
+			$('[popover-placement="left"]').first().click();
+		},0)
+	});
 
 }]);
 
