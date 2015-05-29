@@ -320,6 +320,7 @@ padding-top: 5px;
 
 .input-meta{
  text-align: left;
+ padding-left: 45px;
 
 }
 
@@ -341,13 +342,17 @@ padding-top: 5px;
 .input-meta-content{
 	margin-right:5%;
 	border: solid;
-  padding-left: 12px;
+  padding-left: 2%;
   padding-bottom: 10px;
   border-width: thin;
   border-radius: 5px;
   padding-top: 9px;
-  max-width: 660px;
+  /*max-width: 660px;*/
 }
+
+.col-sm-3{
+	 padding-left:50px;
+}v
 
 .emphasize{
 	font-weight: bold;
@@ -499,3 +504,4 @@ td.pert{
 	text-align: left;
 	padding-left:0;
 }
+
