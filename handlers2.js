@@ -100,10 +100,10 @@ exports.history = function(req,res){
                 var metaCallback = function(topMeta){
                     var dataToUser = {};
                     dataToUser.shareId = id;
-                    util.addExternalIDs(topMeta);
-                     topMeta.forEach(function(e){
+                    topMeta.forEach(function(e){
                         util.addExternalPertIDs(e);
                     });
+                    dataToUser.topMeta = topMeta
                     if("uniqInput" in topMatches){
                         dataToUser.uniqInput = topMatches.uniqInput;
                     }

@@ -11,7 +11,7 @@ var Schema = mongoose.Schema({"pert_desc":String,"cell_id":String,
 var Expm = mongoose.model('Expm',Schema);
 
 // for sigine-share and sigine-store collections
-var Schema = mongoose.Schema({"map":String},{collection:"sigine-share"})
+var Schema = mongoose.Schema({"map":String},{collection:"sigine-share-2"})
 var Share = mongoose.model('Share',Schema);
 
 // for diseases collection
@@ -24,7 +24,7 @@ var Schema2 = mongoose.Schema({
     "data":Object,
     "meta":Array
 },
-    {collection:"sigine-store"});
+    {collection:"sigine-store-2"});
 var Store = mongoose.model('Store',Schema2);
 
 var Schema3 = mongoose.Schema({"count":Number},{collection:"sigine-count"});
