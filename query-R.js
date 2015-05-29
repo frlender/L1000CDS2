@@ -21,7 +21,7 @@ exports.query = function(input,cb){
         }
 
         var options = {
-            url: 'http://elizabeth:23236/custom/Sigine',
+            url: 'http://146.203.54.165:23236/custom/Sigine',
             method: 'POST',
             headers: headers,
             form: {'upGenes': upGenes,
@@ -33,7 +33,7 @@ exports.query = function(input,cb){
         if(input.config.aggravate) direction = 'mimic';
         else direction = 'reverse';
         var options = {
-            url: 'http://elizabeth:23236/custom/Sigine',
+            url: 'http://146.203.54.165:23236/custom/Sigine',
             method: 'POST',
             headers: headers,
             form: {'input': JSON.stringify(input.data),
