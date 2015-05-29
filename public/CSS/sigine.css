@@ -407,12 +407,16 @@ textarea.overlap-geneSet{
 	width:150px;
 	height:200px;
 	background-color:white;
+	border-style: solid;
+	border-color: #ccc;
 }
 
 textarea.overlap-cd{
 	width:250px;
 	height:200px;
 	background-color:white;
+	border-style: solid;
+	border-color: #ccc;
 }
 
 .popover{
