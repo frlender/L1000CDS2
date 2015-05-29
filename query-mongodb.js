@@ -22,7 +22,7 @@ var Disease = mongoose.model('Disease',SchemaDisease);
 var Schema2 = mongoose.Schema({
     "config":Object,
     "data":Object,
-    "meta":Object
+    "meta":Array
 },
     {collection:"sigine-store"});
 var Store = mongoose.model('Store',Schema2);

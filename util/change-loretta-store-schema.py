@@ -9,7 +9,7 @@ for doc in collStore.find():
               "config":{'db-version':'cpcd-v1.0',
                         "aggravate":doc["aggravate"]},
               "data":{},
-              "meta":{}}
+              "meta":[]}
     if "searchMethod" not in doc:
         update['config']['searchMethod'] = "geneSet"
         update['data']['upGenes'] = doc['upGenes']
@@ -24,16 +24,4 @@ for doc in collStore.find():
         else:
             print('searchMethod is not right')
             break
-        update['_id'] = doc['_id']
-        collStore2.save(update)
-    elif "upGenes" in doc and "dnGenes" in doc:
-        update = {"config":{},"data":{},"meta":{}}
-        update['data']['upGenes'] = doc['upGenes']
-        update['data']['dnGenes'] = doc['dnGenes']
-        if "searchMethod" not in doc:
-            update['config']['searchMethod'] = "geneSet"
-        update['config']['aggravate'] = doc['aggravate']
-        update['_id'] = doc['_id']
-        collStore2.save(update)
-    else:
-        break
+    collStore2.save(update)
