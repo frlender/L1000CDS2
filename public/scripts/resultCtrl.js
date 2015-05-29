@@ -21,13 +21,23 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 		initialization();
 	}else{
 		$http.get(baseURL+$routeParam.shareID).success(function(data){
+			// for local storage
+			var search = {};
+			search.entries = data['results']["topMeta"];
+			search.input = data.input
+
 			$scope.entries = data['results']["topMeta"];
 			$scope.shareURL = baseURL + data['results']['shareId'];
 			$scope.input = data.input;
+
 			if('uniqInput' in data.results){
 				$scope.uniqInput = data.results.uniqInput;
+				search.uniqInput = data.results.uniqInput;
 			}
+			local.set(data['results']['shareId'],search);
 			initialization();
+			
+
 		});
 	}
 
