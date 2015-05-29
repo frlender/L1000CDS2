@@ -3,7 +3,8 @@ var baseURL = window.location.protocol+"//"+window.location.host + "/L1000CDS2/"
 
 
 
-indexControllers.controller('index',['$scope','$http',function($scope,$http){
+indexControllers.controller('index',['$scope','$http','$location',
+	function($scope,$http,$location){
 	$scope.searchCount = null;
 	$scope.updateCount = function(){
 		//this function will be inherited by any controller in ng-view
@@ -12,6 +13,9 @@ indexControllers.controller('index',['$scope','$http',function($scope,$http){
 		});
 	}
 	$scope.updateCount();
+	$scope.directToIndex = function(){
+		$location.path('/index');
+	}
 }]);
 
 

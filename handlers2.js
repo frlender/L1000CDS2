@@ -4,16 +4,6 @@ var R = require('./query-R.js');
 var mongo = require('./query-mongodb.js');
 var util = require('./util.js');
 
-// subject to change.
-// var baseURL = "http://localhost:8182/L1000CDS2/"
-
-
-// var jade = require('jade');
-// var indexFun = jade.compileFile('public/jade/index.jade',{pretty:true});
-// fs.writeFileSync('public/index.html',indexFun({root:'',input:"",results:""}));
-
-
-
 
 exports.query = function(req,res){
     // input should be processed in front-end into a unique array of 
