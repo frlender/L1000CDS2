@@ -24,7 +24,7 @@ exports.query = function(req,res){
 
     // pass by reference!
     var saveDoc = req.body;
-    saveDoc["db-version"] = 'cpcd-v1.0';
+    saveDoc["config"]["db-version"] = 'cpcd-v1.0';
 
     var callback = function(topMatches){
         // if err messenge

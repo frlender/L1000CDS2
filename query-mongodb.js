@@ -20,7 +20,6 @@ var SchemaDisease = mongoose.Schema({"term":String,"desc":String,genes:[String],
 var Disease = mongoose.model('Disease',SchemaDisease);
 
 var Schema2 = mongoose.Schema({
-    "db-version":String,
     "config":Object,
     "data":Object,
     "meta":Object
