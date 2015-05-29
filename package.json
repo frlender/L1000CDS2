@@ -1,7 +1,7 @@
 {
   "name": "Sigine",
-  "description": "test app",
-  "version": "0.0.1",
+  "description": "L1000CDS2",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "express": "4.x",

@@ -2,7 +2,7 @@
 // by Qiaonan Duan, 1/27/2015
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://readWriteUser:askQiaonan@localhost/L1000CDS2');
+mongoose.connect('mongodb://readWriteUser:askQiaonan@loretta/L1000CDS2');
 
 // for cpcd collection
 var Schema = mongoose.Schema({"pert_desc":String,"cell_id":String,
