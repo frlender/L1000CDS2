@@ -12,3 +12,4 @@ R/sync.ffs_db
 .idea/vcs.xml
 .idea/workspace.xml
 public/data/ebovs_old.json
+util/.idea/
