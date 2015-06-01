@@ -1,5 +1,5 @@
 var indexControllers = angular.module('indexControllers', ["services"]);
-var baseURL = window.location.protocol+"//"+window.location.host + "/L1000CDS2/";
+var baseURL = window.location.origin+window.location.pathname;
 
 
 
