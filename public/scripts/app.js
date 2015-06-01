@@ -6,14 +6,14 @@ var Sigine = angular.module('Sigine', ['indexControllers','ngRoute',
   'smart-table','toggle-switch','ui.bootstrap','blockUI','flexForm','LocalStorageModule']);
 
 
-Sigine.directive('focusMe', function($timeout, $parse) {
+Sigine.directive('focusMe', ['$timeout','$parse',function($timeout, $parse) {
   return {
     link: function(scope, element, attrs) {
       // $(element[0]).select()
       setTimeout(function(){$(element[0]).select()},100);
     }
   };
-});
+}]);
 
 
 Sigine.config(['$routeProvider',

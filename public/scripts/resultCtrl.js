@@ -131,17 +131,17 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 	}
 
 
-		$scope.share = function(){
-			var modalInstance = $modal.open({
-      			templateUrl: baseURL+'share.html',
-      			controller: 'ModalInstanceCtrl',
-      			resolve: {
-        			shareURL: function () {
-          			return location.href;
-        			}
-      			}
-    			});
-		}
+	$scope.share = function(){
+		var modalInstance = $modal.open({
+      		templateUrl: baseURL+'share.html',
+      		controller: 'ModalInstanceCtrl',
+      		resolve: {
+        		shareURL: function () {
+          		return location.href;
+        		}
+      		}
+    		});
+	}
 
 	$scope.$on('$viewContentLoaded',function(event){
 		$timeout(function(){
