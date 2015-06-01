@@ -2,7 +2,7 @@
 // by Qiaonan Duan, 1/27/2015
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://readWriteUser:askQiaonan@loretta/L1000CDS2');
+mongoose.connect('mongodb://readWriteUser:askQiaonan@10.91.53.62/L1000CDS2');
 
 // for cpcd collection
 var Schema = mongoose.Schema({"pert_desc":String,"cell_id":String,
@@ -43,7 +43,7 @@ exports.getMetas = function(topExpms,callback){
     // topExpms structure:
     // topExpms -- [sig_ids]
     //          -- [scores]
-    
+
     // map is necessary to sort the query results in the order of topExpms
     var map = {};
     topExpms["sig_ids"].forEach(function(e,i) {
@@ -52,7 +52,7 @@ exports.getMetas = function(topExpms,callback){
 
     var query = Expm.find({sig_id:{$in:topExpms["sig_ids"]}})
         .select('-_id sig_id pert_id pert_desc cell_id pert_dose pert_dose_unit pert_time pert_time_unit').lean();
-    
+
     // console.log(map);
     query.exec(function(err,queryRes){
         if(err) throw err;
@@ -78,7 +78,7 @@ exports.signaturesFromIDs = function(sig_ids,res){
 
     var query = Expm.find({sig_id:{$in:sig_ids}})
         .select('-_id').lean();
-    
+
     // console.log(map);
     query.exec(function(err,queryRes){
         if(err) throw err;
@@ -127,9 +127,9 @@ exports.getSharedInput = function(sharedId,cb){
 					if(err) throw err;
 					cb(queryRes);
 				})
-			}	
+			}
 		});
-	}	
+	}
 }
 
 
@@ -163,7 +163,3 @@ exports.disease = function(id,res){
         res.send(queryRes);
     });
 }
-
-
-
-

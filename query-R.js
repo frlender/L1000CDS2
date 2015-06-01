@@ -8,7 +8,7 @@ var headers = {
 
 
 var port = 23236
-// var port = 
+// var port =
 exports.query = function(input,cb){
     if(input.config.searchMethod == "geneSet"){
         if(input.config.aggravate){
@@ -21,7 +21,7 @@ exports.query = function(input,cb){
         }
 
         var options = {
-            url: 'http://127.0.0.1:'+port+'/custom/Sigine',
+            url: 'http://146.203.54.165:23236/custom/Sigine',
             method: 'POST',
             headers: headers,
             form: {'upGenes': upGenes,
@@ -29,11 +29,11 @@ exports.query = function(input,cb){
                 'method':'"geneSet"'}
         }
     }else if(input.config.searchMethod == "CD"){
-        
+
         if(input.config.aggravate) direction = 'mimic';
         else direction = 'reverse';
         var options = {
-            url: 'http://127.0.0.1:'+port+'/custom/Sigine',
+            url: 'http://146.203.54.165:23236/custom/Sigine',
             method: 'POST',
             headers: headers,
             form: {'input': JSON.stringify(input.data),
