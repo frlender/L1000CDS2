@@ -10,7 +10,6 @@ body {
 
 body{
 	font-size:15px;
-	
 }
 
 .custom-menu{
@@ -510,3 +509,16 @@ td.pert{
 	padding-left:0;
 }
 
+.overlap-close{
+  float: right;
+  vertical-align: top;
+  position: absolute;
+  top: 5px;
+}
+
+.overlap-close-geneSet{
+	left: 327px;
+}
+.overlap-close-CD{
+	left: 526px;
+}

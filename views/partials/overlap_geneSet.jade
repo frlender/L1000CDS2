@@ -1,4 +1,6 @@
-.overlap-popover-holder 
+.overlap-popover-holder
+	a.overlap-close.overlap-close-geneSet(overlap-close)
+		i.fa.fa-times 
 	.overlap-popover-col.overlap-popover-col-margin
 		.overlap-popover-header input {{_keyMap(overlap.key1).input}} / signature {{_keyMap(overlap.key1).sig}}                 
 			a(ng-href="{{helpURL}}#{{input.config.searchMethod}}Overlap" target="_blank")

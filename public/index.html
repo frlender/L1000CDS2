@@ -23,11 +23,14 @@
     <script src="libraries/angular-flex-form/flex-form.js"></script>
     <script src="libraries/angular-local-storage/dist/angular-local-storage.min.js"></script>
     <!-- scripts-->
-    <script src="dist/main.min.js"></script>
+    <script src="scripts/services.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers.js"></script>
+    <script src="scripts/resultCtrl.js"></script>
   </head>  
   <body ng-controller="index">
     <div class="pure-menu pure-menu-horizontal custom-menu"><img src="CSS/images/sigine.png" alt="Sigine" class="rubic">    &#x9;<span ng-click="directToIndex()" class="rubic-title"> L1000CDS<sup>2 </sup></span>      
-      <div class="description">An <span class="highlight lightning-fast">ultra-fast</span> LINCS <span class="highlight">L1000 </span><span class="highlight">C</span>haracteristic <span class="highlight">D</span>irection <span class="highlight">S</span>ignature<span class="highlight">S</span>earch Engine</div><span class="search-count-text"><span class="search-count">{{searchCount}} </span>searches performed!</span>
+      <div class="description">An <span class="highlight lightning-fast">ultra-fast</span> LINCS <span class="highlight">L1000 </span><span class="highlight">C</span>haracteristic <span class="highlight">D</span>irection <span class="highlight">S</span>ignature    <span class="highlight">S</span>earch Engine</div><span class="search-count-text"><span class="search-count">{{searchCount}} </span>searches performed!</span>
     </div>
     <div ng-view class="view"></div>
     <footer class="footer">
