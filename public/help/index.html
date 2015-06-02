@@ -14,6 +14,7 @@
         <ul>
             <li><a href='#summary'>Summary</a></li>
             <li><a href='#L1000Data'>L1000 Data</a></li>
+            <li><a href='#download'>Signature Download</a></li>
             <li><a href='#tutorial'>Tutorial</a></li>
             <ul id='sideBarSub'>
                 <li><a href="#input" class="subtitle"> Input </a></li>
@@ -50,6 +51,11 @@
             <h3>L1000 mRNA Expression Data</h3>
             <p>The L1000 mRNA gene-expression dataset is generated as part of the <a href="http://www.lincsproject.org/">Library of Integrated Network-based Cellular Signatures (LINCS) project</a>, a <a href="https://commonfund.nih.gov/">Common Fund</a> program run by NIH. LINCS aims to systematically profile the molecular and phenotypical outcomes of agent perturbed human cells. The variety of agents includes chemical compounds, different micro-environments, endogenous ligands, gene knockdown and overexpression. The L1000 dataset comprises of over a million gene expression profiles of chemically or genetically perturbed human cell-lines. The L1000 technology developed at Broad Institute measures only ~1000 genes in each sample and estimates the expression of the rest of the transcriptome using an empirical model. In this way, the technology significantly reduces the cost and makes large-scale gene expression profiling possible. L1000CDS² currently includes a subset of the chemically perturbed gene expression profiles, specifically the profiles in the CPC and CPD peturbagen groups. After averaging replicates and removing insignificant signatures, we remained with 22,926 signatures in the L1000CDS² database.</p>
         </section>
+        <section id="download">
+            <h3>L1000 CD signature download</h3>
+            <p>
+            38,9031 L1000 characteristic direction signatures including the aforementioned CPC and CPD subset can be downloaded <a href="http://amp.pharm.mssm.edu/public/L1000CDS_download/" target="_blank">here</a>.</p>
+        </section>
        
         <section id='tutorial'>
             <h3>Tutorial</h3>
@@ -64,8 +70,6 @@
                 <img id="CDFig" src='images/CD.png'/>
                 <p class='caption'>Fig. 2 Screenshot of the input up gene text box filled with a signature.</p>
             </div>
-            
-
                 <h5 id="example">Examples and Signatures</h5>
                 <p>Clicking the <span class="highlight2">Gene-set Example</span> button will fill in an example of up/down gene lists in the text boxes for a demo search using the gene-set method. Clicking the <span class="highlight2">Signature Example</span> button will fill in an example of a signature in the up gene text box for a demo of searching with the cosine distance method (Fig. 3).</p>
                 <img id="functionsFig" src="images/functions.png"/>
@@ -93,15 +97,27 @@
             <p>Recent search history will be displayed in this section as links (Fig. 3). Clicking a link will show the results for that search. Recent searches are stored in the browser's local storage buffer. Clearing browsing data would result in a loss of these records. A maximum of 50 recent searches are stored for each user’s browser.</p>
             <h3 id="result" class="subheader">Result</h3>
             <h5 id="table">Table</h5>
-            <p>The search results are rendered as a paginated table with 12 entries per page (Fig 6). Each entry provides five pieces of information about the signature: score, perturbation, cell-line, dose, and time point. The <span id="geneSetScore" class="highlight2">score</span> is the overlap between the input DE genes and the signature DE genes divided by the effective input. The effective input is the length of the intersection between the input genes and the L1000 genes since some input lists contain genes that are not present in the L1000 dataset. This includes all ~22,000 L1000 genes, not just the measured ~1000. For the cosine distance search, the <span id="CDScore" class="highlight2">score</span> is the cosine distance between the input signature and the L1000 characteristic direction signatures. The consensus signatures are sorted by their scores in descending order in reverse mode and in ascending order in mimic mode. The perturbation column shows the names of the chemical perturbations. User can click on the three <span class="pert-link life">L</span> <span class="pert-link pubchem">P</span> <span class="pert-link drugbank">D</span> icons to look up perturbations in <a target="_blank" href="http://life.ccs.miami.edu/life/">LIFE</a>, <a href="https://pubchem.ncbi.nlm.nih.gov/" target="_blank">PubChem</a> and <a href="http://www.drugbank.ca/" target="_blank">DrugBank</a> that catalog detailed information about the chemical compound. Not every perturbation is available in all the three resources. There is also a signature column in the table. Clicking the download button in that column will download all the information about a signature as a JavaScript Object Notation (JSON) file. </p>
+            <p>The search results are rendered as a paginated table with 12 entries per page (Fig 6). Each entry provides 7 pieces of information about the signature: rank, score, perturbation, cell-line, dose, time point and overlap with the input.</p>
+            <p><span class="highlight2">Rank</span>: The rank of a signature based on its score. </p>
+            <p><span id="score" class="highlight2">Score</span>: For gene-set search, The score is the overlap between the input DE genes and the signature DE genes divided by the effective input. The effective input is the length of the intersection between the input genes and the L1000 genes since some input lists contain genes that are not present in the L1000 dataset. This includes all ~22,000 L1000 genes, not just the measured ~1000.<br>
+            For the cosine distance search, the score is the cosine distance between the input signature and the L1000 characteristic direction signatures.The consensus signatures are sorted by their scores in descending order in reverse mode and in ascending order in mimic mode.</p>
 
+            <p><span class="highlight2">Perturbation</span>: 
+               The perturbation column shows the names of the chemical perturbations. User can click on the three <span class="pert-link life">L</span> <span class="pert-link pubchem">P</span> <span class="pert-link drugbank">D</span> icons to look up perturbations in <a target="_blank" href="http://life.ccs.miami.edu/life/">LIFE</a>, <a href="https://pubchem.ncbi.nlm.nih.gov/" target="_blank">PubChem</a> and <a href="http://www.drugbank.ca/" target="_blank">DrugBank</a> that catalog detailed information about the chemical compound. Not every perturbation is available in all the three resources. There is also a signature column in the table.</p>
+            <p><span class="highlight2">Cell-line, Dose and Time</span>:
+            The cell-line, dose and time point used for generating the signature.</p>
+ 
             <img id="tableFig" src='images/table.png'/>
+            
             <p class='caption'>Fig. 6 Screenshot of the paginated results table, the header and the share button.</p>
-            <p>Another column in the table is the overlap column. Clicking the overlap button will show the overlapping genes (and their values) in two text boxes. <span id="geneSetOverlap">If</span> the user input type is up/down gene lists, the first box will show the overlap genes between the input up genes and the signature up (down) genes and the second will show the overlap between the input down and the signature down (up) in mimic (reverse) mode. <span id="CDOverlap">If</span> the input is a signature, the first box will show genes with a positive value in input and their values in the signature; the second box will show genes with a negative value in input and their values in the signature. The signature values and input values in both boxes are expected to be mostly in the same sign in mimic mode and in the opposite sign in reverse mode. The Enrichr button under each text box will send the genes to Enrichr for enrichment analysis.</p>
+            <p><span class="highlight2">Overlap</span>:  Clicking the overlap button will show the overlapping genes (and their values) in two text boxes. <span id="geneSetOverlap">If</span> the user input type is up/down gene lists, the first box will show the overlap genes between the input up genes and the signature up (down) genes and the second will show the overlap between the input down and the signature down (up) in mimic (reverse) mode. <span id="CDOverlap">If</span> the input is a signature, the first box will show genes with a positive value in input and their values in the signature; the second box will show genes with a negative value in input and their values in the signature. The signature values and input values in both boxes are expected to be mostly in the same sign in mimic mode and in the opposite sign in reverse mode. The Enrichr button under each text box will send the genes to Enrichr for enrichment analysis.</p>
             <img id="overlapFig" src="images/overlap.png"/>
             <p class='caption'>Fig.7 Screenshot of the overlap between the input signature and a small molecule signature.</p>
+            <p><span class="highlight2">Download</span>: 
+            Clicking the download button in that column will download all the information about a signature as a JavaScript Object Notation (JSON) file. </p>
             <h5 id="header">Header</h5>
-            A header that displays the tag and search mode is shown on the upper left corner of the result page (Fig. 7). Clicking the header will show the metadata of the input.
+            <p>
+            A header that displays the tag and search mode is shown on the upper left corner of the result page (Fig. 7). Clicking the header will show the metadata of the input.</p>
         </section>
         
         <section id='api'>

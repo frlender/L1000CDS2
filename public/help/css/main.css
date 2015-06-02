@@ -236,6 +236,10 @@ font-weight: bold;
 
 span.highlight2{
     font-weight: bold;
+      font-weight: bold;
+  font-style: italic;
+  font-size: 0.9em;
+  color: #555;
 }
 
 .pert-link{
@@ -260,3 +264,4 @@ span.highlight2{
     background-color:#EA62FF;
     margin-left: 3px;
 }
+
