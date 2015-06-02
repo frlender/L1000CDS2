@@ -522,3 +522,6 @@ td.pert{
 .overlap-close-CD{
 	left: 526px;
 }
+td.rank{
+	max-width: 100px;
+}

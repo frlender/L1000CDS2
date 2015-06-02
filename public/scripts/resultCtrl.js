@@ -42,6 +42,9 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 	}
 
 	function initialization(){
+		$scope.entries.forEach(function(entry,i){
+			entry.rank = i+1;
+		});
 		$scope.pubchemURL = "http://pubchem.ncbi.nlm.nih.gov/summary/summary.cgi?cid=";
 		$scope.drugbankURL = "http://www.drugbank.ca/drugs/";
 		$scope.lifeURL = "http://life.ccs.miami.edu/life/summary?mode=SmallMolecule&source=BROAD&input="

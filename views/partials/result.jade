@@ -12,6 +12,7 @@
 .result-container
   table.table.table-striped(st-table='displayedEntries', st-safe-src='entries')
     thead
+      th Rank
       th  Score       
         a(ng-href="{{helpURL}}#{{input.config.searchMethod}}Score" target="_b")
           i.fa.fa-question-circle 
@@ -28,7 +29,8 @@
       |             
       th  Signature 
     tbody           
-      tr(ng-class="{'up-signature': (entry['posPercent']>=0.5), 'dn-signature': (entry['posPercent']<0.5)}", ng-repeat='entry in displayedEntries')
+      tr(ng-repeat='entry in displayedEntries')
+        td.rank {{entry["rank"]}}
         td {{entry["score"].toFixed(4)}}
         |               
         td.pert {{entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"]}}  
@@ -52,7 +54,7 @@
     |           
     tfoot
       tr
-        td(colspan='8')
+        td(colspan='9')
           .table-label  Chemical Perturbations
           |                   
           .custom-pagination(st-pagination='', st-items-by-page='14', st-displayed-pages='')
