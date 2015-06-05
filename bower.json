@@ -15,7 +15,7 @@
     "string": "2.2.0",
     "angular-block-ui": "0.2.0",
     "angular-smart-table": "1.4.5",
-    "angular-bootstrap-toggle-switch": "0.5.x",
+    "angular-bootstrap-toggle-switch": "0.5.4",
     "angular-local-storage":"0.2.1",
     "angular-flex-form": "master"
   },

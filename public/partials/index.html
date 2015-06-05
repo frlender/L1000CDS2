@@ -34,7 +34,7 @@
         <div class="input-meta-title">Configuration</div>
         <div class="input-meta-content">
           <div class="input-margin">
-            <toggle-switch model="aggravate" on-label="mimic" off-label="reverse" class="switch-default"></toggle-switch><span>   Search for small molecule signatures that   <span class="emphasize">{{aggravate?"mimic":"reverse"}}   </span>my input.</span>
+            <toggle-switch ng-model="aggravate" on-label="mimic" off-label="reverse" class="switch-default"></toggle-switch><span>   Search for small molecule signatures that   <span class="emphasize">{{aggravate?"mimic":"reverse"}}   </span>my input.</span>
           </div>
           <div class="input-margin">
             <input type="checkbox" ng-model="share"/><span> Yes. I agree to share my input signature and metadata for research purposes.</span>
