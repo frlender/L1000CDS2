@@ -25,4 +25,20 @@ startTime = time.time()
 r = requests.post(localUrl,data=payload)
 print(time.time()-startTime)
 
+#Test
+genes = [
+           ('USP18', -0.10536861617612463),
+           ('H19', 0.0979803999370785),
+           ('COL3A1', 0.09012118037674563),
+           ('MYL9', 0.09001543082469686),
+           ('CTGF', 0.08922812355076926),
+           ('TAGLN', 0.0823789311253236)
+       ]
 
+data = {'genes':[item[0] for item in genes],'vals':[item[1] for item in genes]}
+with open('testData1.json','w') as tf:
+    json.dump(data,tf)
+payload = {'input':json.dumps(data),'method':'"CD"','direction':'"reverse"'}
+startTime = time.time()
+r = requests.post(localUrl,data=payload)
+print(time.time()-startTime)
