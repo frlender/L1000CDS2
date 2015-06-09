@@ -51,7 +51,7 @@ exports.query = function(input,cb){
             // console.log(body,typeof(body))
             // res.send(body);
             // var enrichRes = JSON.parse(body);
-            console.log('success');
+            // console.log('success');
             var topMatches = JSON.parse(body);
             topMatches.overlap = [];
             // restructure overlap

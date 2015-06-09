@@ -13,3 +13,5 @@ R/sync.ffs_db
 .idea/workspace.xml
 public/data/ebovs_old.json
 util/.idea/
+public/dist/main.min.js
+public/index.html
