@@ -8,7 +8,7 @@
         </div>
       </li>
     </ul>
-  </div><a ng-click="share()" class="btn share-button"><i class="fa fa-share-alt-square"></i></a><a href="help/" target="_blank" class="btn share-button"><i class="fa fa-question-circle"></i></a>
+  </div><a ng-if="isFileSaverSupported" title="download the table as csv" ng-click="saveFile()" class="btn share-button"><i class="fa fa-cloud-download"></i></a><a ng-click="share()" class="btn share-button"><i class="fa fa-share-alt-square"></i></a><a href="help/" target="_blank" class="btn share-button"><i class="fa fa-question-circle"></i></a>
 </div>
 <div class="result-container">
   <table st-table="displayedEntries" st-safe-src="entries" class="table table-striped">

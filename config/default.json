@@ -1,0 +1,4 @@
+{
+	"dbUrl":"mongodb://readWriteUser:askQiaonan@localhost/L1000CDS2",
+	"RUrl":"http://127.0.0.1:23236/custom/Sigine"
+}

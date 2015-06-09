@@ -5,6 +5,8 @@
         li
           .result-input-meta
             flex-form(data="input.meta" static="true")
+    a.btn.share-button(ng-if="isFileSaverSupported" title="download the table as csv" ng-click="saveFile()")
+      i.fa.fa-cloud-download
     a.btn.share-button(ng-click="share()")
       i.fa.fa-share-alt-square
     a.btn.share-button(href="help/" target="_blank")

@@ -2,7 +2,9 @@
 // by Qiaonan Duan, 1/27/2015
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://readWriteUser:askQiaonan@10.91.53.62/L1000CDS2');
+var config = require('config');
+
+mongoose.connect(config.get('dbUrl'));
 
 // for cpcd collection
 var Schema = mongoose.Schema({"pert_desc":String,"cell_id":String,

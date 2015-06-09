@@ -64,6 +64,21 @@ module.exports = function(grunt) {
           script:'index.js'
         }
       }
+    },
+    env:{
+      dev:{
+        NODE_ENV:"dev"
+      },
+      product:{
+        NODE_ENV:"product"
+      }
+    },
+    run:{
+      server:{
+        args:[
+          'index.js'
+        ]
+      }
     }
   });
 
@@ -71,8 +86,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-env');
+  grunt.loadNpmTasks('grunt-run');
 
-  grunt.registerTask('default', ['express:dev','watch']);
-  grunt.registerTask('release',['jade:release','uglify:built']);
+  grunt.registerTask('default', ['env:dev','express:dev','watch']);
+  // grunt.registerTask('release',['jade:release','uglify:built']);
+  grunt.registerTask('deploy',['jade:release','uglify:built','env:product','run:server'])
 
 };

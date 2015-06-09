@@ -1,4 +1,5 @@
 var request = require('request');
+var config = require('config');
 
 // Set the headers
 var headers = {
@@ -6,9 +7,8 @@ var headers = {
     'Content-Type':     'application/x-www-form-urlencoded'
 }
 
+var queryUrl = config.get('RUrl');;
 
-var port = 23236
-// var port =
 exports.query = function(input,cb){
     if(input.config.searchMethod == "geneSet"){
         if(input.config.aggravate){
@@ -21,7 +21,7 @@ exports.query = function(input,cb){
         }
 
         var options = {
-            url: 'http://146.203.54.165:23236/custom/Sigine',
+            url: queryUrl,
             method: 'POST',
             headers: headers,
             form: {'upGenes': upGenes,
@@ -33,7 +33,7 @@ exports.query = function(input,cb){
         if(input.config.aggravate) direction = 'mimic';
         else direction = 'reverse';
         var options = {
-            url: 'http://146.203.54.165:23236/custom/Sigine',
+            url: queryUrl,
             method: 'POST',
             headers: headers,
             form: {'input': JSON.stringify(input.data),
@@ -51,6 +51,7 @@ exports.query = function(input,cb){
             // console.log(body,typeof(body))
             // res.send(body);
             // var enrichRes = JSON.parse(body);
+            console.log('success');
             var topMatches = JSON.parse(body);
             topMatches.overlap = [];
             // restructure overlap

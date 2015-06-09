@@ -2,9 +2,11 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 	'$http', 'util', 'localStorageService', '$modal', '$timeout',
 	function($scope, $routeParam, resultStorage, $http, util, local,$modal,$timeout){
 
+	var shareID;
 	if($routeParam.shareID in resultStorage){
 		$scope.entries = resultStorage[$routeParam.shareID].entries;
 		$scope.shareURL = baseURL+$routeParam.shareID;
+		shareID = $routeParam.shareID;
 		$scope.input = resultStorage[$routeParam.shareID].input;
 		if('uniqInput' in resultStorage[$routeParam.shareID]){
 			$scope.uniqInput = resultStorage[$routeParam.shareID].uniqInput;
@@ -14,6 +16,7 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 		var item = local.get($routeParam.shareID)
 		$scope.entries = item.entries;
 		$scope.shareURL = baseURL+$routeParam.shareID;
+		shareID = $routeParam.shareID;
 		$scope.input = item.input;
 		if('uniqInput' in item){
 			$scope.uniqInput = item.uniqInput;
@@ -28,6 +31,7 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 
 			$scope.entries = data['results']["topMeta"];
 			$scope.shareURL = baseURL + data['results']['shareId'];
+			shareID = data['results']['shareId'];
 			$scope.input = data.input;
 
 			if('uniqInput' in data.results){
@@ -36,8 +40,6 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 			}
 			local.set(data['results']['shareId'],search);
 			initialization();
-			
-
 		});
 	}
 
@@ -45,6 +47,12 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 		$scope.entries.forEach(function(entry,i){
 			entry.rank = i+1;
 		});
+		try {
+			// for front-end downloading table using FileSaver.js
+    		$scope.isFileSaverSupported = !!new Blob;
+		} catch (e) {
+			$scope.isFileSaverSupported = false;
+		}
 		$scope.pubchemURL = "http://pubchem.ncbi.nlm.nih.gov/summary/summary.cgi?cid=";
 		$scope.drugbankURL = "http://www.drugbank.ca/drugs/";
 		$scope.lifeURL = "http://life.ccs.miami.edu/life/summary?mode=SmallMolecule&source=BROAD&input="
@@ -144,6 +152,26 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
         		}
       		}
     		});
+	}
+
+	$scope.saveFile = function(){
+		var header = ['Rank','Score','Perturbation','Perturbation LIFE URL',
+		'Perturbation PubChem URL', 'Perturbation DrugBank URL','Cell-line',
+		'Dose','Time','Signature URL'].join(',');
+		var content = $scope.entries.map(function(entry){
+			return [entry.rank,entry["score"].toFixed(4),
+			entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"],
+			$scope.lifeURL+entry.pert_id, 
+			entry.pubchem_id?($scope.pubchemURL+entry.pubchem_id):'None',
+			entry.drugbank_id?($scope.drugbankURL+entry.drugbank_id):'None', 
+			entry.cell_id,
+			entry["pert_dose"]+entry["pert_dose_unit"],
+			entry["pert_time"]+entry["pert_time_unit"],
+			baseURL+"meta?sig_id="+entry.sig_id].join(',');
+		}).join('\n');
+
+		var blob = new Blob([header+'\n'+content], {type: "text/plain;charset=utf-8"});
+		saveAs(blob, 'table.'+shareID+".csv");
 	}
 
 	$scope.$on('$viewContentLoaded',function(event){
