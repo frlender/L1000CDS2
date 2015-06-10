@@ -22,7 +22,7 @@ print(time.time()-startTime)
 #long
 payload = {'input':json.dumps(inputLong['data']),'method':'"CD"','direction':'"reverse"'}
 startTime = time.time()
-r = requests.post(localUrl,data=payload)
+r = requests.post(deployUrl,data=payload)
 print(time.time()-startTime)
 
 #Test
@@ -36,9 +36,9 @@ genes = [
        ]
 
 data = {'genes':[item[0] for item in genes],'vals':[item[1] for item in genes]}
-with open('testData1.json','w') as tf:
-    json.dump(data,tf)
+# with open('testData1.json','w') as tf:
+#     json.dump(data,tf)
 payload = {'input':json.dumps(data),'method':'"CD"','direction':'"reverse"'}
 startTime = time.time()
-r = requests.post(localUrl,data=payload)
+r = requests.post(deployUrl,data=payload)
 print(time.time()-startTime)

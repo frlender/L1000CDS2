@@ -1,6 +1,7 @@
 indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStorage', 
-	'$http', 'util', 'localStorageService', '$modal', '$timeout',
-	function($scope, $routeParam, resultStorage, $http, util, local,$modal,$timeout){
+	'$http', 'util', 'localStorageService', '$modal', '$timeout', '$location',
+	function($scope, $routeParam, resultStorage, $http, util, local,$modal,
+		$timeout,$location){
 
 	var shareID;
 	if($routeParam.shareID in resultStorage){
@@ -172,6 +173,10 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 
 		var blob = new Blob([header+'\n'+content], {type: "text/plain;charset=utf-8"});
 		saveAs(blob, 'table.'+shareID+".csv");
+	}
+
+	$scope.reanalyze = function(){
+		$location.path('/index/'+shareID);
 	}
 
 	$scope.$on('$viewContentLoaded',function(event){

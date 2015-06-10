@@ -525,3 +525,20 @@ td.pert{
 td.rank{
 	max-width: 100px;
 }
+
+.reanalyze{
+  float: left;
+  padding-left: 5px;
+  margin-left: 3px;
+  padding-right: 5px;
+  background-color: #fa8144;
+  border-color: #fa8144;
+}
+.reanalyze:hover{
+  background-color: #E4733A;
+  border-color: #E4733A;
+}
+
+/*.reanalyze i{
+	font-size: 1.2em;
+}*/

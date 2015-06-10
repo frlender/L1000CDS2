@@ -23,21 +23,37 @@ indexControllers.controller('index',['$scope','$http','$location',
 var process = _.identity;
 indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExample', 
 	'buildQueryData', 'resultStorage', '$location', 'ffClean', 'localStorageService',
-	'util',
+	'util', '$routeParams',
 	function($scope,$http,$modal,loadExample,buildQueryData,resultStorage,$location,
-		ffClean,local,util){
+		ffClean,local,util,$routeParams){
 		
-		//default values
-		// reverse
-		$scope.aggravate = false;
-		// $scope.shareURL = "";
-		$scope.share = false;
-		$scope.inputMeta = [
-			{key:"Tag",value:"",dataPlaceholder:"add a tag"},
-       		{key:"Cell", value:""},
-       		{key:"Perturbation", value:""},
-       		{key:"Time point", value:""}
-       	];
+		if('shareID' in $routeParams){
+			var input = local.get($routeParams.shareID).input;
+			$scope.aggravate = input.config.aggravate;
+			$scope.share = input.config.share;
+			$scope.inputMeta = input.meta.length==0?
+			[{key:"Tag",value:"",dataPlaceholder:"add a tag"}]:input.meta;
+			if(input.config.searchMethod=="geneSet"){
+				$scope.upGenes = input.data.upGenes.join('\n');
+				$scope.dnGenes = input.data.dnGenes.join('\n');
+			}else{
+				$scope.upGenes = _.zip(input.data.genes,input.data.vals).map(function(item){
+					return item.join(',');
+				}).join('\n');
+			}
+		}else{
+			//default values
+			// reverse
+			$scope.aggravate = false;
+			// $scope.shareURL = "";
+			$scope.share = false;
+			$scope.inputMeta = [
+				{key:"Tag",value:"",dataPlaceholder:"add a tag"},
+       			{key:"Cell", value:""},
+       			{key:"Perturbation", value:""},
+       			{key:"Time point", value:""}
+       		];
+       }
 
        	$scope.history = [];
        	var maxLocal = 50; // set Max storage number
