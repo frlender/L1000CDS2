@@ -1,5 +1,6 @@
 .input-view
   .header-board
+      a.btn.btn-primary.btn-clear.share-button(ng-if="hasInput" ng-click="clearInput()" title="Clear input and start new search") clear
       a.btn.share-button(href="help/" target="_blank")
         i.fa.fa-question-circle
     #container.row.custom-row.text-center

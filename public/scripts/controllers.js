@@ -28,6 +28,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 		ffClean,local,util,$routeParams){
 		
 		if('shareID' in $routeParams){
+			$scope.hasInput = true;
 			var input = local.get($routeParams.shareID).input;
 			$scope.aggravate = input.config.aggravate;
 			$scope.share = input.config.share;
@@ -42,6 +43,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 				}).join('\n');
 			}
 		}else{
+			$scope.hasInput = false;
 			//default values
 			// reverse
 			$scope.aggravate = false;
@@ -53,6 +55,9 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
        			{key:"Perturbation", value:""},
        			{key:"Time point", value:""}
        		];
+       }
+       $scope.clearInput = function(){
+       	 $location.path('/index/');
        }
 
        	$scope.history = [];

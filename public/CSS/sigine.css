@@ -539,6 +539,11 @@ td.rank{
   border-color: #E4733A;
 }
 
+.btn-clear{
+  font-size: 0.9em;
+  padding-left: 8px;
+  padding-right: 9px;
+}
 /*.reanalyze i{
 	font-size: 1.2em;
 }*/
