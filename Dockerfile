@@ -11,5 +11,5 @@ EXPOSE 8182
 CMD git clone http://readonly:systemsbiology@amp.pharm.mssm.edu/gitlab/apps/L1000CDS2.git \
 	&& cd L1000CDS2 \
 	&& npm install \
-	&& bower install --allow-root \
+	&& bower -F install --allow-root \
 	&& grunt deploy
