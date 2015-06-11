@@ -9,7 +9,7 @@ indexControllers.controller('index',['$scope','$http','$location',
 	$scope.updateCount = function(){
 		//this function will be inherited by any controller in ng-view
 		$http.get(baseURL+'count').success(function(data){
-			$scope.searchCount = data;
+			$scope.searchCount = data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		});
 	}
 	$scope.updateCount();
