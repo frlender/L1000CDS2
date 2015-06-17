@@ -10,8 +10,6 @@ var headers = {
 var queryUrl = config.get('RUrl'),
     enrichUrl = config.get('enrichUrl');
 
-    console.log(enrichUrl);
-
 exports.query = function(input,cb){
     if(input.config.searchMethod == "geneSet"){
         if(input.config.aggravate){

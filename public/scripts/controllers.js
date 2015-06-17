@@ -70,7 +70,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
        			return util.getTimeStamp(b) - util.getTimeStamp(a) 
        		});
        		
-       		if(localKeys.length>maxLocal){
+       		if(localKeys.length>=maxLocal){
        			// remove old IDs
        			var removeIds = localKeys.splice(maxLocal,localKeys.length-maxLocal);
        			local.remove.apply(this,removeIds);
