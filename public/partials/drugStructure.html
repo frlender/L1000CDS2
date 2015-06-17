@@ -1,0 +1,60 @@
+
+<div class="header-board">
+  <div dropdown="dropdown" class="btn-group dropdown-custom"><a dropdown-toggle="dropdown-toggle" class="btn btn-primary dropdown-toggle dropdown-toggle-custom">{{tag.value}} ({{direction}}) <span class="caret"></span></a>
+    <ul role="menu" class="dropdown-menu">
+      <li>
+        <div class="result-input-meta">
+          <flex-form data="input.meta" static="true"></flex-form>
+        </div>
+      </li>
+    </ul>
+  </div><a ng-click="share()" class="btn share-button"><i class="fa fa-share-alt-square"></i></a><a href="help/" target="_blank" class="btn share-button"><i class="fa fa-question-circle"></i></a>
+</div>
+<div class="result-container">
+  <table class="table">
+    <thead>
+      <th>Structure</th>
+      <th>P-value               </th>
+      <th>Perturbation Count</th>
+      <th>  </th>
+    </thead>
+    <tbody>
+      <tr ng-repeat-start="item in enrichRes | orderBy:'pval[0]'" ng-style="{'background-color':(!item.collapsed?'white':'rgb(244, 244, 244)')}">
+        <td>{{item.term}}</td>
+        <td>{{item.pval[0]}}</td>
+        <td>{{item.overlapCount[0]}}/50</td>
+        <td><a ng-click="item.collapsed = !item.collapsed"><span ng-if="!item.collapsed"><i class="fa fa-plus"></i></span><span ng-if="item.collapsed"><i class="fa fa-minus"></i></span></a></td>
+      </tr>
+      <tr ng-show="item.collapsed">
+        <td colspan="4">
+          <div class="struct-col"><img ng-src="{{imgURL}}{{item.imgIdx[0]-1}}.png" class="struct-img"/></div>
+          <div class="struct-col">
+            <table st-table="displayedEntries" st-safe-src="item.overlap" class="table struct-collapsed-table">
+              <thead>
+                <th>Rank</th>
+                <th>Perturbation</th>
+              </thead>
+              <tbody ng-repeat="entry in displayedEntries">
+                <td>{{entry.rank}}</td>
+                <td>{{normalizePertName(entry)}}</td>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="2">         
+                    <div st-pagination="" st-items-by-page="15" st-displayed-pages="" class="custom-pagination"></div>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </td>
+      </tr>
+      <tr ng-repeat-end="ng-repeat-end">          </tr>
+    </tbody>
+  </table>
+  <h3 ng-class="{err:err,noerr:!err}">{{err}}</h3>
+</div>
+<script type="text/ng-template" id="pop.html">
+  <div>abcde</div>
+  <div>{{entry.cell_id}}</div>
+</script>

@@ -25,6 +25,8 @@ sigineRouter.get('/count',sigine.count);
 sigineRouter.get('/disease',sigine.disease);
 sigineRouter.get('/diseases',sigine.diseases);
 
+sigineRouter.post('/drugEnrich',jsonParser, sigine.drugEnrich);
+
 sigineRouter.post('/multisearch',jsonParser, sigine.multisearch);
 
 // sigineRouter.post('/input',urlencodedParser,sigine.geo2me);

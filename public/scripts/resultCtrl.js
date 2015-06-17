@@ -137,6 +137,7 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 		}
 	}
 
+
 	$scope.downloadMeta = function(sig_id){
 			var url = baseURL+"meta?sig_id="+sig_id;
 			window.location = url;
@@ -177,6 +178,10 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 
 	$scope.reanalyze = function(){
 		$location.path('/index/'+shareID);
+	}
+
+	$scope.goToStructure = function(){
+		$location.path('/enrichedStructures/'+shareID);
 	}
 
 	$scope.$on('$viewContentLoaded',function(event){

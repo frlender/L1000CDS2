@@ -7,7 +7,8 @@ var headers = {
     'Content-Type':     'application/x-www-form-urlencoded'
 }
 
-var queryUrl = config.get('RUrl');;
+var queryUrl = config.get('RUrl'),
+    enrichUrl = config.get('enrichUrl');
 
 exports.query = function(input,cb){
     if(input.config.searchMethod == "geneSet"){
@@ -90,23 +91,36 @@ exports.query = function(input,cb){
     });
 }
 
-
-exports.multi = function(input,cb){
+exports.drugEnrich = function(input,cb){
+    // input is a json string
     var options = {
-            url: 'http://127.0.0.1:'+port+'/custom/Sigine',
+            url: enrichUrl,
             method: 'POST',
             headers: headers,
-            form: {'input': JSON.stringify(input.input),
-                'method':'"multi"'}
-    }
-     request(options, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            // Print out the response body
-            // console.log(body,typeof(body))
-            // res.send(body);
-            // var enrichRes = JSON.parse(body);
-            var topMatches = JSON.parse(body);
-            cb(topMatches);
+            form: {input:input}
         }
+
+    request(options, function (error, response, body) {
+        cb(JSON.parse(body));
     });
 }
+
+// exports.multi = function(input,cb){
+//     var options = {
+//             url: 'http://127.0.0.1:'+port+'/custom/Sigine',
+//             method: 'POST',
+//             headers: headers,
+//             form: {'input': JSON.stringify(input.input),
+//                 'method':'"multi"'}
+//     }
+//      request(options, function (error, response, body) {
+//         if (!error && response.statusCode == 200) {
+//             // Print out the response body
+//             // console.log(body,typeof(body))
+//             // res.send(body);
+//             // var enrichRes = JSON.parse(body);
+//             var topMatches = JSON.parse(body);
+//             cb(topMatches);
+//         }
+//     });
+// }

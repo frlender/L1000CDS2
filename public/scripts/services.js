@@ -186,6 +186,9 @@ services.factory('util',function(){
   		document.body.appendChild(form);
   		form.submit();
   		document.body.removeChild(form);
+	}
+	util.normalizePertName = function(entry){
+		return entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"]
 	}                        
 	return util;
 });

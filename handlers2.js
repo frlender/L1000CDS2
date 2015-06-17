@@ -129,3 +129,10 @@ exports.disease = function(req,res){
     id = req.query['id'];
     mongo.disease(id,res);
 }
+
+exports.drugEnrich = function(req,res){
+    R.drugEnrich(JSON.stringify(req.body),function(enrichRes){
+        // enrichRes.data
+        res.send(enrichRes.data.struct);
+    });
+}

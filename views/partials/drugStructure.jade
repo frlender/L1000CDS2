@@ -1,0 +1,50 @@
+.header-board
+    .btn-group.dropdown-custom(dropdown)
+      a.btn.btn-primary.dropdown-toggle.dropdown-toggle-custom(dropdown-toggle) {{tag.value}} ({{direction}}) <span class="caret"></span>
+      ul(class="dropdown-menu" role="menu")
+        li
+          .result-input-meta
+            flex-form(data="input.meta" static="true")
+    a.btn.share-button(ng-click="share()")
+      i.fa.fa-share-alt-square
+    a.btn.share-button(href="help/" target="_blank")
+      i.fa.fa-question-circle
+.result-container
+  table.table
+    thead
+      th Structure
+      th P-value               
+      th Perturbation Count
+      th   
+    tbody
+      tr(ng-repeat-start="item in enrichRes | orderBy:'pval[0]'" ng-style="{'background-color':(!item.collapsed?'white':'rgb(244, 244, 244)')}")
+        td {{item.term}}
+        td {{item.pval[0]}}
+        td {{item.overlapCount[0]}}/50
+        td
+          a(ng-click="item.collapsed = !item.collapsed")
+            span(ng-if="!item.collapsed" class="") <i class="fa fa-plus"></i>
+            span(ng-if="item.collapsed" class="") <i class="fa fa-minus"></i>
+      tr(ng-show="item.collapsed")
+        td(colspan=4)
+          .struct-col
+            img.struct-img(ng-src="{{imgURL}}{{item.imgIdx[0]-1}}.png")
+          .struct-col
+            table.table.struct-collapsed-table(st-table='displayedEntries', st-safe-src='item.overlap')
+              thead
+                th Rank
+                th Perturbation
+              tbody(ng-repeat="entry in displayedEntries")
+                td {{entry.rank}}
+                td {{normalizePertName(entry)}}
+              tfoot
+                tr
+                  td(colspan='2')          
+                    .custom-pagination(st-pagination='', st-items-by-page='15', st-displayed-pages='')
+      tr(ng-repeat-end=)           
+
+  h3(ng-class="{err:err,noerr:!err}") {{err}}
+
+script(type="text/ng-template" id="pop.html")
+  div abcde
+  div {{entry.cell_id}}

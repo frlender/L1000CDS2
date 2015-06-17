@@ -41,6 +41,10 @@ Sigine.config(['$routeProvider',
         templateUrl: 'partials/index.html',
         controller: 'GeneList'
       }).
+      when('/enrichedStructures/:shareID',{
+        templateUrl: 'partials/drugStructure.html',
+        controller: 'drugStructureCtrl'
+      }).
       otherwise({
         redirectTo: '/index'
       });

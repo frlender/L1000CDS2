@@ -548,3 +548,15 @@ td.rank{
 /*.reanalyze i{
 	font-size: 1.2em;
 }*/
+
+.struct-collapsed-table{
+	font-size: 0.8em;
+	width:200px;
+}
+
+.struct-col{
+	display: inline-block;
+}
+.struct-img{
+	vertical-align: bottom;
+}
