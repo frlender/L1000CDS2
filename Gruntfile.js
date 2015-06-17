@@ -79,6 +79,9 @@ module.exports = function(grunt) {
           'index.js'
         ]
       }
+    },
+    nodeunit:{
+      all:['test/test.js']
     }
   });
 
@@ -86,11 +89,14 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-run');
 
   grunt.registerTask('default', ['env:dev','express:dev','watch']);
   // grunt.registerTask('release',['jade:release','uglify:built']);
   grunt.registerTask('deploy',['jade:release','uglify:built','env:product','run:server'])
+  grunt.registerTask('testProduct',['env:product','nodeunit'])
+  grunt.registerTask('test',['env:dev','nodeunit'])
 
 };
