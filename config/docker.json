@@ -1,0 +1,5 @@
+{
+	"dbUrl":"mongodb://readWriteUser:askQiaonan@10.91.53.62/L1000CDS2",
+	"RUrl":"http://146.203.54.165:23236/custom/Sigine",
+	"enrichUrl":"http://192.168.59.103:23232/custom/l1000cds2Enrich"
+}
