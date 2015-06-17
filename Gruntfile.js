@@ -71,6 +71,9 @@ module.exports = function(grunt) {
       },
       product:{
         NODE_ENV:"product"
+      },
+      docker:{
+        NODE_ENV:"docker"
       }
     },
     run:{
@@ -97,6 +100,7 @@ module.exports = function(grunt) {
   // grunt.registerTask('release',['jade:release','uglify:built']);
   grunt.registerTask('deploy',['jade:release','uglify:built','env:product','run:server'])
   grunt.registerTask('testProduct',['env:product','nodeunit'])
+  grunt.registerTask('testDocker',['env:docker','nodeunit'])
   grunt.registerTask('test',['env:dev','nodeunit'])
 
 };
