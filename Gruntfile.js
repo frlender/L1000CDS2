@@ -54,7 +54,7 @@ module.exports = function(grunt) {
         files:{
           "public/dist/main.min.js":['public/scripts/app.js',
           'public/scripts/controllers.js','public/scripts/resultCtrl.js',
-          'public/scripts/services.js']
+          'public/scripts/services.js','public/scripts/drugStructureCtrl.js']
         }
       }
     },

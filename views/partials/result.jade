@@ -8,8 +8,8 @@
         li
           .result-input-meta
             flex-form(data="input.meta" static="true")
-    a.btn.share-button(title="show enriched chemical structures in listed perturbations" ng-click="goToStructure()")
-      i.fa.fa-diamond
+    //- a.btn.share-button(title="show enriched substructures in top perturbations" ng-click="goToStructure()")
+    //-   i.fa.fa-diamond
     a.btn.share-button(ng-if="isFileSaverSupported" title="download the table as csv" ng-click="saveFile()")
       i.fa.fa-cloud-download
     a.btn.share-button(ng-click="share()")

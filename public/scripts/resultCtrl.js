@@ -181,7 +181,7 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 	}
 
 	$scope.goToStructure = function(){
-		$location.path('/enrichedStructures/'+shareID);
+		$location.path('/enrichedSubtructures/'+shareID);
 	}
 
 	$scope.$on('$viewContentLoaded',function(event){

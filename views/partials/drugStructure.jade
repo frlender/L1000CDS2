@@ -18,7 +18,7 @@
       th   
     tbody
       tr(ng-repeat-start="item in enrichRes | orderBy:'pval[0]'" ng-style="{'background-color':(!item.collapsed?'white':'rgb(244, 244, 244)')}")
-        td {{item.term}}
+        td(title="{{item.term[0]}}") {{item.term[0].length>50?(item.term[0].substring(0,50)+'...'):item.term[0]}}
         td {{item.pval[0]}}
         td {{item.overlapCount[0]}}/50
         td

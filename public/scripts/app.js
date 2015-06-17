@@ -41,7 +41,7 @@ Sigine.config(['$routeProvider',
         templateUrl: 'partials/index.html',
         controller: 'GeneList'
       }).
-      when('/enrichedStructures/:shareID',{
+      when('/enrichedSubtructures/:shareID',{
         templateUrl: 'partials/drugStructure.html',
         controller: 'drugStructureCtrl'
       }).

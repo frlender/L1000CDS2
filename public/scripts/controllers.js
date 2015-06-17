@@ -61,7 +61,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
        }
 
        	$scope.history = [];
-       	var maxLocal = 50; // set Max storage number
+       	var maxLocal = 20; // set Max storage number
        	var showCount = 5; // number of items to be shown in recent searches.
        	var localKeys = local.keys(); 
        	if(localKeys.length>0){
