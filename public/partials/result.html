@@ -14,7 +14,8 @@
   <table st-table="displayedEntries" st-safe-src="entries" class="table table-striped">
     <thead>
       <th>Rank</th>
-      <th> Score       <a ng-href="{{helpURL}}#score" target="_blank"><i class="fa fa-question-circle"> </i></a></th>            
+      <th> 1-cos(α)       <a ng-href="{{helpURL}}#score" target="_blank"><i class="fa fa-question-circle"> </i></a></th>
+      <th> α           </th>
       <th> Perturbation</th>
       <th> </th>            
       <th> Cell-line </th>            
@@ -26,7 +27,10 @@
     <tbody>          
       <tr ng-repeat="entry in displayedEntries">
         <td class="rank">{{entry["rank"]}}</td>
-        <td>{{entry["score"].toFixed(4)}}</td>              
+        <td>{{entry["score"].toFixed(4)}}</td>
+        <td style="padding:0;font-size:0">
+          <sigine-angle cosine-dist="entry[&quot;score&quot;].toFixed(4)"></sigine-angle>
+        </td>              
         <td class="pert">{{entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"]}}  </td>
         <td class="links">
           <a title="Look up the perturbation in LIFE" class="pert-link life" ng-href="{{lifeURL}}{{entry['pert_id']}}", target='_blank')>L</a> 

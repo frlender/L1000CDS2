@@ -26,6 +26,7 @@ html(lang='en', ng-app='Sigine')
     script(src='libraries/angular-flex-form/flex-form.js')
     script(src='libraries/angular-local-storage/dist/angular-local-storage.min.js')
     script(src='versioned/FileSaver.min.js')
+    script(src="libraries/d3/d3.min.js")
     // scripts
     if dev
         script(src='scripts/services.js')
@@ -33,6 +34,7 @@ html(lang='en', ng-app='Sigine')
         script(src='scripts/controllers.js')
         script(src='scripts/resultCtrl.js')
         script(src='scripts/drugStructureCtrl.js')
+        script(src="scripts/directives.js")
 
     else
         script(src='dist/main.min.js')

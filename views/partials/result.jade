@@ -20,10 +20,10 @@
   table.table.table-striped(st-table='displayedEntries', st-safe-src='entries')
     thead
       th Rank
-      th  Score       
+      th  1-cos(α)       
         a(ng-href="{{helpURL}}#score" target="_blank")
           i.fa.fa-question-circle 
-      |             
+      th  α           
       th  Perturbation
       th  
       |             
@@ -39,6 +39,8 @@
       tr(ng-repeat='entry in displayedEntries')
         td.rank {{entry["rank"]}}
         td {{entry["score"].toFixed(4)}}
+        td(style="padding:0;font-size:0")
+          sigine-angle(cosine-dist='entry["score"].toFixed(4)')
         |               
         td.pert {{entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"]}}  
         td.links

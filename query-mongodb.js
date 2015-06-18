@@ -66,6 +66,7 @@ exports.getMetas = function(topExpms,callback){
             topMeta[idx] = e;
             topMeta[idx].score = topExpms["scores"][idx];
             topMeta[idx].overlap = topExpms.overlap[idx];
+            topMeta[idx].DEGcount = topExpms.DEGcount[idx];
         });
         // console.log('topMeta',topMeta.slice(0,3))
         callback(topMeta);
