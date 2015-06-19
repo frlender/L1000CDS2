@@ -560,3 +560,14 @@ td.rank{
 .struct-img{
 	vertical-align: bottom;
 }
+
+
+.sa-line {
+ fill: none;
+ stroke: palevioletred;
+ stroke-width: 1.5px;
+ }
+marker{
+    stroke:palevioletred;
+    fill:palevioletred;
+  }
