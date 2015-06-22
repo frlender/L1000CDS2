@@ -58,13 +58,13 @@
           .input-meta-content
             .input-margin
               flex-form(data="inputMeta")
-        .input-meta-block(ng-if="history.length > 0")
+        .input-meta-block(ng-if="history.total > 0")
           .input-meta-title Recent Searches
           .input-meta-content
             .input-margin
-              .history-link(ng-repeat="item in history")
+              .history-link(ng-repeat="item in history.items")
                 a(ng-click="goToResultView(item.id,item.search)") {{item.tag.value?item.tag.value:"No tag"}}  ({{item.search.input.config.aggravate?"mimic":"reverse"}})
-              a.more(ng-click="addHistory()" ng-if="history.length<historyTotal") More...
+              a.more(ng-click="addHistory()" ng-if="history.items.length<history.total") More...
               .note * Recent searches are stored in the browser's local storage. Clearing browsing data would result in a loss of the records. 
               //- span   
 

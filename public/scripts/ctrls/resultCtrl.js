@@ -1,48 +1,19 @@
 indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStorage', 
-	'$http', 'util', 'localStorageService', '$modal', '$timeout', '$location',
+	'$http', 'util', 'localStorageService', '$modal', '$timeout', '$location','getSearch',
 	function($scope, $routeParam, resultStorage, $http, util, local,$modal,
-		$timeout,$location){
+		$timeout,$location,getSearch){
 
 	var shareID;
-	if($routeParam.shareID in resultStorage){
-		$scope.entries = resultStorage[$routeParam.shareID].entries;
+	getSearch($routeParam.shareID,function(search){
+		$scope.entries = search.result.topMeta;
 		$scope.shareURL = baseURL+$routeParam.shareID;
 		shareID = $routeParam.shareID;
-		$scope.input = resultStorage[$routeParam.shareID].input;
-		if('uniqInput' in resultStorage[$routeParam.shareID]){
-			$scope.uniqInput = resultStorage[$routeParam.shareID].uniqInput;
+		$scope.input = search.input;
+		if('uniqInput' in search.result){
+			$scope.uniqInput = search.result.uniqInput;
 		}
 		initialization();
-	}else if(_.contains(local.keys(),$routeParam.shareID)){
-		var item = local.get($routeParam.shareID)
-		$scope.entries = item.entries;
-		$scope.shareURL = baseURL+$routeParam.shareID;
-		shareID = $routeParam.shareID;
-		$scope.input = item.input;
-		if('uniqInput' in item){
-			$scope.uniqInput = item.uniqInput;
-		}
-		initialization();
-	}else{
-		$http.get(baseURL+$routeParam.shareID).success(function(data){
-			// for local storage
-			var search = {};
-			search.entries = data['results']["topMeta"];
-			search.input = data.input
-
-			$scope.entries = data['results']["topMeta"];
-			$scope.shareURL = baseURL + data['results']['shareId'];
-			shareID = data['results']['shareId'];
-			$scope.input = data.input;
-
-			if('uniqInput' in data.results){
-				$scope.uniqInput = data.results.uniqInput;
-				search.uniqInput = data.results.uniqInput;
-			}
-			local.set(data['results']['shareId'],search);
-			initialization();
-		});
-	}
+	});
 
 	function initialization(){
 		$scope.entries.forEach(function(entry,i){

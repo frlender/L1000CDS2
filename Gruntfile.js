@@ -53,8 +53,14 @@ module.exports = function(grunt) {
       built:{
         files:{
           "public/dist/main.min.js":['public/scripts/app.js',
-          'public/scripts/controllers.js','public/scripts/resultCtrl.js',
-          'public/scripts/services.js','public/scripts/drugStructureCtrl.js']
+          'public/scripts/ctrls/controllers.js',
+          'public/scripts/ctrls/resultCtrl.js',
+          'public/scripts/ctrls/drugStructureCtrl.js',
+          'public/scripts/services/services.js',
+          'public/scripts/services/query.js',
+          'public/scripts/services/getSearch.js',
+          'public/scripts/services/Local.js',
+          ]
         }
       }
     },

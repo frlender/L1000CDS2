@@ -22,26 +22,28 @@ indexControllers.controller('index',['$scope','$http','$location',
 
 var process = _.identity;
 indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExample', 
-	'buildQueryData', 'resultStorage', '$location', 'ffClean', 'localStorageService',
-	'util', '$routeParams',
+	'buildQueryData', 'resultStorage', '$location', 'ffClean', 'Local',
+	'util', '$routeParams','getSearch',
 	function($scope,$http,$modal,loadExample,buildQueryData,resultStorage,$location,
-		ffClean,local,util,$routeParams){
+		ffClean,Local,util,$routeParams,getSearch){
 		
 		if('shareID' in $routeParams){
 			$scope.hasInput = true;
-			var input = local.get($routeParams.shareID).input;
-			$scope.aggravate = input.config.aggravate;
-			$scope.share = input.config.share;
-			$scope.inputMeta = input.meta.length==0?
-			[{key:"Tag",value:"",dataPlaceholder:"add a tag"}]:input.meta;
-			if(input.config.searchMethod=="geneSet"){
-				$scope.upGenes = input.data.upGenes.join('\n');
-				$scope.dnGenes = input.data.dnGenes.join('\n');
-			}else{
-				$scope.upGenes = _.zip(input.data.genes,input.data.vals).map(function(item){
-					return item.join(',');
-				}).join('\n');
-			}
+			getSearch($routeParams.shareID,function(search){
+				var input = search.input;
+				$scope.aggravate = input.config.aggravate;
+				$scope.share = input.config.share;
+				$scope.inputMeta = input.meta.length==0?
+				[{key:"Tag",value:"",dataPlaceholder:"add a tag"}]:input.meta;
+				if(input.config.searchMethod=="geneSet"){
+					$scope.upGenes = input.data.upGenes.join('\n');
+					$scope.dnGenes = input.data.dnGenes.join('\n');
+				}else{
+					$scope.upGenes = _.zip(input.data.genes,input.data.vals).map(function(item){
+						return item.join(',');
+					}).join('\n');
+				}
+			});
 		}else{
 			$scope.hasInput = false;
 			//default values
@@ -56,41 +58,23 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
        			{key:"Time point", value:""}
        		];
        }
+
        $scope.clearInput = function(){
        	 $location.path('/index/');
        }
 
-       	$scope.history = [];
-       	var maxLocal = 20; // set Max storage number
-       	var showCount = 5; // number of items to be shown in recent searches.
-       	var localKeys = local.keys(); 
-       	if(localKeys.length>0){
-       		// get recent searches.
-       		localKeys.sort(function(a,b){
-       			return util.getTimeStamp(b) - util.getTimeStamp(a) 
-       		});
-       		
-       		if(localKeys.length>=maxLocal){
-       			// remove old IDs
-       			var removeIds = localKeys.splice(maxLocal,localKeys.length-maxLocal);
-       			local.remove.apply(this,removeIds);
-       		}
-
-       		$scope.historyTotal = localKeys.length;
-
+       // for history
+       $scope.history = {items:[],total:0};
+       if(Local.prototype.isSupported){
+       		var local = new Local();
+       		$scope.history = local.getHistory();
        		$scope.addHistory = function(){
-       			$scope.history = $scope.history
-       			.concat(localKeys.slice($scope.history.length,$scope.history.length+showCount)
-       				.map(function(id){
-       				var item = {};
-       				item.search = local.get(id);
-       				item.tag = util.getTag(item.search.input.meta);
-       				item.id = id;
-       				return item;
-       			}));
+       			$scope.history = local.addHistory();
        		}
        		$scope.addHistory();
-       	}
+       }
+       
+
 		
 		$scope.goToResultView = function(id,search){
 			// search is an object.
@@ -126,13 +110,10 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 					}else{
 						$scope.updateCount();
 						var search = {};
-						search.entries = data["topMeta"];
+						search.result = data;
 						search.input = input;
-						if('uniqInput' in data){
-							search.uniqInput = data.uniqInput;
-						}
 						// local  storage for history functionality
-						local.set(data['shareId'],search);
+						try{Local.prototype.set(data['shareId'],search);}catch(e){};
 						$scope.goToResultView(data['shareId'],search);
 					}
 			});

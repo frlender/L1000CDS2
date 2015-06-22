@@ -4,7 +4,7 @@ indexControllers.controller('drugStructureCtrl',['$scope', '$routeParams', 'resu
 		$timeout,$location){
 
 	var item = local.get($routeParam.shareID);
-	$scope.entries = item.entries;
+	$scope.entries = item.result.topMeta;
 	$scope.input = item.input;
 	var tag = util.getTag($scope.input.meta);
 	$scope.tag = tag?tag:{value:"No tag"};

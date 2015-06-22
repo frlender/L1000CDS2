@@ -29,13 +29,19 @@ html(lang='en', ng-app='Sigine')
     script(src="libraries/d3/d3.min.js")
     // scripts
     if dev
-        script(src='scripts/services.js')
         script(src='scripts/app.js')
-        script(src='scripts/controllers.js')
-        script(src='scripts/resultCtrl.js')
-        script(src='scripts/drugStructureCtrl.js')
+        // ctrls
+        script(src='scripts/ctrls/controllers.js')
+        script(src='scripts/ctrls/resultCtrl.js')
+        script(src='scripts/ctrls/drugStructureCtrl.js')
+        // services
+        script(src='scripts/services/services.js')
+        script(src='scripts/services/Local.js')
+        script(src='scripts/services/getSearch.js')
+        script(src='scripts/services/query.js')
+        // directives
         script(src="scripts/directives.js")
-
+        
     else
         script(src='dist/main.min.js')
   |   
