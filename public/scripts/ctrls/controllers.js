@@ -23,9 +23,9 @@ indexControllers.controller('index',['$scope','$http','$location',
 var process = _.identity;
 indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExample', 
 	'buildQueryData', 'resultStorage', '$location', 'ffClean', 'Local',
-	'util', '$routeParams','getSearch',
+	'util', '$routeParams','getSearch','localStorageService',
 	function($scope,$http,$modal,loadExample,buildQueryData,resultStorage,$location,
-		ffClean,Local,util,$routeParams,getSearch){
+		ffClean,Local,util,$routeParams,getSearch,lss){
 		
 		if('shareID' in $routeParams){
 			$scope.hasInput = true;

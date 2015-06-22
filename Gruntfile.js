@@ -59,7 +59,9 @@ module.exports = function(grunt) {
           'public/scripts/services/services.js',
           'public/scripts/services/query.js',
           'public/scripts/services/getSearch.js',
+          'public/scripts/services/validate.js',
           'public/scripts/services/Local.js',
+          'public/scripts/directives.js'
           ]
         }
       }
