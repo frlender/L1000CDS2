@@ -3,7 +3,7 @@ var services = angular.module('services', []);
 services.factory('loadExamples',['$http','$q',
 	function($http,$q){
 		var deferred = $q.defer();
-		
+
 		$http.get("data/nosology.json")
 			.success(function(diseases){
 				deferred.resolve(diseases);
@@ -22,6 +22,75 @@ services.factory('loadGEO',['$http','$q',
 		})
 
 		return deferred.promise;
+}]);
+
+services.factory('Local',['localStorageService','util',
+	function(localStorage,util) {
+
+			function Local(){
+				var maxLocal = 20,
+				showCount = 5,
+				localKeys = localStorage.keys(),
+				history = {items:[],total:0};
+				if(localKeys.length>0){
+					// get recent searches.
+					localKeys.sort(function(a,b){
+						return util.getTimeStamp(b) - util.getTimeStamp(a)
+					});
+
+					if(localKeys.length>=maxLocal){
+						// remove old IDs
+						var removeIds = localKeys.splice(maxLocal,localKeys.length-maxLocal);
+						localStorage.remove.apply(this,removeIds);
+					}
+					history.total = localKeys.length;
+				} // end of localKeys.length>0
+				this.addHistory(){
+					history.items = history.items
+					.concat(localKeys.slice($scope.history.length,$scope.history.length+showCount)
+						.map(function(id){
+						var item = {};
+						item.search = this.get(id);
+						item.tag = util.getTag(item.search.input.meta);
+						item.id = id;
+						return item;
+					}));
+					return history
+				}
+			}
+
+			_.extend(Local.prototype,{
+				isSupported:localStorage.isSupported,
+				get:function(id){
+					localStorage.get(id);
+				},
+				set:function(id,search){
+					???
+				}
+			});
+			return Local;
+}]);
+
+services.factory('getSearch',['resultStorage','Local','$http',
+	function(resultStorage,Local,$http){
+		function getSearch(id,cb){
+			if(id in resultStorage){
+				cb(resultStorage[id])
+			}else{
+				var search = Local.prototype.get(id);
+				if(search){
+					resultStorage[id] = search;
+					cb(search)
+				}else {
+					$http.get().succeed(function(???){
+						resultStorage[id] = search;
+						Local.prototype.set(id,search);
+						cb(search);
+					})
+				}
+			}
+		}
+		return getSearch;
 }]);
 
 services.factory('buildQueryData',[function(){
@@ -189,6 +258,6 @@ services.factory('util',function(){
 	}
 	util.normalizePertName = function(entry){
 		return entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"]
-	}                        
+	}
 	return util;
 });
