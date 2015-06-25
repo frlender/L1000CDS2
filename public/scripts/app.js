@@ -34,7 +34,7 @@ Sigine.config(['$routeProvider',
         controller: 'GeneList'
       }).
       when('/result/:shareID', {
-        templateUrl: 'partials/result.html',
+        templateUrl: 'result.html',
         controller: 'resultCtrl'
       }).
       when('/index/:shareID',{

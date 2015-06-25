@@ -14,8 +14,9 @@
   <table st-table="displayedEntries" st-safe-src="entries" class="table table-striped">
     <thead>
       <th>Rank</th>
-      <th> 1-cos(α)       <a ng-href="{{helpURL}}#score" target="_blank"><i class="fa fa-question-circle"> </i></a></th>
-      <th> α           </th>
+      <th ng-if="input.config.searchMethod=='CD'"> 1-cos(α)       <a ng-href="{{helpURL}}#score" target="_blank"><i class="fa fa-question-circle"> </i></a></th>
+      <th ng-if="input.config.searchMethod=='geneSet'">Score       <a ng-href="{{helpURL}}#score" target="_blank"><i class="fa fa-question-circle"> </i></a></th>
+      <th ng-if="input.config.searchMethod=='CD'"> α           </th>
       <th> Perturbation</th>
       <th> </th>            
       <th> Cell-line </th>            
@@ -28,7 +29,7 @@
       <tr ng-repeat="entry in displayedEntries">
         <td class="rank">{{entry["rank"]}}</td>
         <td>{{entry["score"].toFixed(4)}}</td>
-        <td style="padding:0;font-size:0">
+        <td ng-if="input.config.searchMethod=='CD'" style="padding:0;font-size:0">
           <sigine-angle cosine-dist="entry[&quot;score&quot;].toFixed(4)"></sigine-angle>
         </td>              
         <td class="pert">{{entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"]}}  </td>
