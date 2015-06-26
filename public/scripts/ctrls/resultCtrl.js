@@ -84,6 +84,9 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 				util.enrich(enrichrInput);
 			}
 		}else{
+			$scope.getDegree = function(cosDist){
+				return Math.round(Math.acos(1-cosDist)*180/Math.PI*10)/10;
+			}
 			$scope.overlap.templateUrl = "partials/overlap_CD.html";
 			var overlapKeys = Object.keys($scope.entries[0].overlap).sort();
 			$scope.overlap.key1 = overlapKeys[1];
