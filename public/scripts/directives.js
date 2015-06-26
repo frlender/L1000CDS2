@@ -50,4 +50,16 @@ Sigine.directive('sigineAngle',[function(){
          .attr("marker-end","url(#end)");
     }
   }
+}])
+.directive('sigineVenn',[function(){
+  return {
+    restrict:'AE',
+    scope:{
+      data:'='
+    },
+    link:function(scope,element,attrs){
+      var chart = venn.VennDiagram()
+      d3.select(element[0]).datum(scope.data).call(chart);
+    }
+  }
 }]);

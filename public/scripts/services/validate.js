@@ -3,7 +3,8 @@ services.factory('validate',[
 	// validate various results.
 	return {
 		enrichRes:function(enrichRes){
-			if(enrichRes.constructor==Array &&
+			if(enrichRes &&
+				enrichRes.constructor==Array &&
 				enrichRes.length > 0 &&
 				'term' in enrichRes[0] &&
 				'overlap' in enrichRes[0] &&

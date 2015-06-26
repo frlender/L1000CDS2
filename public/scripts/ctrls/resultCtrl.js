@@ -16,8 +16,30 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 	});
 
 	function initialization(){
+		if($scope.input.config.searchMethod=="geneSet"){
+			var effectiveInput,
+			getOverlapSize = function(entry){
+				var size = 0;
+				for(var key in entry.overlap){
+					size+=entry.overlap[key].length
+				};
+				return size;
+			};
+			$scope.allHaveSets = true;
+		}
+		var effectiveInput;// Gene-set method only
 		$scope.entries.forEach(function(entry,i){
 			entry.rank = i+1;
+			// 'DEGcount' in entry for backward compactbility
+			if($scope.input.config.searchMethod=="geneSet"){
+				if(!('sets' in entry)&&'DEGcount' in entry){
+					var overlapSize = getOverlapSize(entry);
+					if(!effectiveInput) effectiveInput = Math.round(overlapSize/entry.score);
+					entry.sets = [{sets:['A'],size:effectiveInput},
+					{sets:['B'],size:entry.DEGcount},{sets:['A','B'],size:overlapSize}];
+				}
+				if(!('sets' in entry)) $scope.allHaveSets = false;
+			};
 		});
 		try {
 			// for front-end downloading table using FileSaver.js

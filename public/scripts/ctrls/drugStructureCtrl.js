@@ -17,7 +17,7 @@ indexControllers.controller('drugStructureCtrl',['$scope', '$routeParams',
 		var pert_ids = $scope.entries.map(function(item){
 			return item.pert_id;
 		});
-		if("enrichRes" in search){
+		if("enrichRes" in search && search.enrichRes){
 			if(validate.enrichRes(search.enrichRes))
 				$scope.enrichRes = search.enrichRes;
 			else $scope.err = "No substructures enriched";

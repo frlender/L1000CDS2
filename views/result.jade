@@ -26,7 +26,8 @@
       th(ng-if="input.config.searchMethod=='geneSet'") Score       
         a(ng-href="{{helpURL}}#score" target="_blank")
           i.fa.fa-question-circle 
-      th(ng-if="input.config.searchMethod=='CD'")  α           
+      th(ng-if="input.config.searchMethod=='CD'")  α 
+      th(ng-if="input.config.searchMethod=='geneSet'&&allHaveSets")  Venn           
       th  Perturbation
       th  
       |             
@@ -44,6 +45,8 @@
         td {{entry["score"].toFixed(4)}}
         td(ng-if="input.config.searchMethod=='CD'" style="padding:0;font-size:0")
           sigine-angle(cosine-dist='entry["score"].toFixed(4)')
+        td(ng-if="input.config.searchMethod=='geneSet'&&allHaveSets" style="padding:0;font-size:0")
+          sigine-venn(data='entry.sets' title="input:{{entry.sets[0].size}},signature:{{entry.sets[1].size}},overlap:{{entry.sets[2].size}}")
         |               
         td.pert {{entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"]}}  
         td.links
