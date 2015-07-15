@@ -577,3 +577,9 @@ marker{
 .highlight-row>td{
 	background-color: lightblue !important;
 }
+
+.save-combination{
+	float:right;
+	position: relative;
+	top:38px;
+}

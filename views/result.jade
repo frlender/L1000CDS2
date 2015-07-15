@@ -71,12 +71,14 @@
           .table-label  Chemical Perturbations              
           .custom-pagination(st-pagination='', st-items-by-page='14', st-displayed-pages='' st-highlight='true')
   h3(ng-class="{err:err,noerr:!err}") {{err}}
+  a.btn.share-button.save-combination(ng-if="isFileSaverSupported" title="download the table as csv" ng-click="saveCombination()")
+    i.fa.fa-cloud-download
   div(ng-controller="combinationCtrl")
     table.table.table-striped(ng-if="combinations" st-table='displayedCombinations', st-safe-src='combinations')
       thead
         th Rank
         th Orthogonality 
-        th(colspan=2) Combination
+        th(colspan=2) Combination    
       tbody
         tr(ng-repeat="combination in displayedCombinations")
           td {{combination.rank+1}}

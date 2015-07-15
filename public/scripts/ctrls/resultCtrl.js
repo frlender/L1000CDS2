@@ -185,6 +185,20 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 		saveAs(blob, 'table.'+shareID+".csv");
 	}
 
+	$scope.saveCombination = function(){
+		var header = ['Rank','Orthogonality','Combination'].join(',');
+		var content = $scope.combinations.map(function(combination){
+			var x1 = $scope.IDMap[combination.X1];
+			var x2 = $scope.IDMap[combination.X2];
+			return [combination.rank,
+			$scope.getDegree(combination.value,2)+'°',
+			x1.rank+'. '+util.normalizePertName(x1),
+			x2.rank+'. '+util.normalizePertName(x2)].join(',');
+		}).join('\n');
+		var blob = new Blob([header+'\n'+content], {type: "text/plain;charset=utf-8"});
+		saveAs(blob, 'table.combination.'+shareID+".csv");
+	}
+
 	$scope.reanalyze = function(){
 		$location.path('/index/'+shareID);
 	}
