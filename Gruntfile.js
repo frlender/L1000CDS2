@@ -107,6 +107,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['env:dev','express:dev','watch']);
   // grunt.registerTask('release',['jade:release','uglify:built']);
   grunt.registerTask('deploy',['jade:release','uglify:built','env:product','run:server'])
+  grunt.registerTask('localDeploy',['jade:release','uglify:built','run:server'])
   grunt.registerTask('testProduct',['env:product','nodeunit'])
   grunt.registerTask('testDocker',['env:docker','nodeunit'])
   grunt.registerTask('test',['env:dev','nodeunit'])

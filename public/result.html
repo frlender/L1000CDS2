@@ -27,7 +27,7 @@
       <th> Signature </th>
     </thead>
     <tbody>          
-      <tr ng-repeat="entry in displayedEntries">
+      <tr ng-repeat="entry in displayedEntries" ng-class="entry.isSelected? 'highlight-row':''" ng-style="{background: entry.isSelected?'blue':'white'}">
         <td class="rank">{{entry["rank"]}} {{Math.PI}}</td>
         <td>{{entry["score"].toFixed(4)}}</td>
         <td ng-if="input.config.searchMethod=='CD'" style="padding:0;font-size:0"> 
@@ -51,7 +51,7 @@
     </tbody>          
     <tfoot>
       <tr>
-        <td colspan="9">
+        <td colspan="10">
           <div class="table-label"> Chemical Perturbations</div>                  
           <div st-pagination="" st-items-by-page="14" st-displayed-pages="" class="custom-pagination"></div>
         </td>
@@ -59,8 +59,7 @@
     </tfoot>
   </table>
   <h3 ng-class="{err:err,noerr:!err}">{{err}}</h3>
+  <div ng-controller="testCtrl">
+    <button ng-click="trigger()">testit</button>
+  </div>
 </div>
-<script type="text/ng-template" id="pop.html">
-  <div>abcde</div>
-  <div>{{entry.cell_id}}</div>
-</script>

@@ -100,6 +100,7 @@ margin-right: 0.2em;
 .download-icon{
 	background-color: white;
 	padding:0;
+	background-color: inherit;
 	/*margin-top: 40%; */
 }
 
@@ -571,3 +572,8 @@ marker{
     stroke:palevioletred;
     fill:palevioletred;
   }
+
+
+.highlight-row>td{
+	background-color: lightblue !important;
+}

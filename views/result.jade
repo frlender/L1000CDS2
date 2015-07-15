@@ -40,7 +40,7 @@
       |             
       th  Signature 
     tbody           
-      tr(ng-repeat='entry in displayedEntries')
+      tr(ng-repeat='entry in displayedEntries' ng-class="entry.isSelected? 'highlight-row':''" ng-style="{background: entry.isSelected?'blue':'white'}")
         td.rank {{entry["rank"]}} {{Math.PI}}
         td {{entry["score"].toFixed(4)}}
         td(ng-if="input.config.searchMethod=='CD'" style="padding:0;font-size:0") 
@@ -69,12 +69,10 @@
     |           
     tfoot
       tr
-        td(colspan='9')
+        td(colspan='10')
           .table-label  Chemical Perturbations
           |                   
           .custom-pagination(st-pagination='', st-items-by-page='14', st-displayed-pages='')
   h3(ng-class="{err:err,noerr:!err}") {{err}}
-
-script(type="text/ng-template" id="pop.html")
-  div abcde
-  div {{entry.cell_id}}
+  div(ng-controller="testCtrl")
+    button(ng-click="trigger()") testit

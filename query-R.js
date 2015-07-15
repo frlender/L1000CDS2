@@ -39,6 +39,7 @@ exports.query = function(input,cb){
             headers: headers,
             form: {'input': JSON.stringify(input.data),
                 'method':'"CD"',
+                'combination':input.config.combination,
                 'direction':'"'+direction+'"'}
         }
     }else{

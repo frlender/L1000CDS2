@@ -51,6 +51,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 			$scope.aggravate = false;
 			// $scope.shareURL = "";
 			$scope.share = false;
+			$scope.combination = false;
 			$scope.inputMeta = [
 				{key:"Tag",value:"",dataPlaceholder:"add a tag"},
        			{key:"Cell", value:""},

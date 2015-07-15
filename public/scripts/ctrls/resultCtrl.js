@@ -200,3 +200,12 @@ indexControllers.controller('ModalInstanceCtrl',
     $modalInstance.dismiss('cancel');
   };
 }]);
+
+
+indexControllers.controller('testCtrl',function($scope,$rootScope){
+	$scope.trigger = function(){
+		$rootScope.$broadcast('stHighlight',{
+			sig_id:"CPC005_HT29_6H:BRD-K31342827:10.0"
+		});
+	}	
+})

@@ -138,6 +138,27 @@ ng.module('smart-table')
             }
         };
 
+        this.selectByKey = function(key,val,mode){
+            var rows = safeCopy;
+            var i,selected;
+            for(i=0;i<rows.length;i++){
+                var row = rows[i];
+                if(row[key]==val){
+                    if (mode === 'single') {
+                        row.isSelected = row.isSelected !== true;
+                        if (lastSelected) {
+                            lastSelected.isSelected = false;
+                        }
+                        lastSelected = row.isSelected === true ? row : undefined;
+                    } else {
+                        row.isSelected = !row.isSelected;
+                    }
+                   break; 
+                }
+            }
+            return {idx:i,selected:row.isSelected};
+        }
+
         /**
          * take a slice of the current sorted/filtered collection (pagination)
          *
@@ -271,6 +292,8 @@ ng.module('smart-table')
         };
     });
 
+
+
 ng.module('smart-table')
     .directive('stSort', ['$parse', function ($parse) {
         return {
@@ -343,6 +366,11 @@ ng.module('smart-table')
                 stItemsByPage: '=?',
                 stDisplayedPages: '=?'
             },
+            controller:function($scope){
+                this.get = function(key){
+                    return $scope[key];
+                };
+            },
             templateUrl: function(element, attrs) {
               if (attrs.stTemplate) {
                 return attrs.stTemplate;
@@ -401,9 +429,19 @@ ng.module('smart-table')
 
                 //select the first page
                 ctrl.slice(0, scope.stItemsByPage);
+
+                scope.$on('stHighlight',function(event,args){
+                    console.log('a');
+                    var state = ctrl.selectByKey('sig_id',args.sig_id,'single');
+                    if(state.selected){
+                        scope.selectPage(Math.floor(state.idx/scope.stItemsByPage)+1);
+                    }else scope.selectPage(1);
+                });
             }
         };
     });
+
+
 
 ng.module('smart-table')
     .directive('stPipe', function () {
