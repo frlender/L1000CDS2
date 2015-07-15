@@ -12,10 +12,18 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 		if('uniqInput' in search.result){
 			$scope.uniqInput = search.result.uniqInput;
 		}
+		if('combinations' in search.result){
+			$scope.combinations = search.result.combinations;
+		}
 		initialization();
 	});
 
 	function initialization(){
+		$scope.IDMap = {};
+		$scope.entries.forEach(function(e){
+			$scope.IDMap[e.sig_id] = e;
+		});
+		$scope.normalizePertName = util.normalizePertName;
 		if($scope.input.config.searchMethod=="geneSet"){
 			var effectiveInput,
 			getOverlapSize = function(entry){
@@ -84,8 +92,10 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 				util.enrich(enrichrInput);
 			}
 		}else{
-			$scope.getDegree = function(cosDist){
-				return Math.round(Math.acos(1-cosDist)*180/Math.PI*10)/10;
+			$scope.getDegree = function(cosDist,digit){
+				digit = digit?digit:1;
+				var multiply = Math.pow(10,digit);
+				return Math.round(Math.acos(1-cosDist)*180/Math.PI*multiply)/multiply;
 			}
 			$scope.overlap.templateUrl = "partials/overlap_CD.html";
 			var overlapKeys = Object.keys($scope.entries[0].overlap).sort();
@@ -202,10 +212,27 @@ indexControllers.controller('ModalInstanceCtrl',
 }]);
 
 
-indexControllers.controller('testCtrl',function($scope,$rootScope){
-	$scope.trigger = function(){
-		$rootScope.$broadcast('stHighlight',{
-			sig_id:"CPC005_HT29_6H:BRD-K31342827:10.0"
-		});
+indexControllers.controller('combinationCtrl',['$scope','$rootScope','$anchorScroll','$location',
+	function($scope,$rootScope,$anchorScroll,$location){
+	var goToPertTable = function(){
+		$location.hash('pertTable');
+		$anchorScroll();
 	}	
-})
+	var lastSelected;
+	$scope.trigger = function(combination,key){
+		var selectedKey = key+'Selected';
+		combination[selectedKey] = combination[selectedKey] !== true;
+		if(lastSelected) lastSelected.combination[lastSelected.selectedKey] = false;
+		if(combination[selectedKey] === true){
+			lastSelected = {combination:combination,selectedKey:selectedKey};
+			goToPertTable();
+		}else{
+			lastSelected = undefined;
+		}
+
+		$rootScope.$broadcast('stHighlight',{
+			sig_id:combination[key]
+		});
+	}
+	
+}])

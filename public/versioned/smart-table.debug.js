@@ -364,7 +364,8 @@ ng.module('smart-table')
             require: '^stTable',
             scope: {
                 stItemsByPage: '=?',
-                stDisplayedPages: '=?'
+                stDisplayedPages: '=?',
+                stHighlight:'='
             },
             controller:function($scope){
                 this.get = function(key){
@@ -430,6 +431,7 @@ ng.module('smart-table')
                 //select the first page
                 ctrl.slice(0, scope.stItemsByPage);
 
+                if(scope.stHighlight)
                 scope.$on('stHighlight',function(event,args){
                     console.log('a');
                     var state = ctrl.selectByKey('sig_id',args.sig_id,'single');

@@ -11,7 +11,7 @@
   </div><a title="show enriched substructures in top perturbations" ng-click="goToStructure()" class="btn share-button"><i class="fa fa-diamond"></i></a><a ng-if="isFileSaverSupported" title="download the table as csv" ng-click="saveFile()" class="btn share-button"><i class="fa fa-cloud-download"></i></a><a ng-click="share()" class="btn share-button"><i class="fa fa-share-alt-square"></i></a><a href="help/" target="_blank" class="btn share-button"><i class="fa fa-question-circle"></i></a>
 </div>
 <div class="result-container">
-  <table st-table="displayedEntries" st-safe-src="entries" class="table table-striped">
+  <table id="pertTable" st-table="displayedEntries" st-safe-src="entries" class="table table-striped">
     <thead>
       <th>Rank</th>
       <th ng-if="input.config.searchMethod=='CD'" style="min-width:90px;"> 1-cos(α)       <a ng-href="{{helpURL}}#score" target="_blank"><i class="fa fa-question-circle"> </i></a></th>
@@ -36,7 +36,7 @@
         <td ng-if="input.config.searchMethod=='geneSet'&amp;&amp;allHaveSets" style="padding:0;font-size:0">
           <sigine-venn data="entry.sets" title="input:{{entry.sets[0].size}},signature:{{entry.sets[1].size}},overlap:{{entry.sets[2].size}}"></sigine-venn>
         </td>              
-        <td class="pert">{{entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"]}}  </td>
+        <td class="pert">{{normalizePertName(entry)}} </td>
         <td class="links">
           <a title="Look up the perturbation in LIFE" class="pert-link life" ng-href="{{lifeURL}}{{entry['pert_id']}}", target='_blank')>L</a> 
           <a title="Look up the perturbation in PubChem" class="pert-link pubchem" ng-if="entry['pubchem_id']" ng-href="{{pubchemURL}}{{entry['pubchem_id']}}" target='_blank'>P</a>  
@@ -45,21 +45,41 @@
         <td>{{entry["cell_id"]}}</td>              
         <td>{{entry["pert_dose"]+entry["pert_dose_unit"]}}</td>              
         <td>{{entry["pert_time"]+entry["pert_time_unit"]}}</td>
-        <td class="narrow"><a popover-placement="left" popover-template="overlap.templateUrl" class="btn download-icon"><i class="fa fa-pause"></i></a></td>              
-        <td class="narrow"><a ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])" class="btn download-icon"><i class="fa fa-download"></i></a></td>
+        <td class="narrow"><a popover-placement="left" popover-template="overlap.templateUrl" class="btn download-icon"><i class="fa fa-pause">              </i></a></td>
+        <td class="narrow"><a ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])" class="btn download-icon"><i class="fa fa-download">        </i></a></td>
       </tr>
-    </tbody>          
+    </tbody>
     <tfoot>
       <tr>
         <td colspan="10">
-          <div class="table-label"> Chemical Perturbations</div>                  
-          <div st-pagination="" st-items-by-page="14" st-displayed-pages="" class="custom-pagination"></div>
+          <div class="table-label"> Chemical Perturbations              </div>
+          <div st-pagination="" st-items-by-page="14" st-displayed-pages="" st-highlight="true" class="custom-pagination"></div>
         </td>
       </tr>
     </tfoot>
   </table>
   <h3 ng-class="{err:err,noerr:!err}">{{err}}</h3>
-  <div ng-controller="testCtrl">
-    <button ng-click="trigger()">testit</button>
+  <div ng-controller="combinationCtrl">
+    <table ng-if="combinations" st-table="displayedCombinations" st-safe-src="combinations" class="table table-striped">
+      <thead>
+        <th>Orthogonality </th>
+        <th colspan="2">Combination</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="combination in displayedCombinations">
+          <td>{{getDegree(combination.value,2)}}°</td>
+          <td><a ng-style="{'background-color': combination.X1Selected?'lightblue':'inherited'}" ng-click="trigger(combination,'X1');">{{IDMap[combination.X1].rank}}.  {{normalizePertName(IDMap[combination.X1])}}</a></td>
+          <td><a ng-style="{'background-color': combination.X2Selected?'lightblue':'inherited'}" ng-click="trigger(combination,'X2')">{{IDMap[combination.X2].rank}}.  {{normalizePertName(IDMap[combination.X2])}}</a></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">
+            <div class="table-label"> Combinations     </div>
+            <div st-pagination="" st-items-by-page="14" st-displayed-pages="" class="custom-pagination"></div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
 </div>

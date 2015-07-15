@@ -17,7 +17,7 @@
     a.btn.share-button(href="help/" target="_blank")
       i.fa.fa-question-circle
 .result-container
-  table.table.table-striped(st-table='displayedEntries', st-safe-src='entries')
+  table.table.table-striped(id="pertTable" st-table='displayedEntries', st-safe-src='entries')
     thead
       th Rank
       th(ng-if="input.config.searchMethod=='CD'" style="min-width:90px;")  1-cos(α)       
@@ -48,7 +48,7 @@
         td(ng-if="input.config.searchMethod=='geneSet'&&allHaveSets" style="padding:0;font-size:0")
           sigine-venn(data='entry.sets' title="input:{{entry.sets[0].size}},signature:{{entry.sets[1].size}},overlap:{{entry.sets[2].size}}")
         |               
-        td.pert {{entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"]}}  
+        td.pert {{normalizePertName(entry)}} 
         td.links
           | <a title="Look up the perturbation in LIFE" class="pert-link life" ng-href="{{lifeURL}}{{entry['pert_id']}}", target='_blank')>L</a> 
           | <a title="Look up the perturbation in PubChem" class="pert-link pubchem" ng-if="entry['pubchem_id']" ng-href="{{pubchemURL}}{{entry['pubchem_id']}}" target='_blank'>P</a>  
@@ -61,18 +61,28 @@
         td {{entry["pert_time"]+entry["pert_time_unit"]}}
         td.narrow
           a.btn.download-icon(popover-placement="left" popover-template="overlap.templateUrl")
-            i.fa.fa-pause
-        |               
+            i.fa.fa-pause               
         td.narrow
           a.btn.download-icon(ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])")
-            i.fa.fa-download
-    |           
+            i.fa.fa-download         
     tfoot
       tr
         td(colspan='10')
-          .table-label  Chemical Perturbations
-          |                   
-          .custom-pagination(st-pagination='', st-items-by-page='14', st-displayed-pages='')
+          .table-label  Chemical Perturbations              
+          .custom-pagination(st-pagination='', st-items-by-page='14', st-displayed-pages='' st-highlight='true')
   h3(ng-class="{err:err,noerr:!err}") {{err}}
-  div(ng-controller="testCtrl")
-    button(ng-click="trigger()") testit
+  div(ng-controller="combinationCtrl")
+    table.table.table-striped(ng-if="combinations" st-table='displayedCombinations', st-safe-src='combinations')
+      thead
+        th Orthogonality 
+        th(colspan=2) Combination
+      tbody
+        tr(ng-repeat="combination in displayedCombinations")
+          td {{getDegree(combination.value,2)}}°
+          td <a ng-style="{'background-color': combination.X1Selected?'lightblue':'inherited'}" ng-click="trigger(combination,'X1');">{{IDMap[combination.X1].rank}}.  {{normalizePertName(IDMap[combination.X1])}}</a>
+          td <a ng-style="{'background-color': combination.X2Selected?'lightblue':'inherited'}" ng-click="trigger(combination,'X2')">{{IDMap[combination.X2].rank}}.  {{normalizePertName(IDMap[combination.X2])}}</a>
+      tfoot
+        tr
+          td(colspan='3')
+            .table-label  Combinations     
+            .custom-pagination(st-pagination='', st-items-by-page='14', st-displayed-pages='')
