@@ -14,6 +14,9 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 		}
 		if('combinations' in search.result){
 			$scope.combinations = search.result.combinations;
+			$scope.combinations.forEach(function(e,i){
+				e.rank = i;
+			})
 		}
 		initialization();
 	});
@@ -228,6 +231,7 @@ indexControllers.controller('combinationCtrl',['$scope','$rootScope','$anchorScr
 			goToPertTable();
 		}else{
 			lastSelected = undefined;
+			// $location.hash('');
 		}
 
 		$rootScope.$broadcast('stHighlight',{

@@ -62,11 +62,13 @@
   <div ng-controller="combinationCtrl">
     <table ng-if="combinations" st-table="displayedCombinations" st-safe-src="combinations" class="table table-striped">
       <thead>
+        <th>Rank</th>
         <th>Orthogonality </th>
         <th colspan="2">Combination</th>
       </thead>
       <tbody>
         <tr ng-repeat="combination in displayedCombinations">
+          <td>{{combination.rank+1}}</td>
           <td>{{getDegree(combination.value,2)}}°</td>
           <td><a ng-style="{'background-color': combination.X1Selected?'lightblue':'inherited'}" ng-click="trigger(combination,'X1');">{{IDMap[combination.X1].rank}}.  {{normalizePertName(IDMap[combination.X1])}}</a></td>
           <td><a ng-style="{'background-color': combination.X2Selected?'lightblue':'inherited'}" ng-click="trigger(combination,'X2')">{{IDMap[combination.X2].rank}}.  {{normalizePertName(IDMap[combination.X2])}}</a></td>
@@ -74,7 +76,7 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="3">
+          <td colspan="4">
             <div class="table-label"> Combinations     </div>
             <div st-pagination="" st-items-by-page="14" st-displayed-pages="" class="custom-pagination"></div>
           </td>

@@ -74,15 +74,17 @@
   div(ng-controller="combinationCtrl")
     table.table.table-striped(ng-if="combinations" st-table='displayedCombinations', st-safe-src='combinations')
       thead
+        th Rank
         th Orthogonality 
         th(colspan=2) Combination
       tbody
         tr(ng-repeat="combination in displayedCombinations")
+          td {{combination.rank+1}}
           td {{getDegree(combination.value,2)}}°
           td <a ng-style="{'background-color': combination.X1Selected?'lightblue':'inherited'}" ng-click="trigger(combination,'X1');">{{IDMap[combination.X1].rank}}.  {{normalizePertName(IDMap[combination.X1])}}</a>
           td <a ng-style="{'background-color': combination.X2Selected?'lightblue':'inherited'}" ng-click="trigger(combination,'X2')">{{IDMap[combination.X2].rank}}.  {{normalizePertName(IDMap[combination.X2])}}</a>
       tfoot
         tr
-          td(colspan='3')
+          td(colspan='4')
             .table-label  Combinations     
             .custom-pagination(st-pagination='', st-items-by-page='14', st-displayed-pages='')
