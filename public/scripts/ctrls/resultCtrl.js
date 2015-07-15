@@ -166,7 +166,8 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 	}
 
 	$scope.saveFile = function(){
-		var header = ['Rank','Score','Perturbation','Perturbation LIFE URL',
+		var score = $scope.input.config.searchMethod=="geneSet"?'score':'1-cos(α)';
+		var header = ['Rank',score,'Perturbation','Perturbation LIFE URL',
 		'Perturbation PubChem URL', 'Perturbation DrugBank URL','Cell-line',
 		'Dose','Time','Signature URL'].join(',');
 		var content = $scope.entries.map(function(entry){
