@@ -100,6 +100,9 @@ exports.history = function(req,res){
                     if("uniqInput" in topMatches){
                         dataToUser.uniqInput = topMatches.uniqInput;
                     }
+                    if('combinations' in topMatches){
+                        dataToUser.combinations = topMatches.combinations;
+                    }
                     res.send({input:input,results:dataToUser});
                     //res.render('index',{root:'',input:input,results:dataToUser});
                 }
