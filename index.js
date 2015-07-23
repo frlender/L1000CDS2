@@ -27,7 +27,7 @@ sigineRouter.get('/diseases',sigine.diseases);
 
 sigineRouter.post('/drugEnrich',jsonParser, sigine.drugEnrich);
 
-sigineRouter.post('/multisearch',jsonParser, sigine.multisearch);
+// sigineRouter.post('/multisearch',jsonParser, sigine.multisearch);
 
 // sigineRouter.post('/input',urlencodedParser,sigine.geo2me);
 sigineRouter.get('/:id',sigine.history);

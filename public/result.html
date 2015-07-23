@@ -63,13 +63,15 @@
     <table ng-if="combinations" st-table="displayedCombinations" st-safe-src="combinations" class="table table-striped">
       <thead>
         <th>Rank</th>
-        <th>Orthogonality </th>
+        <th ng-if="input.config.searchMethod==&quot;CD&quot;">Orthogonality</th>
+        <th ng-if="input.config.searchMethod==&quot;geneSet&quot;">Overlap</th>
         <th colspan="2">Combination    </th>
       </thead>
       <tbody>
         <tr ng-repeat="combination in displayedCombinations">
           <td>{{combination.rank+1}}</td>
-          <td>{{getDegree(combination.value,2)}}°</td>
+          <td ng-if="input.config.searchMethod==&quot;CD&quot;">{{getDegree(combination.value,2)}}°</td>
+          <td ng-if="input.config.searchMethod==&quot;geneSet&quot;">{{combination.value}}</td>
           <td><a ng-style="{'background-color': combination.X1Selected?'lightblue':'inherited'}" ng-click="trigger(combination,'X1');">{{IDMap[combination.X1].rank}}.  {{normalizePertName(IDMap[combination.X1])}}</a></td>
           <td><a ng-style="{'background-color': combination.X2Selected?'lightblue':'inherited'}" ng-click="trigger(combination,'X2')">{{IDMap[combination.X2].rank}}.  {{normalizePertName(IDMap[combination.X2])}}</a></td>
         </tr>

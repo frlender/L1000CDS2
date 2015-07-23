@@ -77,12 +77,16 @@
     table.table.table-striped(ng-if="combinations" st-table='displayedCombinations', st-safe-src='combinations')
       thead
         th Rank
-        th Orthogonality 
+        th(ng-if='input.config.searchMethod=="CD"') Orthogonality
+        th(ng-if='input.config.searchMethod=="geneSet"') Overlap
+        //- th(ng-if='input.config.searchMethod=="geneSet"') Venn
+        //- th Overlap 
         th(colspan=2) Combination    
       tbody
         tr(ng-repeat="combination in displayedCombinations")
           td {{combination.rank+1}}
-          td {{getDegree(combination.value,2)}}°
+          td(ng-if='input.config.searchMethod=="CD"') {{getDegree(combination.value,2)}}°
+          td(ng-if='input.config.searchMethod=="geneSet"') {{combination.value}}
           td <a ng-style="{'background-color': combination.X1Selected?'lightblue':'inherited'}" ng-click="trigger(combination,'X1');">{{IDMap[combination.X1].rank}}.  {{normalizePertName(IDMap[combination.X1])}}</a>
           td <a ng-style="{'background-color': combination.X2Selected?'lightblue':'inherited'}" ng-click="trigger(combination,'X2')">{{IDMap[combination.X2].rank}}.  {{normalizePertName(IDMap[combination.X2])}}</a>
       tfoot

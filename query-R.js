@@ -27,6 +27,7 @@ exports.query = function(input,cb){
             headers: headers,
             form: {'upGenes': upGenes,
                 'dnGenes':dnGenes,
+                'combination':input.config.combination,
                 'method':'"geneSet"'}
         }
     }else if(input.config.searchMethod == "CD"){
