@@ -55,7 +55,7 @@
               span  Search for drug combinations.
             .input-margin
               input(type="checkbox" ng-model="share") 
-              span  Yes. I agree to share my input signature and metadata for research purposes.
+              span  Yes. I agree to share my input signature and metadata for search by other investigators.
         .input-meta-block
           .input-meta-title Metadata
           .input-meta-content
@@ -68,7 +68,7 @@
               .history-link(ng-repeat="item in history.items")
                 a(ng-click="goToResultView(item.id,item.search)") {{item.tag.value?item.tag.value:"No tag"}}  ({{item.search.input.config.aggravate?"mimic":"reverse"}})
               a.more(ng-click="addHistory()" ng-if="history.items.length<history.total") More...
-              .note * Recent searches are stored in the browser's local storage. Clearing browsing data would result in a loss of the records. 
+              .note * Recent searches are stored in the browser's local storage. Clearing browsing data would result in a loss of these records. 
               //- span   
 
           
