@@ -234,10 +234,7 @@ indexControllers.controller('ModalInstanceCtrl',
 
 indexControllers.controller('combinationCtrl',['$scope','$rootScope','$anchorScroll','$location',
 	function($scope,$rootScope,$anchorScroll,$location){
-	var goToPertTable = function(){
-		$location.hash('pertTable');
-		$anchorScroll();
-	}	
+	// $location.hash('pertTable');	
 	var lastSelected;
 	$scope.trigger = function(combination,key){
 		var selectedKey = key+'Selected';
@@ -245,7 +242,7 @@ indexControllers.controller('combinationCtrl',['$scope','$rootScope','$anchorScr
 		if(lastSelected) lastSelected.combination[lastSelected.selectedKey] = false;
 		if(combination[selectedKey] === true){
 			lastSelected = {combination:combination,selectedKey:selectedKey};
-			goToPertTable();
+			$anchorScroll();
 		}else{
 			lastSelected = undefined;
 			// $location.hash('');
