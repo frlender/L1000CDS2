@@ -1,7 +1,7 @@
 indexControllers.controller('drugStructureCtrl',['$scope', '$routeParams', 
-	'$http', 'util', 'Local', '$location', 'getSearch','resultStorage','validate',
+	'$http', 'util', 'Local', '$location', 'getSearch','resultStorage','validate','$modal',
 	function($scope, $routeParam, $http, util, Local,
-		$location,getSearch,resultStorage,validate){
+		$location,getSearch,resultStorage,validate,$modal){
 
 	getSearch($routeParam.shareID,function(search){
 		$scope.entries = search.result.topMeta;
