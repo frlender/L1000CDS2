@@ -15,7 +15,7 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 		if('combinations' in search.result){
 			$scope.combinations = search.result.combinations;
 			$scope.combinations.forEach(function(e,i){
-				e.rank = i;
+				e.rank = i+1;
 			})
 		}
 		initialization();
@@ -187,12 +187,14 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 	}
 
 	$scope.saveCombination = function(){
-		var header = ['Rank','Orthogonality','Combination'].join(',');
+		var isGeneset = $scope.input.config.searchMethod=="geneSet";
+		var score = $scope.input.config.searchMethod=="geneSet"?'Score':'Orthogonality';
+		var header = ['Rank',score,'Combination'].join(',');
 		var content = $scope.combinations.map(function(combination){
 			var x1 = $scope.IDMap[combination.X1];
 			var x2 = $scope.IDMap[combination.X2];
 			return [combination.rank,
-			$scope.getDegree(combination.value,2)+'°',
+			isGeneset?combination.value:$scope.getDegree(combination.value,2)+'°',
 			x1.rank+'. '+util.normalizePertName(x1),
 			x2.rank+'. '+util.normalizePertName(x2)].join(',');
 		}).join('\n');
@@ -250,7 +252,8 @@ indexControllers.controller('combinationCtrl',['$scope','$rootScope','$anchorScr
 		}
 
 		$rootScope.$broadcast('stHighlight',{
-			sig_id:combination[key]
+			sig_id:combination[key],
+			combinationRank: combination.rank
 		});
 	}
 	

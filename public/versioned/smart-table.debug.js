@@ -138,20 +138,30 @@ ng.module('smart-table')
             }
         };
 
-        this.selectByKey = function(key,val,mode){
+        var hlLastSelected = {};
+        this.selectByKey = function(key,val,combinationRank){
+            console.log(key,val,combinationRank)
             var rows = safeCopy;
             var i,selected;
             for(i=0;i<rows.length;i++){
                 var row = rows[i];
                 if(row[key]==val){
-                    if (mode === 'single') {
-                        row.isSelected = row.isSelected !== true;
-                        if (lastSelected) {
-                            lastSelected.isSelected = false;
-                        }
-                        lastSelected = row.isSelected === true ? row : undefined;
-                    } else {
-                        row.isSelected = !row.isSelected;
+                    if($.isEmptyObject(hlLastSelected)){
+                        row.isSelected = true;
+                        hlLastSelected.row = row;
+                        hlLastSelected.combinationRank = combinationRank;
+                    }else{
+                        if(row.isSelected&&hlLastSelected.combinationRank==combinationRank){
+                            row.isSelected = false;
+                            hlLastSelected = {};
+                        }else if(row.isSelected&&hlLastSelected.combinationRank!=combinationRank){
+                            hlLastSelected.combinationRank = combinationRank;
+                        }else{
+                            row.isSelected = true;
+                            hlLastSelected.row.isSelected = false;
+                            hlLastSelected.row = row;
+                            hlLastSelected.combinationRank = combinationRank;
+                        }                        
                     }
                    break; 
                 }
@@ -434,7 +444,7 @@ ng.module('smart-table')
                 if(scope.stHighlight)
                 scope.$on('stHighlight',function(event,args){
                     console.log('a');
-                    var state = ctrl.selectByKey('sig_id',args.sig_id,'single');
+                    var state = ctrl.selectByKey('sig_id',args.sig_id,args.combinationRank);
                     if(state.selected){
                         scope.selectPage(Math.floor(state.idx/scope.stItemsByPage)+1);
                     }else scope.selectPage(1);
