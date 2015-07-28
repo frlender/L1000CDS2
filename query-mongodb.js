@@ -51,7 +51,7 @@ exports.getMetas = function(topExpms,callback){
     topExpms["sig_ids"].forEach(function(e,i) {
         map[e] = i;
     });
-
+    
     var query = Expm.find({sig_id:{$in:topExpms["sig_ids"]}})
         .select('-_id sig_id pert_id pert_desc cell_id pert_dose pert_dose_unit pert_time pert_time_unit').lean();
 

@@ -47,6 +47,7 @@ exports.query = function(input,cb){
         cb({"err":"search method is not CD or geneSet. It is "+input.config.searchMethod+"."})
     }
 
+    // console.log('queryUrl',queryUrl);
     // Start the request
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -55,6 +56,7 @@ exports.query = function(input,cb){
             // res.send(body);
             // var enrichRes = JSON.parse(body);
             // console.log('success');
+            // console.log('body',body);
             var topMatches = JSON.parse(body);
             topMatches.overlap = [];
             // restructure overlap

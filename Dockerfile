@@ -13,4 +13,4 @@ CMD git clone -b product http://readonly:systemsbiology@amp.pharm.mssm.edu/gitla
 	&& npm install \
 	&& npm install -g grunt-cli \
 	&& bower -F install --allow-root \
-	&& grunt deploy
+	&& grunt deploy2
