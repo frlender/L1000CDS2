@@ -13,41 +13,45 @@ var queryUrl = config.get('RUrl'),
 exports.query = function(input,cb){
     if(input.config.searchMethod == "geneSet"){
         if(input.config.aggravate){
-        var upGenes = JSON.stringify(input.data.upGenes),
-            dnGenes = JSON.stringify(input.data.dnGenes);
+        var upGenes = input.data.upGenes,
+            dnGenes = input.data.dnGenes;
         }else{
             // reverse search
-            var upGenes = JSON.stringify(input.data.dnGenes),
-                dnGenes = JSON.stringify(input.data.upGenes);
+            var upGenes = input.data.dnGenes,
+                dnGenes = input.data.upGenes;
         }
 
+        var json = {upGenes:upGenes,dnGenes:dnGenes,
+          combination:input.config.combination,
+          method:'geneSet'};
+
+        // package json data in form request.
         var options = {
             url: queryUrl,
             method: 'POST',
             headers: headers,
-            form: {'upGenes': upGenes,
-                'dnGenes':dnGenes,
-                'combination':input.config.combination,
-                'method':'"geneSet"'}
+            form: {json:JSON.stringify(json)}
         }
     }else if(input.config.searchMethod == "CD"){
 
         if(input.config.aggravate) direction = 'mimic';
         else direction = 'reverse';
+
+        var json = {input:input.data,method:'CD',
+          combination:input.config.combination,
+          direction:direction};
         var options = {
             url: queryUrl,
             method: 'POST',
             headers: headers,
-            form: {'input': JSON.stringify(input.data),
-                'method':'"CD"',
-                'combination':input.config.combination,
-                'direction':'"'+direction+'"'}
+            form: {json:JSON.stringify(json)}
         }
     }else{
         cb({"err":"search method is not CD or geneSet. It is "+input.config.searchMethod+"."})
     }
 
     // console.log('queryUrl',queryUrl);
+    // console.log(options.form.method,options.form.combination,options.form.direction);
     // Start the request
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
