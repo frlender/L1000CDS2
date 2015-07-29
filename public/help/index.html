@@ -26,13 +26,15 @@
                 <li><a href="#result" class="subtitle"> Result</a></li>
                 <li><a href='#table'>Table</a></li>
                 <li><a href='#header'>Header</a></li>
+                 <li><a href='#combinations'>Table of combinations</a></li>
+                 <li><a href='#substructures'>Substructure EA</a></li>
                 <!-- <li><a href='#share'>Share</a></li> -->
             </ul>
             <li><a href='#api'>API</a></li>
             <ul id='sideBarSub'>
                 <li><a href="#geneSet"> Gene-set Search</a></li>
                 <li><a href="#cosine"> Cosine Distance Search</a></li>
-                <li><a href="#python"> Python Example</a></li>
+                <li><a href="#python"> Python 3 Example</a></li>
             </ul>
             <li><a href='#contact'>Contact</a></li>
         </ul>
@@ -85,8 +87,9 @@
             <img id="fig2" class="diseases-figure" src="images/diseases.png"/>
             <p class="caption">Fig. 5 Screenshot of the disease table</p>
             <h5 id="config">Configuration</h5>
-            <p>Clicking the mimic/reverse slider can be used to switch between reverse and mimic modes (Fig. 3). In the mimic mode for the gene-set search, the input up genes are intersected with the up genes of the gene expression profiles in the L1000CDS² database, and the input down genes are intersected with the down genes for each entry in the database. In the reverse mode for the gene-set search, the input up- genes are intersected with the down- genes, and the input down- genes are intersected with the up- genes. When a cosine distance search is performed, the top 50 signatures will be those of the smallest cosine distances from the input signature in the mimic mode, or those with the largest cosine distances in the reverse mode. <strong>The default mode is reverse</strong>.</p>
-            <p>
+            <p><span class='highlight2'>Mimic/reverse: </span>Clicking the mimic/reverse slider can be used to switch between reverse and mimic modes (Fig. 3). In the mimic mode for the gene-set search, the input up genes are intersected with the up genes of the gene expression profiles in the L1000CDS² database, and the input down genes are intersected with the down genes for each entry in the database. In the reverse mode for the gene-set search, the input up- genes are intersected with the down- genes, and the input down- genes are intersected with the up- genes. When a cosine distance search is performed, the top 50 signatures will be those of the smallest cosine distances from the input signature in the mimic mode, or those with the largest cosine distances in the reverse mode. <strong>The default mode is reverse</strong>.</p>
+            <p><span class='highlight2'>Drug combinations: </span> L1000CDS2 also provides the function to search for drug combinations. To enable this feature the user need to check the “Search for drug combinations” checkbox. When searching for combinations, L1000CDS2 compares every possible pair among the top 50 signatures and computes the potential synergy for each pair. With the gene-set search, the synergy is calculated as the combined overlap of the DE genes of two signatures with the input DE genes. In a cosine distance search, the synergy is calculated as the orthogonality between two CD signatures. The rational for this is that if two perturbations are orthogonal, they may impart their overall effect through two independent pathways.</p>
+            <p><span class='highlight2'>Share: </span>
             Users can share their input signatures and metadata so other users can query the signatures and gene sets they submitted. To make submitted input gene sets and signatures “public” for research purposes, a checkbox is available (Fig. 3). The default is set to “No” such that users’ input is made private. Users can still share their input lists, signatures, metadata and results using the share icon on the result page <a href="#tableFig">(Fig. 6).</a> Clicking on the share icon produced a permanent URL that can be shared through e-mail, publications and other documentation.
             </p>
             <h5 id="metadata">Metadata</h5>
@@ -99,7 +102,7 @@
             <h5 id="table">Table</h5>
             <p>The search results are rendered as a paginated table with 12 entries per page (Fig 6). Each entry provides 7 pieces of information about the signature: rank, score, perturbation, cell-line, dose, time point and overlap with the input.</p>
             <p><span class="highlight2">Rank</span>: The rank of a signature based on its score. </p>
-            <p><span id="score" class="highlight2">Score</span>: For gene-set search, The score is the overlap between the input DE genes and the signature DE genes divided by the effective input. The effective input is the length of the intersection between the input genes and the L1000 genes since some input lists contain genes that are not present in the L1000 dataset. This includes all ~22,000 L1000 genes, not just the measured ~1000.<br>
+            <p><span id="score" class="highlight2">Search score</span>: For gene-set search, The search score is the overlap between the input DE genes and the signature DE genes divided by the effective input. The effective input is the length of the intersection between the input genes and the L1000 genes since some input lists contain genes that are not present in the L1000 dataset. This includes all ~22,000 L1000 genes, not just the measured ~1000.<br>
             For the cosine distance search, the score is the cosine distance between the input signature and the L1000 characteristic direction signatures.The consensus signatures are sorted by their scores in descending order in reverse mode and in ascending order in mimic mode.</p>
 
             <p><span class="highlight2">Perturbation</span>: 
@@ -109,7 +112,7 @@
  
             <img id="tableFig" src='images/table.png'/>
             
-            <p class='caption'>Fig. 6 Screenshot of the paginated results table, the header and the share button.</p>
+            <p class='caption'>Fig. 6 Screenshot of the paginated results table and the metadata header</p>
             <p><span class="highlight2">Overlap</span>:  Clicking the overlap button will show the overlapping genes (and their values) in two text boxes. <span id="geneSetOverlap">If</span> the user input type is up/down gene lists, the first box will show the overlap genes between the input up genes and the signature up (down) genes and the second will show the overlap between the input down and the signature down (up) in mimic (reverse) mode. <span id="CDOverlap">If</span> the input is a signature, the first box will show genes with a positive value in input and their values in the signature; the second box will show genes with a negative value in input and their values in the signature. The signature values and input values in both boxes are expected to be mostly in the same sign in mimic mode and in the opposite sign in reverse mode. The Enrichr button under each text box will send the genes to Enrichr for enrichment analysis.</p>
             <img id="overlapFig" src="images/overlap.png"/>
             <p class='caption'>Fig.7 Screenshot of the overlap between the input signature and a small molecule signature.</p>
@@ -117,7 +120,22 @@
             Clicking the download button in that column will download all the information about a signature as a JavaScript Object Notation (JSON) file. </p>
             <h5 id="header">Header</h5>
             <p>
-            A header that displays the tag and search mode is shown on the upper left corner of the result page (Fig. 7). Clicking the header will show the metadata of the input.</p>
+           On top of the table is a header bar that provides various functions (Fig. 6):</p>
+           <p><span class="highlight2">Reanalyze: </span>Clicking this button redirects the user back to the input page with input lists or signatures preloaded in the input textboxes. Users can then reanalyze their input using different configurations, or modify the associated metadata. This function also has a bearing on sharing results with others. It provides a way for users to reanalyze their input with different settings and obtain a permanent URL for each analysis.</p>
+           <p><span class="highlight2">Tag: </span>This button displays the tag and search mode. Clicking on the button shows the input metadata.</p>
+           <p><span class="highlight2">Diamond: </span>By clicking on this button, L1000CDS2 performs enrichment analysis on the substructures of the top ranked small-molecules. Refer to the Substructure Enrichment section for more detail about understanding the results from this feature.</p>
+          <p><span class="highlight2">Cloud download: </span>Clicking on this button downloads the table as a .csv file.</p>
+          <h5 id="combinations">Table of combinations</h5>
+          <p>If the user chooses to search for drug combinations, a table of signature combinations will appear below the single perturbation result table. This table is also a paginated table with 14 entries per page (Fig 8). Each entry provides three pieces of information about the identified combinations: rank, synergy score and combinations. The synergy score has been described in the configuration section. The rank is based on the synergy score. The number before each chemical perturbation in the combinations column is the rank of that perturbation in the single signature result table. Clicking on a perturbation will highlight that perturbation in the single signature results table so the user can learn more detail about that perturbation. Clicking on the cloud download button on the upper right corner downloads the combination table as a .csv file.</p>
+          <img id="combinations" src="images/combinations.png"/>
+          <p class='caption'>Fig.8 Screenshot of the drug combination table results</p>
+          <h5 id="substructures">Substructure Enrichment Analysis</h5>
+          <p>The results of the substructure enrichment analysis are displayed as a table where each row is a significantly enriched substructure (Fig. 9). Each row provides three pieces of information: substructure, p-value and perturbation count. The substructure is represented as a string in the <a target="_blank" href="http://www.daylight.com/dayhtml/doc/theory/theory.smarts.html">SMARTS</a>  format. The p-value is computed using the Fisher’s exact test. The perturbation count shows the number of perturbations that have this substructure. Clicking on the share icon produces a permanent URL that can be share the substructure enrichment analysis results through e-mail, publications and other documentation. </p>
+          <img id="combinations" src="images/substructures.png"/>
+          <p class='caption'>Fig.9 Screenshot of the table of significantly enriched substructures</p>
+          <p>Clicking on the plus sign shows a visualization of the substructure and a table of the top perturbations that contain the substructure (Fig. 10). The rank in the table is the rank of the perturbations in the top 50 signature table. </p>
+           <img id="combinations" src="images/substructure.png"/>
+          <p class='caption'>Fig.10 Screenshot of an expanded row</p>
         </section>
         
         <section id='api'>
@@ -162,6 +180,11 @@
                     <td>True to agree to share input data and metadata.</td>
                 </tr>
                 <tr>
+                    <td>config.combination</td>
+                    <td>Boolean</td>
+                    <td>True to search for drug combinations.</td>
+                </tr>
+                <tr>
                     <td>metadata</td>
                     <td>[Object]</td>
                     <td>An array of objects that saves the metadata of the input.</td>
@@ -181,8 +204,28 @@
                 <caption>Response <span>(JSON)</span></caption>
                 <tr>
                     <td>shareId</td>
-                    <td>String</td>
+                    <td>[Object]</td>
                     <td>Unique ID for sharing the search results</td>
+                </tr>
+                <tr>
+                    <td>combinations</td>
+                    <td>[Object]</td>
+                    <td>Drug combinations. Only available if config.combination is set to true.</td>
+                </tr>
+                <tr>
+                    <td>combinations[ ].X1</td>
+                    <td>String</td>
+                    <td>Unique identifier for a signature in the combination (sig_id).</td>
+                </tr>
+                <tr>
+                    <td>combinations[ ].X2</td>
+                    <td>String</td>
+                    <td>Unique identifier for a signature in the combination (sig_id).</td>
+                </tr>
+                <tr>
+                    <td>combinations[ ].value</td>
+                    <td>Number</td>
+                    <td>Synergy score/td>
                 </tr>
                 <tr>
                     <td>topMeta</td>
@@ -309,6 +352,11 @@
                     <td>True to agree to share input data and metadata.</td>
                 </tr>
                 <tr>
+                    <td>config.combination</td>
+                    <td>Boolean</td>
+                    <td>True to search for drug combinations.</td>
+                </tr>
+                <tr>
                     <td>metadata</td>
                     <td>[Object]</td>
                     <td>An array of objects that saves the metadata of the input.</td>
@@ -365,6 +413,26 @@
                     <td>uniqInput.dn.vals</td>
                     <td>Object</td>
                     <td>Values of unique input down genes.</td>
+                </tr>
+                 <tr>
+                    <td>combinations</td>
+                    <td>[Object]</td>
+                    <td>Drug combinations. Only available if config.combination is set to true.</td>
+                </tr>
+                <tr>
+                    <td>combinations[ ].X1</td>
+                    <td>String</td>
+                    <td>Unique identifier for a signature in the combination (sig_id).</td>
+                </tr>
+                <tr>
+                    <td>combinations[ ].X2</td>
+                    <td>String</td>
+                    <td>Unique identifier for a signature in the combination (sig_id).</td>
+                </tr>
+                <tr>
+                    <td>combinations[ ].value</td>
+                    <td>Number</td>
+                    <td>Synergy score/td>
                 </tr>
                 <tr>
                     <td>topMeta</td>
@@ -449,7 +517,7 @@ import json
 url = 'http://amp.pharm.mssm.edu/L1000CDS2/query'
 
 def upperGenes(genes):
-    // The app uses uppercase gene symbols. So it is crucial to perform upperGenes() step.
+    # The app uses uppercase gene symbols. So it is crucial to perform upperGenes() step.
     return [gene.upper() for gene in genes]
 
 # gene-set search example
@@ -457,7 +525,7 @@ data = {"upGenes":["KDM5A","EGR1","RELB"],
 "dnGenes":["USP22","PHGDH","HADH"]}
 data['upGenes'] = upperGenes(data['upGenes'])
 data['dnGenes'] = upperGenes(data['dnGenes'])
-config = {"aggravate":True,"searchMethod":"geneSet","share":True}
+config = {"aggravate":True,"searchMethod":"geneSet","share":True,"combination":True}
 metadata = [{"key":"Tag","value":"gene-set python example"},{"key":"Cell","value":"MCF7"}]
 payload = {"data":data,"config":config,"meta":metadata}
 headers = {'content-type':'application/json'}
@@ -467,7 +535,7 @@ resGeneSet = r.json()
 # cosine distance search example
 data = {"genes":["DDIT4","HIG2","FLT1","ADM","SLC2A3","ZNF331"],"vals":[9.97,10.16,7.66,17.80,20.29,15.22]}
 data['genes'] = upperGenes(data['genes'])
-config = {"aggravate":False,"searchMethod":"CD","share":True}
+config = {"aggravate":False,"searchMethod":"CD","share":True,"combination":True}
 metadata = [{"key":"Tag","value":"CD python example"},{"key":"Cell","value":"VCAP"}]
 payload = {"data":data,"config":config,"meta":metadata}
 headers = {'content-type':'application/json'}
