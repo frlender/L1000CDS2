@@ -37,7 +37,7 @@
             <toggle-switch ng-model="aggravate" on-label="mimic" off-label="reverse" class="switch-default"></toggle-switch><span>   Search for small molecule signatures that   <span class="emphasize">{{aggravate?"mimic":"reverse"}}   </span>my input.</span>
           </div>
           <div class="input-margin">
-            <input type="checkbox" ng-model="combination"/><span> Search for drug combinations.</span>
+            <input type="checkbox" ng-model="combination"/><span> Search for drug combinations.<span ng-if="isNew(1438275426251)" class="new"> New!</span></span>
           </div>
           <div class="input-margin">
             <input type="checkbox" ng-model="share"/><span> Yes. I agree to share my input signature and metadata for search by other investigators.</span>
@@ -58,9 +58,6 @@
           <div class="input-margin">
             <div ng-repeat="item in history.items" class="history-link"><a ng-click="goToResultView(item.id,item.search)">{{item.tag.value?item.tag.value:"No tag"}}  ({{item.search.input.config.aggravate?"mimic":"reverse"}})</a></div><a ng-click="addHistory()" ng-if="history.items.length&lt;history.total" class="more">More...</a>
             <div class="note">* Recent searches are stored in the browser's local storage. Clearing browsing data would result in a loss of these records. </div>
-            
-            
-            
             
           </div>
         </div>
