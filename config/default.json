@@ -1,5 +1,5 @@
 {
-	"dbUrl":"mongodb://localhost/L1000CDS2",
+	"dbUrl":"mongodb://10.91.53.225/L1000CDS2",
 	"RUrl":"http://10.91.53.50/Sigine",
 	"enrichUrl":"http://10.91.53.50/Sigine-enrich"
 }
