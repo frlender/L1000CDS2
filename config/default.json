@@ -1,5 +1,10 @@
 {
+<<<<<<< HEAD
 	"dbUrl":"mongodb://10.91.53.225/L1000CDS2",
 	"RUrl":"http://10.91.53.50/Sigine",
+=======
+	"dbUrl":"mongodb://10.91.53.79:27017/L1000CDS2",
+	"RUrl":"http://127.0.0.1:23235/custom/Sigine",
+>>>>>>> f89853ebdecc7200b69386e72e5bbb69a4eaaa87
 	"enrichUrl":"http://10.91.53.50/Sigine-enrich"
 }

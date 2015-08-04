@@ -6,7 +6,7 @@ var util = require('./util.js');
 
 
 exports.query = function(req,res){
-    // input should be processed in front-end into a unique array of 
+    // input should be processed in front-end into a unique array of
     // uppercase gene symbols.
 
     res.header('Access-Control-Allow-Origin','*');
@@ -22,7 +22,7 @@ exports.query = function(req,res){
     var callback = function(topMatches){
         // if err messenge
         if("err" in topMatches) res.send(topMatches);
-        else {  
+        else {
                 var shareId = mongo.saveInput(saveDoc);
                 var callback = function(topMeta){
 
@@ -44,7 +44,12 @@ exports.query = function(req,res){
                 mongo.getMetas(topMatches,callback);
             }
     }
-    R.query(req.body,callback)   
+    var valid = util.validateInput(req.body)
+    if('err' in valid){
+      res.send(valid);
+      return;
+    }else
+    R.query(req.body,callback)
 }
 
 exports.multisearch = function(req,res){
@@ -112,7 +117,7 @@ exports.history = function(req,res){
                 mongo.getMetas(topMatches,metaCallback);
             }
             R.query(input,RCallback);
-        }  
+        }
     }
     mongo.getSharedInput(id,inputCallback);
 }
@@ -126,7 +131,7 @@ exports.count = function(req,res){
 exports.signatures = function(req,res){
     res.header('Access-Control-Allow-Origin','*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    
+
     mongo.signaturesFromIDs(req.body,res);
 };
 

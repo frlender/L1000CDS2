@@ -1,5 +1,7 @@
 // trivial functions here
 var fs = require('fs');
+var ZSchema = require("z-schema");
+
 fs.readFile('data/pertIDMap.json',function(err,buffer){
 	var map = JSON.parse(buffer.toString());
 	exports.addExternalPertIDs = function(doc){
@@ -14,3 +16,94 @@ fs.readFile('data/pertIDMap.json',function(err,buffer){
 		}
 	};
 });
+
+
+var geneSetSchema = {
+	type:'object',
+	properties:{
+		config:{
+			type:'object',
+			properties:{
+				aggravate:{type:'boolean'},
+				searchMethod:{type:'string'},
+				combination:{type:'boolean'},
+				share:{type:'boolean'}
+			},
+		required:['aggravate','searchMethod','combination','share']
+		},
+		data:{
+			type:'object',
+			properties:{
+				upGenes:{type:'array',items:{type:'string'}},
+				dnGenes:{type:'array',items:{type:'string'}}
+			},
+			required:['upGenes','dnGenes']
+		},
+		metadata:{
+			type:'array',
+			items:{
+				type:'object'
+			}
+		}
+	}
+}
+var CDSchema = {
+	type:'object',
+	properties:{
+		config:{
+			type:'object',
+			properties:{
+				aggravate:{type:'boolean'},
+				searchMethod:{type:'string'},
+				combination:{type:'boolean'},
+				share:{type:'boolean'}
+			},
+			required:['aggravate','searchMethod','combination','share']
+		},
+		data:{
+			type:'object',
+			properties:{
+				genes:{type:'array',minItems:5,items:{type:'string'}},
+				vals:{type:'array',minItems:5,items:{type:'number'}}
+			},
+			required:['genes','vals']
+		},
+		metadata:{
+			type:'array',
+			items:{
+				type:'object'
+			}
+		}
+	}
+}
+var validator = new ZSchema();
+exports.validateInput = function(input){
+	if(!(input instanceof Object)) return {'err':'Input is not an object.'}
+	if(!('config' in input) || !('searchMethod' in input.config))
+	return {err:'No search method in input.'}
+	if(input.config.searchMethod == 'geneSet'){
+		var valid = validator.validate(input,geneSetSchema);
+		if(valid) {
+			if((input.data.upGenes.length+input.data.dnGenes.length)<5)
+				return {err:'Input gene lists are too short. Please enter up/down gene lists of at least 5 genes in total'};
+			else return {good:true}
+		}
+		else{
+			var err = validator.lastReport.errors[0];
+			return {err:err.path+' -> '+err.message}
+		}
+	}else if(input.config.searchMethod == 'CD'){
+		var valid = validator.validate(input,CDSchema);
+		if(valid) {
+			if(input.data.genes.length==input.data.vals.length)
+				return {good:true}
+			else return {err:'#/data/genes and #/data/vals should be equal length.'}
+		}
+		else{
+			var err = validator.lastReport.errors[0];
+			return {err:err.path+' -> '+err.message};
+		}
+	}else{
+		return {err:'Search method is not correct. It should be either "geneSet" or "CD".'}
+	}
+}
