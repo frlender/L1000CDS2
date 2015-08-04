@@ -94,6 +94,8 @@ exports.history = function(req,res){
             // accomodation for user input of a previous version.
             input.searchMethod = "geneSet";
         }
+        if('user' in input)
+            delete input.user;
         if("err" in input){
             res.send(input["err"]);
         }else{
