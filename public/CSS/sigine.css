@@ -1,11 +1,11 @@
 
 
-html { 
-	width: 100%;  margin: auto; text-align: center; 
+html {
+	width: 100%;  margin: auto; text-align: center;
 }
 
-body { 
-	width: 100%; margin: auto; text-align: center; 
+body {
+	width: 100%; margin: auto; text-align: center;
 }
 
 body{
@@ -26,7 +26,7 @@ body{
 
 /*.custom-container{
 	margin-top:5em;
-	
+
 }*/
 
 .custom-table{
@@ -92,7 +92,7 @@ margin-right: 0.2em;
 .pure-form textarea{
 	/*width:218px;*/
 	/*height:300px;*/
-	border-radius: 0 0 0 0 !important; 
+	border-radius: 0 0 0 0 !important;
 	top: -1px;
 	height: 20em;
 }
@@ -582,4 +582,10 @@ marker{
 	float:right;
 	position: relative;
 	top:38px;
+}
+.new{
+  font-size: 0.8em;
+    vertical-align: top;
+    color: indianred;
+    font-weight: bold;
 }

@@ -16,17 +16,21 @@ indexControllers.controller('index',['$scope','$http','$location',
 	$scope.directToIndex = function(){
 		$location.path('/index');
 	}
+	$scope.isNew = function(addedTime){
+		var oneMonth = 2.62974e9; // milliseconds in a month.
+		return (new Date().getTime()-addedTime) > 2*oneMonth?false:true;
+	}
 }]);
 
 
 
 var process = _.identity;
-indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExample', 
+indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExample',
 	'buildQueryData', 'resultStorage', '$location', 'ffClean', 'Local',
 	'util', '$routeParams','getSearch','localStorageService',
 	function($scope,$http,$modal,loadExample,buildQueryData,resultStorage,$location,
 		ffClean,Local,util,$routeParams,getSearch,lss){
-		
+
 		if('shareID' in $routeParams){
 			$scope.hasInput = true;
 			getSearch($routeParams.shareID,function(search){
@@ -74,9 +78,9 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
        		}
        		$scope.addHistory();
        }
-       
 
-		
+
+
 		$scope.goToResultView = function(id,search){
 			// search is an object.
 			if(!(id in resultStorage)){
@@ -124,7 +128,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 			$scope[geneListKey] = "";
 		}
 
-		
+
 
 		$scope.showExamples = function(){
 			var modalInstance = $modal.open({
@@ -193,10 +197,10 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 
 
 
-indexControllers.controller('exampleModalCtrl', 
-	['$scope', '$modalInstance', 'loadGEO', 'matchByNameFactory', 
+indexControllers.controller('exampleModalCtrl',
+	['$scope', '$modalInstance', 'loadGEO', 'matchByNameFactory',
 	function($scope, $modalInstance, loadGEO, matchByNameFactory) {
-  
+
  	var matchByName;
  	$('.st-selected').removeClass('st-selected');
  	loadGEO.then(function(diseases){
@@ -220,16 +224,16 @@ indexControllers.controller('exampleModalCtrl',
   		}else{
   			$modalInstance.dismiss('cancel');
   		}
-  		
+
   	};
 
 }]);
 
 
-indexControllers.controller('ebovsModalCtrl', 
-	['$scope', '$modalInstance', 'loadEbovs', 'matchByNameFactory', 
+indexControllers.controller('ebovsModalCtrl',
+	['$scope', '$modalInstance', 'loadEbovs', 'matchByNameFactory',
 	function($scope, $modalInstance, loadEbovs, matchByNameFactory) {
-  
+
  // $scope.shouldBeOpened = true;
  // $scope.shareURL = shareURL;
  // $scope.cancel = function () {
@@ -258,7 +262,7 @@ indexControllers.controller('ebovsModalCtrl',
   		}else{
   			$modalInstance.dismiss('cancel');
   		}
-  		
+
   	};
 
 }]);
