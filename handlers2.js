@@ -17,7 +17,6 @@ exports.query = function(req,res){
     saveDoc["config"]["db-version"] = 'cpcd-v1.0';
     saveDoc["user"] = {};
     saveDoc["user"].ip = req.ip;
-    console.log(req.ip)
 
     var callback = function(topMatches){
         // if err messenge
