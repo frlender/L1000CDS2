@@ -7,10 +7,11 @@ var headers = {
     'Content-Type':     'application/x-www-form-urlencoded'
 }
 
-var queryUrl = config.get('RUrl'),
+var RUrl = config.get('RUrl'),
     enrichUrl = config.get('enrichUrl');
 
 exports.query = function(input,cb){
+    var queryUrl = RUrl[input.user.endpoint];
     if(input.config.searchMethod == "geneSet"){
         if(input.config.aggravate){
         var upGenes = input.data.upGenes,
@@ -113,23 +114,3 @@ exports.drugEnrich = function(input,cb){
         cb(JSON.parse(body));
     });
 }
-
-// exports.multi = function(input,cb){
-//     var options = {
-//             url: 'http://127.0.0.1:'+port+'/custom/Sigine',
-//             method: 'POST',
-//             headers: headers,
-//             form: {'input': JSON.stringify(input.input),
-//                 'method':'"multi"'}
-//     }
-//      request(options, function (error, response, body) {
-//         if (!error && response.statusCode == 200) {
-//             // Print out the response body
-//             // console.log(body,typeof(body))
-//             // res.send(body);
-//             // var enrichRes = JSON.parse(body);
-//             var topMatches = JSON.parse(body);
-//             cb(topMatches);
-//         }
-//     });
-// }

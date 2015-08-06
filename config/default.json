@@ -1,5 +1,8 @@
 {
 	"dbUrl":"mongodb://10.91.53.225/L1000CDS2",
-	"RUrl":"http://10.91.53.50/Sigine",
+	"RUrl":{
+		"browser":"http://10.91.53.50/Sigine",
+		"API":"http://146.203.54.236:23236/custom/Sigine"
+	},
 	"enrichUrl":"http://10.91.53.50/Sigine-enrich"
 }

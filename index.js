@@ -15,7 +15,25 @@ app.set('view engine','jade');
 
 sigineRouter.use('/',express.static(__dirname + '/public'));
 
-sigineRouter.post('/query',jsonParser,sigine.query);
+sigineRouter.post('/query',jsonParser,function(req,res){
+	// for API search
+	res.header('Access-Control-Allow-Origin','*');
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+
+	req.body.user = {};
+	req.body.user.endpoint = 'API';
+
+	sigine.query(req,res);
+});
+
+sigineRouter.post('/query2',jsonParser,function(req,res){
+	// for browser search
+	req.body.user = {};
+	req.body.user.endpoint = 'browser';
+
+	sigine.query(req,res);
+});
+
 sigineRouter.post('/signatures',jsonParser,sigine.signatures);
 
 sigineRouter.get('/meta',sigine.meta);

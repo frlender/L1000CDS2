@@ -108,7 +108,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 			$scope.err = false;
 			var input = buildQueryData($scope);
 			input.meta = ffClean($scope.inputMeta);
-			$http.post(baseURL+"query",input)
+			$http.post(baseURL+"query2",input)
 				.success(function(data) {
 					if("err" in data){
 						$scope.err = data["err"][0];

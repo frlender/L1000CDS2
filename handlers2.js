@@ -9,13 +9,9 @@ exports.query = function(req,res){
     // input should be processed in front-end into a unique array of
     // uppercase gene symbols.
 
-    res.header('Access-Control-Allow-Origin','*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-
     // pass by reference!
     var saveDoc = req.body;
     saveDoc["config"]["db-version"] = 'cpcd-v1.0';
-    saveDoc["user"] = {};
     saveDoc["user"].ip = req.ip;
 
     var callback = function(topMatches){
