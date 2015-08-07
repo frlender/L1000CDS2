@@ -89,6 +89,12 @@ exports.history = function(req,res){
             // accomodation for user input of a previous version.
             input.searchMethod = "geneSet";
         }
+        if(!("user" in input)){
+            input.user = {};
+            input.user.endpoint = 'API';
+        }else if(!('endpoint' in input)){
+            input.user.endpoint = 'API';
+        }
         if("err" in input){
             res.send(input["err"]);
         }else{
