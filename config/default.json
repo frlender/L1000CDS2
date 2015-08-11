@@ -7,7 +7,7 @@
 		},
 		"cpcd-gse70138-v1.0":{
 			"browser":"http://10.91.53.50/Sigine-cpcd-gse70138",
-			"API":"http://127.0.0.1:23237/custom/Sigine"
+			"API":"http://10.91.53.104/Sigine-cpcd-gse70138"
 		}
 	},
 	"enrichUrl":"http://10.91.53.50/Sigine-enrich"
