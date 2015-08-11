@@ -10,8 +10,12 @@ exports.query = function(req,res){
     // uppercase gene symbols.
 
     // pass by reference!
+    // db-version now is a required field of req.body
+    if(req.body.config['db-version']=="latest"){
+        req.body.config['db-version'] = 'cpcd-gse70138-v1.0';
+    }
     var saveDoc = req.body;
-    saveDoc["config"]["db-version"] = 'cpcd-v1.0';
+
     saveDoc["user"].ip = req.ip;
 
     var callback = function(topMatches){
@@ -85,10 +89,6 @@ exports.meta = function(req,res){
 exports.history = function(req,res){
     var id = req.params["id"];
     var inputCallback = function(input){
-        if(!("searchMethod" in input)){
-            // accomodation for user input of a previous version.
-            input.searchMethod = "geneSet";
-        }
         if(!("user" in input)){
             input.user = {};
             input.user.endpoint = 'API';

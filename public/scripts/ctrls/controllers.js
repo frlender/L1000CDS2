@@ -37,6 +37,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 				var input = search.input;
 				$scope.aggravate = input.config.aggravate;
 				$scope.share = input.config.share;
+				$scope.dbVersion = input.config['db-version'];
 				$scope.combination = input.config.combination;
 				$scope.inputMeta = input.meta.length==0?
 				[{key:"Tag",value:"",dataPlaceholder:"add a tag"}]:input.meta;
@@ -57,6 +58,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 			// $scope.shareURL = "";
 			$scope.share = false;
 			$scope.combination = false;
+			$scope.dbVersion = 'cpcd-gse70138-v1.0';
 			$scope.inputMeta = [
 				{key:"Tag",value:"",dataPlaceholder:"add a tag"},
        			{key:"Cell", value:""},

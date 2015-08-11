@@ -11,7 +11,7 @@ var RUrl = config.get('RUrl'),
     enrichUrl = config.get('enrichUrl');
 
 exports.query = function(input,cb){
-    var queryUrl = RUrl[input.user.endpoint];
+    var queryUrl = RUrl[input.config['db-version']][input.user.endpoint];
     if(input.config.searchMethod == "geneSet"){
         if(input.config.aggravate){
         var upGenes = input.data.upGenes,
@@ -24,6 +24,7 @@ exports.query = function(input,cb){
 
         var json = {upGenes:upGenes,dnGenes:dnGenes,
           combination:input.config.combination,
+          dbVersion:input.config['db-version'],
           method:'geneSet'};
 
         // package json data in form request.
@@ -40,6 +41,7 @@ exports.query = function(input,cb){
 
         var json = {input:input.data,method:'CD',
           combination:input.config.combination,
+          dbVersion:input.config['db-version'],
           direction:direction};
         var options = {
             url: queryUrl,

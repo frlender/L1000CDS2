@@ -36,6 +36,7 @@ services.factory('buildQueryData',[function(){
 		res.config.aggravate = scope.aggravate;
 		res.config.share = scope.share;
 		res.config.combination = scope.combination;
+		res.config['db-version'] = scope.dbVersion;
 		var lines = S(scope.upGenes.toUpperCase()).trim().split('\n');
 		var splits = lines[0].split(',');
 		if(splits.length>1){

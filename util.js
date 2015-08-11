@@ -27,7 +27,8 @@ var geneSetSchema = {
 				aggravate:{type:'boolean'},
 				searchMethod:{type:'string'},
 				combination:{type:'boolean'},
-				share:{type:'boolean'}
+				share:{type:'boolean'},
+				"db-version":{type:'string'}
 			},
 		required:['aggravate','searchMethod','combination','share']
 		},
@@ -56,7 +57,8 @@ var CDSchema = {
 				aggravate:{type:'boolean'},
 				searchMethod:{type:'string'},
 				combination:{type:'boolean'},
-				share:{type:'boolean'}
+				share:{type:'boolean'},
+				"db-version":{type:'string'}
 			},
 			required:['aggravate','searchMethod','combination','share']
 		},

@@ -9,7 +9,7 @@ mongoose.connect(config.get('dbUrl'));
 // for cpcd collection
 var Schema = mongoose.Schema({"pert_desc":String,"cell_id":String,
     "pert_dose":String,"pert_dose_unit":String,"pert_time":String,
-    "pert_time_unit":String},{collection:"cpcd"})
+    "pert_time_unit":String},{collection:"cpcd-gse70138"})
 var Expm = mongoose.model('Expm',Schema);
 
 // for sigine-share and sigine-store collections
@@ -58,6 +58,7 @@ exports.getMetas = function(topExpms,callback){
 
     // console.log(map);
     query.exec(function(err,queryRes){
+        debugger;
         if(err) throw err;
         // console.log(queryRes.slice(0,2),'aaaa');
         var topMeta = [];

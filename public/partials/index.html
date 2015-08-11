@@ -37,6 +37,12 @@
             <toggle-switch ng-model="aggravate" on-label="mimic" off-label="reverse" class="switch-default"></toggle-switch><span>   Search for small molecule signatures that   <span class="emphasize">{{aggravate?"mimic":"reverse"}}   </span>my input.</span>
           </div>
           <div class="input-margin">
+            <select ng-model="dbVersion">
+              <option value="cpcd-gse70138-v1.0">latest</option>
+              <option value="cpcd-v1.0">cpcd-v1.0</option>
+            </select>       The database version to be used for search.
+          </div>
+          <div class="input-margin">
             <input type="checkbox" ng-model="combination"/><span> Search for drug combinations.<span ng-if="isNew(1438275426251)" class="new"> New!</span></span>
           </div>
           <div class="input-margin">
