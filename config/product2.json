@@ -1,8 +1,14 @@
 {
-	"dbUrl":"mongodb://146.203.54.165/L1000CDS2",
+	"dbUrl":"mongodb://10.91.53.225/L1000CDS2",
 	"RUrl":{
-		"browser":"http://10.91.53.50/Sigine",
-		"API":"http://146.203.54.236:23236/custom/Sigine"
+		"cpcd-v1.0":{
+			"browser":"http://10.91.53.50/Sigine",
+			"API":"http://146.203.54.236:23236/custom/Sigine"
+		},
+		"cpcd-gse70138-v1.0":{
+			"browser":"http://10.91.53.50/Sigine-cpcd-gse70138",
+			"API":"http://127.0.0.1:23237/custom/Sigine"
+		}
 	},
 	"enrichUrl":"http://10.91.53.50/Sigine-enrich"
 }

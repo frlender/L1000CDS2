@@ -92,7 +92,7 @@ exports.history = function(req,res){
         if(!("user" in input)){
             input.user = {};
             input.user.endpoint = 'API';
-        }else if(!('endpoint' in input)){
+        }else if(!('endpoint' in input.user)){
             input.user.endpoint = 'API';
         }
         if("err" in input){
@@ -112,6 +112,7 @@ exports.history = function(req,res){
                     if('combinations' in topMatches){
                         dataToUser.combinations = topMatches.combinations;
                     }
+                    delete input.user;
                     res.send({input:input,results:dataToUser});
                     //res.render('index',{root:'',input:input,results:dataToUser});
                 }

@@ -28,9 +28,9 @@ var geneSetSchema = {
 				searchMethod:{type:'string'},
 				combination:{type:'boolean'},
 				share:{type:'boolean'},
-				"db-version":{type:'string'}
+				"db-version":{type:'string',format:'dbVersion'}
 			},
-		required:['aggravate','searchMethod','combination','share']
+		required:['aggravate','searchMethod','combination','share','db-version']
 		},
 		data:{
 			type:'object',
@@ -58,9 +58,9 @@ var CDSchema = {
 				searchMethod:{type:'string'},
 				combination:{type:'boolean'},
 				share:{type:'boolean'},
-				"db-version":{type:'string'}
+				"db-version":{type:'string',format:'dbVersion'}
 			},
-			required:['aggravate','searchMethod','combination','share']
+			required:['aggravate','searchMethod','combination','share','db-version']
 		},
 		data:{
 			type:'object',
@@ -78,6 +78,11 @@ var CDSchema = {
 		}
 	}
 }
+ZSchema.registerFormat('dbVersion',function(str){
+	if(str=='latest' || str=='cpcd-v1.0' || str=='cpcd-gse70138-v1.0')
+		return true
+	else return false;
+});
 var validator = new ZSchema();
 exports.validateInput = function(input){
 	if(!(input instanceof Object)) return {'err':'Input is not an object.'}

@@ -45,6 +45,18 @@ exports.testSchema = {
 		test.ok(valid.err =='Search method is not correct. It should be either "geneSet" or "CD".');
 		test.done();
 	},
+	testDbVersion:function(test){
+		var input = {config:{
+				aggravate:true,
+				searchMethod:'geneSet',
+				combination:true,
+				share:true,
+				"db-version":"xyz"
+			}};
+		var valid = util.validateInput(input);
+		test.ok(valid.err=="#/config/db-version -> Object didn't pass validation for format dbVersion: xyz");
+		test.done();
+	},
 	testGeneSetSchema:function(test){
 		var input = {config:{searchMethod :"geneSet"}};
 		var valid = util.validateInput(input)
@@ -54,7 +66,8 @@ exports.testSchema = {
 				aggravate:true,
 				searchMethod:'geneSet',
 				combination:true,
-				share:true
+				share:true,
+				"db-version":"latest"
 			},
 			metaData:[],
 			data:{
@@ -92,7 +105,8 @@ exports.testSchema = {
 				aggravate:true,
 				searchMethod:'CD',
 				combination:true,
-				share:true
+				share:true,
+				"db-version":"latest"
 			},
 			metaData:[],
 			data:{
