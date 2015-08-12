@@ -53,6 +53,7 @@
         <section id='L1000Data'>
             <h3>L1000 mRNA Expression Data</h3>
             <p>The L1000 mRNA gene-expression dataset is generated as part of the <a href="http://www.lincsproject.org/">Library of Integrated Network-based Cellular Signatures (LINCS) project</a>, a <a href="https://commonfund.nih.gov/">Common Fund</a> program run by NIH. LINCS aims to systematically profile the molecular and phenotypical outcomes of agent perturbed human cells. The variety of agents includes chemical compounds, different micro-environments, endogenous ligands, gene knockdown and overexpression. The L1000 dataset comprises of over a million gene expression profiles of chemically or genetically perturbed human cell-lines. The L1000 technology developed at Broad Institute measures only ~1000 genes in each sample and estimates the expression of the rest of the transcriptome using an empirical model. In this way, the technology significantly reduces the cost and makes large-scale gene expression profiling possible. L1000CDS² currently includes a subset of the chemically perturbed gene expression profiles, specifically the profiles in the CPC and CPD peturbagen groups. After averaging replicates and removing insignificant signatures, we remained with 22,926 signatures in the L1000CDS² database.</p>
+            <p><strong>Update</strong>  (Aug. 12, 2015): The CMap team has recently depoisted several new datasets on GEO. The GEO index for this release is GSE70138. The new datasets include 274 small molecule perturbations applied on 15 cell-lines at various doses and 2 time points (3h and 24h). We have processed these datasets into characteristic direction signatures and placed 10,271 significant ones into the L1000CDS² database. Now the L1000CDS² database holds 33,197 signatures in total. We added an option in the index page that enables user to select between the old (22,926 signatures) and the new database. The API is also changed to include this option in the config object.
         </section>
         <section id="download">
             <h3>L1000 CD signature download</h3>
@@ -231,7 +232,7 @@
                 <tr>
                     <td>combinations[ ].value</td>
                     <td>Number</td>
-                    <td>Synergy score/td>
+                    <td>Synergy score</td>
                 </tr>
                 <tr>
                     <td>topMeta</td>
@@ -443,7 +444,7 @@
                 <tr>
                     <td>combinations[ ].value</td>
                     <td>Number</td>
-                    <td>Synergy score/td>
+                    <td>Synergy score</td>
                 </tr>
                 <tr>
                     <td>topMeta</td>
@@ -536,7 +537,7 @@ data = {"upGenes":["KDM5A","EGR1","RELB"],
 "dnGenes":["USP22","PHGDH","HADH"]}
 data['upGenes'] = upperGenes(data['upGenes'])
 data['dnGenes'] = upperGenes(data['dnGenes'])
-config = {"aggravate":True,"searchMethod":"geneSet","share":True,"combination":True}
+config = {"aggravate":True,"searchMethod":"geneSet","share":True,"combination":True,"db-version":"latest"}
 metadata = [{"key":"Tag","value":"gene-set python example"},{"key":"Cell","value":"MCF7"}]
 payload = {"data":data,"config":config,"meta":metadata}
 headers = {'content-type':'application/json'}
@@ -546,7 +547,7 @@ resGeneSet = r.json()
 # cosine distance search example
 data = {"genes":["DDIT4","HIG2","FLT1","ADM","SLC2A3","ZNF331"],"vals":[9.97,10.16,7.66,17.80,20.29,15.22]}
 data['genes'] = upperGenes(data['genes'])
-config = {"aggravate":False,"searchMethod":"CD","share":True,"combination":True}
+config = {"aggravate":False,"searchMethod":"CD","share":True,"combination":True,"db-version":"latest"}
 metadata = [{"key":"Tag","value":"CD python example"},{"key":"Cell","value":"VCAP"}]
 payload = {"data":data,"config":config,"meta":metadata}
 headers = {'content-type':'application/json'}
