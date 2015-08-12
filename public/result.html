@@ -1,5 +1,5 @@
 
-<div class="header-board"><a ng-click="reanalyze()" title="reanalyze input using different configurations" class="btn btn-primary dropdown-toggle-custom reanalyze"><i class="fa fa-chevron-left">     </i>     reanalyze</a>
+<div class="header-board"><a ng-click="reanalyze()" ng-if="!err" title="reanalyze input using different configurations" class="btn btn-primary dropdown-toggle-custom reanalyze"><i class="fa fa-chevron-left">     </i>     reanalyze</a>
   <div dropdown="dropdown" class="btn-group dropdown-custom"><a dropdown-toggle="dropdown-toggle" class="btn btn-primary dropdown-toggle dropdown-toggle-custom">{{tag.value}} ({{direction}}) <span class="caret"></span></a>
     <ul role="menu" class="dropdown-menu">
       <li>

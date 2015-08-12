@@ -89,15 +89,15 @@ exports.meta = function(req,res){
 exports.history = function(req,res){
     var id = req.params["id"];
     var inputCallback = function(input){
-        if(!("user" in input)){
-            input.user = {};
-            input.user.endpoint = 'API';
-        }else if(!('endpoint' in input.user)){
-            input.user.endpoint = 'API';
-        }
         if("err" in input){
-            res.send(input["err"]);
+            res.send(input);
         }else{
+            if(!("user" in input)){
+                input.user = {};
+                input.user.endpoint = 'API';
+            }else if(!('endpoint' in input.user)){
+                input.user.endpoint = 'API';
+            }
             var RCallback = function(topMatches){
                 var metaCallback = function(topMeta){
                     var dataToUser = {};

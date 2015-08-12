@@ -3,6 +3,10 @@ services.factory('getSearch',['resultStorage','Local','query',
 		function getSearch(id,cb){
 			var last = function(){
 				query.getSearch(id,function(search){
+					if('err' in search){
+						cb(search);
+						return;
+					}
 					resultStorage[id] = search;
 					try{Local.prototype.set(id,search);}
 					catch(e){}

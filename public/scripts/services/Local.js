@@ -21,16 +21,22 @@ services.factory('Local',['localStorageService','util',
 					history.total = localKeys.length;
 				} // end of localKeys.length>0
 				this.addHistory = function(){
-					history.items = history.items
-					.concat(localKeys.slice(history.items.length,history.items.length+showCount)
-						.map(function(id){
-						var item = {};
-						item.search = self.get(id);
-						item.search = self.backCompact(item.search,id);
-						item.tag = util.getTag(item.search.input.meta);
-						item.id = id;
-						return item;
-					}));
+					var newItems = [];
+					localKeys.slice(history.items.length,history.items.length+showCount)
+						.forEach(function(id){
+						try{
+							var item = {};
+							item.search = self.get(id);
+							item.search = self.backCompact(item.search,id);
+							item.tag = util.getTag(item.search.input.meta);
+							item.id = id;
+							newItems.push(item);
+						}catch(e){
+							localStorage.remove(id);
+							localKeys = localStorage.keys();
+						}
+					});
+					history.items = history.items.concat(newItems);
 					return history
 				}
 				this.getHistory = function(){

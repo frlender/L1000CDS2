@@ -5,6 +5,10 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 
 	var shareID;
 	getSearch($routeParam.shareID,function(search){
+		if('err' in search){
+			$scope.err = search.err;
+			return;
+		}
 		$scope.entries = search.result.topMeta;
 		$scope.shareURL = baseURL+$routeParam.shareID;
 		shareID = $routeParam.shareID;

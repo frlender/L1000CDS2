@@ -1,5 +1,5 @@
 .header-board
-   a.btn.btn-primary.dropdown-toggle-custom.reanalyze(ng-click="reanalyze()" title="reanalyze input using different configurations")
+   a.btn.btn-primary.dropdown-toggle-custom.reanalyze(ng-click="reanalyze()" ng-if='!err' title="reanalyze input using different configurations")
       i.fa.fa-chevron-left      
       |      reanalyze
     .btn-group.dropdown-custom(dropdown)
