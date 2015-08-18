@@ -137,7 +137,12 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 			var modalInstance = $modal.open({
       			templateUrl: baseURL+'examples.html',
       			controller: 'exampleModalCtrl',
-      			size:"lg"
+      			size:"lg",
+      			resolve: {
+      				aggravate:function(){
+      					return $scope.aggravate;
+      				}
+      			}
     		});
 
     		modalInstance.result.then(function (res) {
@@ -160,8 +165,13 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 		$scope.showLigands = function(){
 			var modalInstance = $modal.open({
       			templateUrl: baseURL+'ligands.html',
-      			controller: 'ligandModalCtrl'
-      			// size:"lg"
+      			controller: 'ligandModalCtrl',
+      			resolve: {
+      				aggravate: function(){
+      					console.log($scope.aggravate);
+      					return $scope.aggravate;
+      				}
+      			}
     		});
 
     		modalInstance.result.then(function (res) {
@@ -199,6 +209,11 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 			var modalInstance = $modal.open({
       			templateUrl: baseURL+'ebovs.html',
       			controller: 'ebovsModalCtrl',
+      			resolve: {
+      				aggravate:function(){
+      					return $scope.aggravate;
+      				}
+      			}
     		});
 
     		modalInstance.result.then(function (res) {
@@ -224,9 +239,10 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 
 
 indexControllers.controller('exampleModalCtrl',
-	['$scope', '$modalInstance', 'loadGEO', 'matchByNameFactory',
-	function($scope, $modalInstance, loadGEO, matchByNameFactory) {
+	['$scope', '$modalInstance', 'loadGEO', 'matchByNameFactory', 'aggravate',
+	function($scope, $modalInstance, loadGEO, matchByNameFactory,aggravate) {
 
+	$scope.aggravate = aggravate
  	var matchByName;
  	$('.st-selected').removeClass('st-selected');
  	loadGEO.then(function(diseases){
@@ -257,16 +273,21 @@ indexControllers.controller('exampleModalCtrl',
 
 
 indexControllers.controller('ligandModalCtrl',
-	['$scope', '$modalInstance', 'loadLigands', 'matchByNameFactory',
-	function($scope, $modalInstance, loadLigands, matchByNameFactory) {
+	['$scope', '$modalInstance', 'loadLigands', 'matchByNameFactory', 'aggravate',
+	function($scope, $modalInstance, loadLigands, matchByNameFactory,aggravate) {
 
  	loadLigands.then(function(ligands){
  		$scope.ligands = ligands;
  	});
 
+ 	$scope.aggravate = aggravate;
+ 	console.log($scope.aggravate);
  	$scope.selectedEntry = undefined;
+ 	$scope.aggravate = true;
 
  	$scope.toggleLigand = function(ligand){
+ 		 	console.log($scope.aggravate);
+
  		if(ligand.__selected) {
  			ligand.__selected = false;
  			$scope.selectedEntry = undefined;
@@ -294,9 +315,9 @@ indexControllers.controller('ligandModalCtrl',
 
 
 indexControllers.controller('ebovsModalCtrl',
-	['$scope', '$modalInstance', 'loadEbovs', 'matchByNameFactory',
-	function($scope, $modalInstance, loadEbovs, matchByNameFactory) {
-
+	['$scope', '$modalInstance', 'loadEbovs', 'matchByNameFactory', 'aggravate',
+	function($scope, $modalInstance, loadEbovs, matchByNameFactory,aggravate) {
+	$scope.aggravate = aggravate;
  	var matchByName;
  	$('.st-selected').removeClass('st-selected');
  	loadEbovs.then(function(diseases){
