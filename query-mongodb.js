@@ -21,6 +21,11 @@ var SchemaDisease = mongoose.Schema({"term":String,"desc":String,genes:[String],
     vals:[Number]},{collection:"diseases"});
 var Disease = mongoose.model('Disease',SchemaDisease);
 
+// for ligands collection
+var SchemaLigand = mongoose.Schema({"term":String, genes:[String],
+    vals:[Number]},{collection:"ligands"});
+var Ligand = mongoose.model('Ligand',SchemaLigand);
+
 var Schema2 = mongoose.Schema({
     "config":Object,
     "data":Object,
@@ -164,6 +169,22 @@ exports.diseases = function(res){
 
 exports.disease = function(id,res){
     var query = Disease.findOne({_id:id}).sort('term').select('-_id -term -desc').lean();
+    query.exec(function(err,queryRes){
+        if(err) throw err;
+        res.send(queryRes);
+    });
+}
+
+exports.ligands = function(res){
+    var query = Ligand.find().select('term').lean();
+    query.exec(function(err,queryRes){
+        if(err) throw err;
+        res.send(queryRes);
+    });
+}
+
+exports.ligand = function(id,res){
+    var query = Ligand.findOne({_id:id}).sort('term').select('-_id -term').lean();
     query.exec(function(err,queryRes){
         if(err) throw err;
         res.send(queryRes);

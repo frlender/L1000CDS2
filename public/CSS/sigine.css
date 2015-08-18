@@ -589,3 +589,47 @@ marker{
     color: indianred;
     font-weight: bold;
 }
+
+.ligand{
+    display: inline-block;
+    width: 24%;
+    margin-top:0.9em;
+    text-align: center;
+}
+
+.ligand-button{
+	width:100px;
+	/*display: inline-block;*/
+	/*font-family: Helvetica;*/
+    background-color: transparent;
+    border-style: solid;
+    border-radius: 0;
+    border-width: 1.5px;
+    border-color: black;
+    color: black;
+    cursor: pointer;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 12px;
+    padding-right: 12px;
+    text-decoration: none;
+    /*font-size: 0.9em;*/
+}
+
+.ligand-button:hover{
+	color:white;
+	background-color:#428bca;
+	border-color: white;
+}
+
+.ligand-selected{
+	color:white;
+	background-color:#428bca;
+	border-color: white;
+}
+
+.ligand-modal-body{
+	text-align: left;
+	margin-left: 3.5em;
+}
+

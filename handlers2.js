@@ -146,6 +146,15 @@ exports.disease = function(req,res){
     mongo.disease(id,res);
 }
 
+exports.ligands = function(req,res){
+    mongo.ligands(res);
+}
+
+exports.ligand = function(req,res){
+    id = req.query['id'];
+    mongo.ligand(id,res);
+}
+
 exports.drugEnrich = function(req,res){
     R.drugEnrich(JSON.stringify(req.body),function(enrichRes){
         // enrichRes.data

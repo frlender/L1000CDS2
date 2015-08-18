@@ -43,6 +43,10 @@ sigineRouter.get('/count',sigine.count);
 sigineRouter.get('/disease',sigine.disease);
 sigineRouter.get('/diseases',sigine.diseases);
 
+// ligands example
+sigineRouter.get('/ligand',sigine.ligand);
+sigineRouter.get('/ligands',sigine.ligands);
+
 sigineRouter.post('/drugEnrich',jsonParser, sigine.drugEnrich);
 
 // sigineRouter.post('/multisearch',jsonParser, sigine.multisearch);

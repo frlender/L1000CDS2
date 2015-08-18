@@ -1,17 +1,6 @@
 var services = angular.module('services', []);
 
-services.factory('loadExamples',['$http','$q',
-	function($http,$q){
-		var deferred = $q.defer();
 
-		$http.get("data/nosology.json")
-			.success(function(diseases){
-				deferred.resolve(diseases);
-		})
-
-		return deferred.promise;
-
-}]);
 
 services.factory('loadGEO',['$http','$q',
 	function($http, $q){
@@ -21,6 +10,17 @@ services.factory('loadGEO',['$http','$q',
 			deferred.resolve(_.sortBy(diseases,'term'));
 		})
 
+		return deferred.promise;
+}]);
+
+services.factory('loadLigands',['$http','$q',
+	function($http, $q){
+		var deferred = $q.defer();
+
+		$http.get("ligands").success(function(diseases){
+			deferred.resolve(_.sortBy(diseases,'term'));
+		});
+		
 		return deferred.promise;
 }]);
 

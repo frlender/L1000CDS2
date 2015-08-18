@@ -1,0 +1,13 @@
+<div class="modal-header" style="border-bottom-width:0">
+	<button type="button" class="close"   ng-click="cancel()" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h4 class="modal-title example-header">Select one of the consensus ligand signatures computed from LINCS L1000 data with only the landmark genes and click the search button to find drugs that would potentially <strong> mimic </strong> the ligand stimulus:</h4>
+</div>
+<div class="modal-body ligand-modal-body">
+	<div class="ligand" ng-repeat="ligand in ligands"> 
+    <div ng-click="toggleLigand(ligand)" ng-class="ligand.__selected?'ligand-selected':''" class="ligand-button">{{ligand.term}}</div>
+  </div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" ng-click="ok()">Search</button>
+    <!-- <button class="btn btn-warning" ng-click="cancel()">Cancel</button> -->
+</div>

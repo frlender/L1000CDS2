@@ -157,6 +157,29 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
     		});
 		}
 
+		$scope.showLigands = function(){
+			var modalInstance = $modal.open({
+      			templateUrl: baseURL+'ligands.html',
+      			controller: 'ligandModalCtrl'
+      			// size:"lg"
+    		});
+
+    		modalInstance.result.then(function (res) {
+    			$scope.inputMeta = [
+					{key:"Tag",value:res.term},
+       			];
+    			$http.get(baseURL+'ligand?id='+res['_id'])
+    			.success(function(res){
+    				var lines = []
+	    			res.genes.forEach(function(e,i){
+	    				lines.push(e+','+res.vals[i])
+	    			})
+      				$scope.upGenes = lines.join('\n');
+      				$scope.search();
+    			});
+    		});
+		}
+
 		$scope.loadDefaultExample = function(){
 			loadExample.default().then(function(DEGs){
 				$scope.upGenes = DEGs.up;
@@ -233,15 +256,46 @@ indexControllers.controller('exampleModalCtrl',
 }]);
 
 
+indexControllers.controller('ligandModalCtrl',
+	['$scope', '$modalInstance', 'loadLigands', 'matchByNameFactory',
+	function($scope, $modalInstance, loadLigands, matchByNameFactory) {
+
+ 	loadLigands.then(function(ligands){
+ 		$scope.ligands = ligands;
+ 	});
+
+ 	$scope.selectedEntry = undefined;
+
+ 	$scope.toggleLigand = function(ligand){
+ 		if(ligand.__selected) {
+ 			ligand.__selected = false;
+ 			$scope.selectedEntry = undefined;
+ 		}
+ 		else {
+ 			ligand.__selected = true;
+ 			if($scope.selectedEntry) $scope.selectedEntry.__selected = false;
+ 			$scope.selectedEntry = ligand;
+ 		}
+ 	}
+
+ 	$scope.cancel = function() {
+    	$modalInstance.dismiss('cancel');
+  	};
+
+  	$scope.ok = function(){
+  		if($scope.selectedEntry){
+  			$modalInstance.close($scope.selectedEntry);
+  		}else{
+  			$modalInstance.dismiss('cancel');
+  		}
+  	};
+}]);
+
+
+
 indexControllers.controller('ebovsModalCtrl',
 	['$scope', '$modalInstance', 'loadEbovs', 'matchByNameFactory',
 	function($scope, $modalInstance, loadEbovs, matchByNameFactory) {
-
- // $scope.shouldBeOpened = true;
- // $scope.shareURL = shareURL;
- // $scope.cancel = function () {
- //    $modalInstance.dismiss('cancel');
- //  };
 
  	var matchByName;
  	$('.st-selected').removeClass('st-selected');
