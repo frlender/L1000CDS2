@@ -165,27 +165,23 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 		$scope.showLigands = function(){
 			var modalInstance = $modal.open({
       			templateUrl: baseURL+'ligands.html',
-      			controller: 'ligandModalCtrl',
-      			resolve: {
-      				aggravate: function(){
-      					console.log($scope.aggravate);
-      					return $scope.aggravate;
-      				}
-      			}
+      			controller: 'ligandModalCtrl'
     		});
 
-    		modalInstance.result.then(function (res) {
+    		modalInstance.result.then(function (scope) {
     			$scope.inputMeta = [
-					{key:"Tag",value:res.term},
+					{key:"Tag",value:scope.selectedEntry.term},
        			];
-    			$http.get(baseURL+'ligand?id='+res['_id'])
+       			$scope.aggravate = scope.aggravate;
+       			$scope.dbVersion = 'cpcd-gse70138-lm-v1.0';
+    			$http.get(baseURL+'ligand?id='+scope.selectedEntry['_id'])
     			.success(function(res){
     				var lines = []
 	    			res.genes.forEach(function(e,i){
 	    				lines.push(e+','+res.vals[i])
 	    			})
       				$scope.upGenes = lines.join('\n');
-      				$scope.search();
+      				// $scope.search();
     			});
     		});
 		}
@@ -273,14 +269,14 @@ indexControllers.controller('exampleModalCtrl',
 
 
 indexControllers.controller('ligandModalCtrl',
-	['$scope', '$modalInstance', 'loadLigands', 'matchByNameFactory', 'aggravate',
-	function($scope, $modalInstance, loadLigands, matchByNameFactory,aggravate) {
+	['$scope', '$modalInstance', 'loadLigands', 'matchByNameFactory',
+	function($scope, $modalInstance, loadLigands, matchByNameFactory) {
 
  	loadLigands.then(function(ligands){
  		$scope.ligands = ligands;
  	});
 
- 	$scope.aggravate = aggravate;
+ 	$scope.aggravate = true;
  	console.log($scope.aggravate);
  	$scope.selectedEntry = undefined;
  	$scope.aggravate = true;
@@ -305,7 +301,7 @@ indexControllers.controller('ligandModalCtrl',
 
   	$scope.ok = function(){
   		if($scope.selectedEntry){
-  			$modalInstance.close($scope.selectedEntry);
+  			$modalInstance.close($scope);
   		}else{
   			$modalInstance.dismiss('cancel');
   		}
