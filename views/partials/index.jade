@@ -57,7 +57,7 @@
               select(ng-model='dbVersion')
                 option(value="cpcd-gse70138-v1.0") latest
                 option(value="cpcd-v1.0") cpcd-v1.0
-                option(value="cpcd-gse70138-lm-v1.0") cpcd-gse70138-lm-v1.0
+                option(value="cpcd-gse70138-lm-v1.0" ng-if="dbVersion=='cpcd-gse70138-lm-v1.0'") cpcd-gse70138-lm-v1.0
               |        The database version to be used for search.
             .input-margin
               input(type="checkbox" ng-model="combination") 

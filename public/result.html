@@ -58,7 +58,7 @@
       </tr>
     </tfoot>
   </table>
-  <h3 ng-class="{err:err,noerr:!err}">{{err}}</h3><a ng-if="isFileSaverSupported" title="download the table as csv" ng-click="saveCombination()" class="btn share-button save-combination"><i class="fa fa-cloud-download"></i></a>
+  <h3 ng-class="{err:err,noerr:!err}">{{err}}</h3><a ng-if="isFileSaverSupported &amp;&amp; combinations" title="download the table as csv" ng-click="saveCombination()" class="btn share-button save-combination"><i class="fa fa-cloud-download"></i></a>
   <div ng-controller="combinationCtrl">
     <table ng-if="combinations" st-table="displayedCombinations" st-safe-src="combinations" class="table table-striped">
       <thead>

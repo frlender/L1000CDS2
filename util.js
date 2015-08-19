@@ -79,7 +79,8 @@ var CDSchema = {
 	}
 }
 ZSchema.registerFormat('dbVersion',function(str){
-	if(str=='latest' || str=='cpcd-v1.0' || str=='cpcd-gse70138-v1.0')
+	if(str=='latest' || str=='cpcd-v1.0' || 
+		str=='cpcd-gse70138-v1.0' || str=='cpcd-gse70138-lm-v1.0')
 		return true
 	else return false;
 });

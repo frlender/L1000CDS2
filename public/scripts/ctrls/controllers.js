@@ -181,7 +181,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 	    				lines.push(e+','+res.vals[i])
 	    			})
       				$scope.upGenes = lines.join('\n');
-      				// $scope.search();
+      				$scope.search();
     			});
     		});
 		}
@@ -277,12 +277,10 @@ indexControllers.controller('ligandModalCtrl',
  	});
 
  	$scope.aggravate = true;
- 	console.log($scope.aggravate);
  	$scope.selectedEntry = undefined;
- 	$scope.aggravate = true;
 
  	$scope.toggleLigand = function(ligand){
- 		 	console.log($scope.aggravate);
+ 		
 
  		if(ligand.__selected) {
  			ligand.__selected = false;
@@ -301,6 +299,7 @@ indexControllers.controller('ligandModalCtrl',
 
   	$scope.ok = function(){
   		if($scope.selectedEntry){
+  			$scope.selectedEntry.__selected = false;
   			$modalInstance.close($scope);
   		}else{
   			$modalInstance.dismiss('cancel');

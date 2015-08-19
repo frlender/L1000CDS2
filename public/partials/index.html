@@ -41,7 +41,7 @@
             <select ng-model="dbVersion">
               <option value="cpcd-gse70138-v1.0">latest</option>
               <option value="cpcd-v1.0">cpcd-v1.0</option>
-              <option value="cpcd-gse70138-lm-v1.0">cpcd-gse70138-lm-v1.0</option>
+              <option value="cpcd-gse70138-lm-v1.0" ng-if="dbVersion=='cpcd-gse70138-lm-v1.0'">cpcd-gse70138-lm-v1.0</option>
             </select>       The database version to be used for search.
           </div>
           <div class="input-margin">
