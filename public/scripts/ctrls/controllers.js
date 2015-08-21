@@ -137,20 +137,16 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 			var modalInstance = $modal.open({
       			templateUrl: baseURL+'examples.html',
       			controller: 'exampleModalCtrl',
-      			size:"lg",
-      			resolve: {
-      				aggravate:function(){
-      					return $scope.aggravate;
-      				}
-      			}
+      			size:"lg"
     		});
 
     		modalInstance.result.then(function (res) {
+    			$scope.aggravate = res.aggravate;
     			$scope.inputMeta = [
-					{key:"Tag",value:res.term},
-       				{key:"Tissue", value:res.desc}
+					{key:"Tag",value:res.item.term},
+       				{key:"Tissue", value:res.item.desc}
        			];
-    			$http.get(baseURL+'disease?id='+res['_id'])
+    			$http.get(baseURL+'disease?id='+res.item['_id'])
     			.success(function(res){
     				var lines = []
 	    			res.genes.forEach(function(e,i){
@@ -204,25 +200,21 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 		$scope.showEbovs = function(){
 			var modalInstance = $modal.open({
       			templateUrl: baseURL+'ebovs.html',
-      			controller: 'ebovsModalCtrl',
-      			resolve: {
-      				aggravate:function(){
-      					return $scope.aggravate;
-      				}
-      			}
+      			controller: 'ebovsModalCtrl'
     		});
 
     		modalInstance.result.then(function (res) {
-    			var time = res.name.split(' ')[2] + res.name.split(' ')[3];
+    			$scope.aggravate = res.aggravate;
+    			var time = res.item.name.split(' ')[2] + res.item.name.split(' ')[3];
     			$scope.inputMeta = [
-					{key:"Tag",value:res.name},
+					{key:"Tag",value:res.item.name},
        				{key:"Cell", value:"Hela"},
        				{key:"Perturbation", value:"Ebola virus"},
        				{key:"Time point", value:time}
        			];
     			var lines = []
-    			res.genes.forEach(function(e,i){
-    				lines.push(e+','+res.vals[i])
+    			res.item.genes.forEach(function(e,i){
+    				lines.push(e+','+res.item.vals[i])
     			})
       			$scope.upGenes = lines.join('\n');
       			$scope.search();
@@ -235,10 +227,10 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 
 
 indexControllers.controller('exampleModalCtrl',
-	['$scope', '$modalInstance', 'loadGEO', 'matchByNameFactory', 'aggravate',
-	function($scope, $modalInstance, loadGEO, matchByNameFactory,aggravate) {
+	['$scope', '$modalInstance', 'loadGEO', 'matchByNameFactory',
+	function($scope, $modalInstance, loadGEO, matchByNameFactory) {
 
-	$scope.aggravate = aggravate
+	$scope.aggravate = false;
  	var matchByName;
  	$('.st-selected').removeClass('st-selected');
  	loadGEO.then(function(diseases){
@@ -258,7 +250,10 @@ indexControllers.controller('exampleModalCtrl',
   		var term = $('.st-selected td:first-child').text();
   		var desc = $('.st-selected td:last-child').text()
   		if(term){
-  			$modalInstance.close(matchByName(term+desc));
+  			var res = {};
+  			res.item = matchByName(term+desc);
+  			res.aggravate = $scope.aggravate;
+  			$modalInstance.close(res);
   		}else{
   			$modalInstance.dismiss('cancel');
   		}
@@ -310,9 +305,8 @@ indexControllers.controller('ligandModalCtrl',
 
 
 indexControllers.controller('ebovsModalCtrl',
-	['$scope', '$modalInstance', 'loadEbovs', 'matchByNameFactory', 'aggravate',
-	function($scope, $modalInstance, loadEbovs, matchByNameFactory,aggravate) {
-	$scope.aggravate = aggravate;
+	['$scope', '$modalInstance', 'loadEbovs', 'matchByNameFactory',
+	function($scope, $modalInstance, loadEbovs, matchByNameFactory) {
  	var matchByName;
  	$('.st-selected').removeClass('st-selected');
  	loadEbovs.then(function(diseases){
@@ -321,6 +315,8 @@ indexControllers.controller('ebovsModalCtrl',
  		});
  		$scope.diseases = diseases;
  	});
+
+ 	$scope.aggravate = true;
 
  	$scope.selectedEntry = 'not-yet';
 
@@ -331,7 +327,10 @@ indexControllers.controller('ebovsModalCtrl',
   	$scope.ok = function(){
   		var selectedName = $('.st-selected td:first-child').text();
   		if(selectedName){
-  			$modalInstance.close(matchByName(selectedName));
+  			var res = {};
+  			res.item = matchByName(selectedName);
+  			res.aggravate = $scope.aggravate;
+  			$modalInstance.close(res);
   		}else{
   			$modalInstance.dismiss('cancel');
   		}

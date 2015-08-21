@@ -20,7 +20,7 @@ services.factory('loadLigands',['$http','$q',
 		$http.get("ligands").success(function(diseases){
 			deferred.resolve(_.sortBy(diseases,'term'));
 		});
-		
+
 		return deferred.promise;
 }]);
 
@@ -70,7 +70,7 @@ services.factory('buildQueryData',[function(){
 services.factory('loadEbovs',['$http','$q',
 	function($http,$q){
 		var deferred = $q.defer();
-		$http.get("data/ebovs.json")
+		$http.get("data/ebovs.corrected.json")
 			.success(function(diseases){
 				var map = {'ebov30min':"EBOV signature 30 minutes",
  				"ebov60min":"EBOV signature 60 minutes",
