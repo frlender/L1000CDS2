@@ -214,6 +214,10 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 		$location.path('/enrichedSubtructures/'+shareID);
 	}
 
+	$scope.goToClustergrammer = function(){
+		util.submitToClustergrammer($scope);
+	}
+
 	$scope.$on('$viewContentLoaded',function(event){
 		$timeout(function(){
 			// hack to fix the overlap popover wrong position at first click bug in Firefox.

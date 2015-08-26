@@ -195,5 +195,41 @@ services.factory('util',function(){
 	util.normalizePertName = function(entry){
 		return entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"]
 	}
+	util.submitToClustergrammer = function(scope){
+		// build submit json
+		var content = {};
+		content._id = scope.shareURL.split('/').slice(-1)[0];
+		content.input = {};
+		content.input.aggravate = scope.input.config.aggravate;
+		content.input.meta = scope.input.meta;
+		content.result = [];
+		scope.entries.forEach(function(entry){
+			var obj = {};
+			obj.name = util.normalizePertName(entry);
+			obj.overlap = entry.overlap;
+			content.result.push(obj);
+		});
+		if(scope.input.config.searchMethod=="geneSet"){
+			content.input.data = scope.input.data;
+		}else{
+			content.input.data = scope.uniqInput;
+		}
+
+		var form = document.createElement('form');
+  		form.setAttribute('method', 'post');
+  		form.setAttribute('action', 'http://amp.pharm.mssm.edu/clustergrammer/l1000cds2/');
+    	form.setAttribute('target', '_blank');
+  		form.setAttribute('enctype', 'multipart/form-data');
+
+  		var listField = document.createElement('input');
+  		listField.setAttribute('type', 'file');
+  		listField.setAttribute('name', 'file');
+  		listField.setAttribute('value', content);
+  		form.appendChild(listField);
+
+  		document.body.appendChild(form);
+  		form.submit();
+  		document.body.removeChild(form);
+	}
 	return util;
 });
