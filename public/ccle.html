@@ -1,0 +1,37 @@
+<div class="modal-header">
+	<button type="button" class="close"   ng-click="cancel()" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h4 class="modal-title example-header">Select one of the 1037 cell signatures processed from  GEO in the table below and click the search button to find drugs that would potentially  <strong>{{aggravate?"mimic":"reverse"}}</strong> the cell state:</h4>
+</div>
+<div class="modal-body">
+	<table st-table="displayedEntries" st-safe-src="cells" class="table">
+    	<thead>
+        	<tr>
+            	<th st-sort="cell">Cell</th>
+            	<th st-sort="tissue">Tissue</th>
+        	</tr>
+            <tr>
+                 <th colspan="2">
+                 <input placeholder="Search by cell or tissue" st-search type="search" class="form-control" />
+                  </th>
+            </tr>
+       </thead>
+       <tbody>
+       		<tr st-select-row="entry" st-selected-entry="selectedEntry" ng-repeat="entry in displayedEntries">
+             	<td class="">{{entry["cell"]}}</td>
+                <td>{{entry["tissue"]}}</td>
+            </tr>
+       </tbody>
+        <tfoot>
+            <tr>
+              <td colspan="2">
+                <div st-pagination="" st-items-by-page="12" st-displayed-pages="" class="custom-pagination"></div>
+              </td>
+            </tr>
+        </tfoot>
+       </table>
+</div>
+<div class="modal-footer">
+<toggle-switch ng-model="aggravate" on-label="mimic" off-label="reverse" class="switch-default switch-disease"></toggle-switch><span>
+	<button class="btn btn-primary" ng-click="ok()">Search</button>
+    <!-- <button class="btn btn-warning" ng-click="cancel()">Cancel</button> -->
+</div>

@@ -47,6 +47,11 @@ sigineRouter.get('/diseases',sigine.diseases);
 sigineRouter.get('/ligand',sigine.ligand);
 sigineRouter.get('/ligands',sigine.ligands);
 
+// ligands example
+sigineRouter.get('/ccleCell',sigine.ccleCell);
+sigineRouter.get('/ccleCells',sigine.ccleCells);
+
+
 sigineRouter.post('/drugEnrich',jsonParser, sigine.drugEnrich);
 
 // sigineRouter.post('/multisearch',jsonParser, sigine.multisearch);

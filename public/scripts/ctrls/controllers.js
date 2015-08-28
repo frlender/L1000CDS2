@@ -158,6 +158,31 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
     		});
 		}
 
+		$scope.showCCLE = function(){
+			var modalInstance = $modal.open({
+      			templateUrl: baseURL+'ccle.html',
+      			controller: 'ccleModalCtrl',
+      			size:"lg"
+    		});
+
+    		modalInstance.result.then(function (res) {
+    			$scope.aggravate = res.aggravate;
+    			$scope.inputMeta = [
+					{key:"Tag",value:res.item.cell},
+       				{key:"Tissue", value:res.item.tissue}
+       			];
+    			$http.get(baseURL+'ccleCell?id='+res.item['_id'])
+    			.success(function(res){
+    				var lines = []
+	    			res.genes.forEach(function(e,i){
+	    				lines.push(e+','+res.vals[i])
+	    			})
+      				$scope.upGenes = lines.join('\n');
+      				$scope.search();
+    			});
+    		});
+		}
+
 		$scope.showLigands = function(){
 			var modalInstance = $modal.open({
       			templateUrl: baseURL+'ligands.html',
@@ -262,6 +287,43 @@ indexControllers.controller('exampleModalCtrl',
 
 }]);
 
+indexControllers.controller('ccleModalCtrl',
+	['$scope', '$modalInstance', 'loadCcle', 'matchByNameFactory',
+	function($scope, $modalInstance, loadCcle, matchByNameFactory) {
+
+	$scope.aggravate = false;
+ 	var matchByName;
+ 	$('.st-selected').removeClass('st-selected');
+ 	loadCcle.then(function(cells){
+ 		matchByName = matchByNameFactory(cells,function(cell){
+ 			return cell['cell']+cell['tissue'];
+ 		});
+ 		$scope.cells = cells;
+ 	});
+
+ 	$scope.selectedEntry = 'not-yet';
+
+ 	$scope.cancel = function() {
+    	$modalInstance.dismiss('cancel');
+  	};
+
+  	$scope.ok = function(){
+  		var term = $('.st-selected td:first-child').text();
+  		var desc = $('.st-selected td:last-child').text()
+  		if(term){
+  			var res = {};
+  			res.item = matchByName(term+desc);
+  			res.aggravate = $scope.aggravate;
+  			$modalInstance.close(res);
+  		}else{
+  			$modalInstance.dismiss('cancel');
+  		}
+
+  	};
+
+}]);
+
+
 
 indexControllers.controller('ligandModalCtrl',
 	['$scope', '$modalInstance', 'loadLigands', 'matchByNameFactory',
@@ -275,7 +337,7 @@ indexControllers.controller('ligandModalCtrl',
  	$scope.selectedEntry = undefined;
 
  	$scope.toggleLigand = function(ligand){
- 		
+
 
  		if(ligand.__selected) {
  			ligand.__selected = false;

@@ -10,5 +10,6 @@ CMD git clone -b product http://readonly:systemsbiology@amp.pharm.mssm.edu/gitla
 	&& cd L1000CDS2 \
 	&& npm install \
 	&& npm install -g grunt-cli \
+	&& npm install -g bower \
 	&& bower -F install --allow-root \
 	&& grunt deploy2

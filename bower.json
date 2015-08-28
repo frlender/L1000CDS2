@@ -9,7 +9,7 @@
     "angular": "latest",
     "jquery": "1.10.2",
     "bootstrap": "3.1.1",
-    "angular-route": "1.3.x",
+    "angular-route": "latest",
     "underscore": "1.7.0",
     "font-awesome": "latest",
     "string": "2.2.0",
@@ -21,6 +21,6 @@
     "d3": "latest"
   },
   "resolutions": {
-    "angular": "1.4.3"
+    "angular": "1.4.4"
   }
 }

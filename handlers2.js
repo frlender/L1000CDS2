@@ -161,3 +161,12 @@ exports.drugEnrich = function(req,res){
         res.send(enrichRes.data.struct);
     });
 }
+
+exports.ccleCells = function(req,res){
+    mongo.ccleCells(res);
+}
+
+exports.ccleCell = function(req,res){
+    id = req.query['id'];
+    mongo.ccleCell(id,res);
+}

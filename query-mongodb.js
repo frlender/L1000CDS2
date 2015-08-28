@@ -28,7 +28,7 @@ var Ligand = mongoose.model('Ligand',SchemaLigand);
 
 var SchemaCcle = mongoose.Schema({"cell":String, "tissue":String, genes:[String],
     vals:[Number]},{collection:"ccle"});
-var ccleCell = mongoose.model('CcleCell',SchemaCcle);
+var CcleCell = mongoose.model('CcleCell',SchemaCcle);
 
 var Schema2 = mongoose.Schema({
     "config":Object,
@@ -61,7 +61,7 @@ exports.getMetas = function(topExpms,callback){
     topExpms["sig_ids"].forEach(function(e,i) {
         map[e] = i;
     });
-    
+
     var query = Expm.find({sig_id:{$in:topExpms["sig_ids"]}})
         .select('-_id sig_id pert_id pert_desc cell_id pert_dose pert_dose_unit pert_time pert_time_unit').lean();
 
@@ -189,6 +189,22 @@ exports.ligands = function(res){
 
 exports.ligand = function(id,res){
     var query = Ligand.findOne({_id:id}).sort('term').select('-_id -term').lean();
+    query.exec(function(err,queryRes){
+        if(err) throw err;
+        res.send(queryRes);
+    });
+}
+
+exports.ccleCells = function(res){
+    var query = CcleCell.find().select('cell tissue').lean();
+    query.exec(function(err,queryRes){
+        if(err) throw err;
+        res.send(queryRes);
+    });
+}
+
+exports.ccleCell = function(id,res){
+    var query = CcleCell.findOne({_id:id}).select('-_id -cell -tissue').lean();
     query.exec(function(err,queryRes){
         if(err) throw err;
         res.send(queryRes);

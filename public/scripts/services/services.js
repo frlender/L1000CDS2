@@ -13,6 +13,17 @@ services.factory('loadGEO',['$http','$q',
 		return deferred.promise;
 }]);
 
+services.factory('loadCcle',['$http','$q',
+	function($http, $q){
+		var deferred = $q.defer();
+
+		$http.get("ccleCells").success(function(cells){
+			deferred.resolve(_.sortBy(cells,'cell'));
+		})
+
+		return deferred.promise;
+}]);
+
 services.factory('loadLigands',['$http','$q',
 	function($http, $q){
 		var deferred = $q.defer();
