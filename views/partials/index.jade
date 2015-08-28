@@ -31,20 +31,23 @@
           .input-meta-title Examples and Signatures
           .input-meta-content
             .input-margin
+              span Select a demo example or a pre-computed signature as input:
+            .input-margin
               a.btn.btn-success.custom-button.long-button(ng-click='loadDefaultExample()') Gene-set Example
-              span    Try an example of up/down gene lists as input.
+              a.btn.btn-warning.custom-button.long-button.button-right(ng-click='showEbovs()') EBOV Signatures
+              a.btn.btn-warning.custom-button.long-button.button-right(ng-click='showExamples()') Disease Signatures
+              //- span    Try an example of up/down gene lists as input.
             .narrow-margin
               a.btn.btn-success.custom-button.long-button(ng-click='loadSignatureExample()') Signature Example
-              span    Try an example of a signature as input.
-            .input-margin
-              a.btn.btn-warning.custom-button.long-button(ng-click='showEbovs()') EBOV Signatures
-              span    Select one of three EBOV signatures at three time points as input.
-            .narrow-margin
-              a.btn.btn-warning.custom-button.long-button(ng-click='showExamples()') Disease Signatures
-              span    Select one of 670 disease signatures computed from GEO as input.
-            .narrow-margin
-              a.btn.btn-warning.custom-button.long-button(ng-click='showLigands()') Ligand Signatures
-              span    Select one of 22 consensus ligand signatures as input.
+              a.btn.btn-warning.custom-button.long-button.button-right(ng-click='showLigands()') Ligand Signatures
+              a.btn.btn-warning.custom-button.long-button.button-right(ng-click='showCCLE()') CCLE Signatures
+            //-   //- span    Try an example of a signature as input.
+            //- .input-margin
+            //-   a.btn.btn-warning.custom-button.long-button(ng-click='showEbovs()') EBOV Signatures
+            //-   a.btn.btn-warning.custom-button.long-button(ng-click='showExamples()') Disease Signatures
+            //-   a.btn.btn-warning.custom-button.long-button(ng-click='showLigands()') Ligand Signatures
+            //- .narrow-margin
+            //-   a.btn.btn-warning.custom-button.long-button(ng-click='showLigands()') CCLE Signatures
         .input-meta-block
           .input-meta-title Configuration
           .input-meta-content

@@ -26,6 +26,10 @@ var SchemaLigand = mongoose.Schema({"term":String, genes:[String],
     vals:[Number]},{collection:"ligands"});
 var Ligand = mongoose.model('Ligand',SchemaLigand);
 
+var SchemaCcle = mongoose.Schema({"cell":String, "tissue":String, genes:[String],
+    vals:[Number]},{collection:"ccle"});
+var ccleCell = mongoose.model('CcleCell',SchemaCcle);
+
 var Schema2 = mongoose.Schema({
     "config":Object,
     "data":Object,

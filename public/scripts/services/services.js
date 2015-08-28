@@ -207,6 +207,7 @@ services.factory('util',function(){
 			var obj = {};
 			obj.name = util.normalizePertName(entry);
 			obj.overlap = entry.overlap;
+			obj.score = entry.score;
 			content.result.push(obj);
 		});
 		if(scope.input.config.searchMethod=="geneSet"){
