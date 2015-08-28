@@ -40,7 +40,8 @@
             .narrow-margin
               a.btn.btn-success.custom-button.long-button(ng-click='loadSignatureExample()') Signature Example
               a.btn.btn-warning.custom-button.long-button.button-right(ng-click='showLigands()') Ligand Signatures
-              a.btn.btn-warning.custom-button.long-button.button-right(ng-click='showCCLE()') CCLE Signatures
+              a.btn.btn-warning.custom-button.long-button.button-right(ng-click='showCCLE()') CCLE Signatures              
+              span(ng-if="isNew(1440794947661)" class="new")               New!
             //-   //- span    Try an example of a signature as input.
             //- .input-margin
             //-   a.btn.btn-warning.custom-button.long-button(ng-click='showEbovs()') EBOV Signatures
