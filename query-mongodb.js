@@ -127,6 +127,7 @@ exports.saveInput = function(saveDoc){
 
 
 exports.getSharedInput = function(sharedId,cb){
+    console.log(sharedId);
 	if(!mongoose.Types.ObjectId.isValid(sharedId)){
 		cb({"err":"invalid URL!"})
 	}else{

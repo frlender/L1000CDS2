@@ -65,39 +65,50 @@ exports.query = function(input,cb){
             // console.log('success');
             // console.log('body',body);
             var topMatches = JSON.parse(body);
-            topMatches.overlap = [];
-            // restructure overlap
-            if(input.config.searchMethod == "geneSet"){
-                if(input.config.aggravate){
-                    topMatches.upGenes.forEach(function(e,i){
-                        var overlapItem = {};
-                        overlapItem['up/up'] =  e;
-                        overlapItem['dn/dn'] = topMatches.dnGenes[i];
-                        topMatches.overlap.push(overlapItem);
-                    });
-                }else{
-                    // debugger;
-                    topMatches.upGenes.forEach(function(e,i){
-                        var overlapItem = {};
-                        overlapItem['up/dn'] =  topMatches.dnGenes[i];
-                        overlapItem['dn/up'] = e;
-                        topMatches.overlap.push(overlapItem);
-                    });
-                }
-                delete topMatches.upGenes;
-                delete topMatches.dnGenes;
+            // callback error if any
+            if('err' in topMatches){
+                cb(new Error(topMatches.err),null);
             }else{
-                topMatches.upCd.forEach(function(e,i){
-                    var overlapItem = {};
-                    overlapItem['up'] = e;
-                    overlapItem['dn'] = topMatches.dnCd[i];
-                    topMatches.overlap.push(overlapItem);
-                });
-                delete topMatches.upCd;
-                delete topMatches.dnCd;
-            }
 
-            cb(topMatches);
+                topMatches.overlap = [];
+                // restructure overlap
+                if(input.config.searchMethod == "geneSet"){
+                    if(!("upGenes" in topMatches) || !("dnGenes" in topMatches)){
+                        topMatches.upGenes = [];
+                        topMatches.dnGenes = [];
+                    }
+
+                    if(input.config.aggravate){
+                        topMatches.upGenes.forEach(function(e,i){
+                            var overlapItem = {};
+                            overlapItem['up/up'] =  e;
+                            overlapItem['dn/dn'] = topMatches.dnGenes[i];
+                            topMatches.overlap.push(overlapItem);
+                        });
+                    }else{
+                        // debugger;
+                        topMatches.upGenes.forEach(function(e,i){
+                            var overlapItem = {};
+                            overlapItem['up/dn'] =  topMatches.dnGenes[i];
+                            overlapItem['dn/up'] = e;
+                            topMatches.overlap.push(overlapItem);
+                        });
+                    }
+                    delete topMatches.upGenes;
+                    delete topMatches.dnGenes;
+                }else{
+                    topMatches.upCd.forEach(function(e,i){
+                        var overlapItem = {};
+                        overlapItem['up'] = e;
+                        overlapItem['dn'] = topMatches.dnCd[i];
+                        topMatches.overlap.push(overlapItem);
+                    });
+                    delete topMatches.upCd;
+                    delete topMatches.dnCd;
+                }
+
+                cb(null,topMatches);
+            }
         }
     });
 }

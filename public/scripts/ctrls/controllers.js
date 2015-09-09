@@ -114,7 +114,8 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExamp
 			$http.post(baseURL+"query2",input)
 				.success(function(data) {
 					if("err" in data){
-						$scope.err = data["err"][0];
+						// $scope.err = data["err"][0];
+						alert(data['err']);
 					}else{
 						$scope.updateCount();
 						var search = {};

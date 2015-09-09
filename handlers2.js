@@ -18,9 +18,10 @@ exports.query = function(req,res){
 
     saveDoc["user"].ip = req.ip;
 
-    var callback = function(topMatches){
+    var callback = function(err,topMatches){
         // if err messenge
-        if("err" in topMatches) res.send(topMatches);
+        // debugger;
+        if(err) res.send({err:err.message});
         else {
                 var shareId = mongo.saveInput(saveDoc);
                 var callback = function(topMeta){
@@ -77,7 +78,7 @@ exports.meta = function(req,res){
     res.header('Access-Control-Allow-Origin','*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
 
-    var sig_id = req.param('sig_id');
+    var sig_id = req.query['sig_id'];
     var callback = function(doc){
         res.setHeader('Content-Disposition','attachment; filename="'+sig_id+'.json"');
         res.send(JSON.stringify(doc))
@@ -98,25 +99,28 @@ exports.history = function(req,res){
             }else if(!('endpoint' in input.user)){
                 input.user.endpoint = 'API';
             }
-            var RCallback = function(topMatches){
-                var metaCallback = function(topMeta){
-                    var dataToUser = {};
-                    dataToUser.shareId = id;
-                    topMeta.forEach(function(e){
-                        util.addExternalPertIDs(e);
-                    });
-                    dataToUser.topMeta = topMeta
-                    if("uniqInput" in topMatches){
-                        dataToUser.uniqInput = topMatches.uniqInput;
+            var RCallback = function(err,topMatches){
+                if(err) res.send({err:err.message})
+                else{
+                    var metaCallback = function(topMeta){
+                        var dataToUser = {};
+                        dataToUser.shareId = id;
+                        topMeta.forEach(function(e){
+                            util.addExternalPertIDs(e);
+                        });
+                        dataToUser.topMeta = topMeta
+                        if("uniqInput" in topMatches){
+                            dataToUser.uniqInput = topMatches.uniqInput;
+                        }
+                        if('combinations' in topMatches){
+                            dataToUser.combinations = topMatches.combinations;
+                        }
+                        delete input.user;
+                        res.send({input:input,results:dataToUser});
+                        //res.render('index',{root:'',input:input,results:dataToUser});
                     }
-                    if('combinations' in topMatches){
-                        dataToUser.combinations = topMatches.combinations;
-                    }
-                    delete input.user;
-                    res.send({input:input,results:dataToUser});
-                    //res.render('index',{root:'',input:input,results:dataToUser});
+                    mongo.getMetas(topMatches,metaCallback);
                 }
-                mongo.getMetas(topMatches,metaCallback);
             }
             R.query(input,RCallback);
         }
