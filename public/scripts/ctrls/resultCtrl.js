@@ -170,10 +170,11 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 	}
 
 	$scope.saveFile = function(){
+		var delimiter = '\t';
 		var score = $scope.input.config.searchMethod=="geneSet"?'score':'1-cos(α)';
 		var header = ['Rank',score,'Perturbation','Perturbation LIFE URL',
 		'Perturbation PubChem URL', 'Perturbation DrugBank URL','Cell-line',
-		'Dose','Time','Signature URL'].join(',');
+		'Dose','Time','Signature URL'].join(delimiter);
 		var content = $scope.entries.map(function(entry){
 			return [entry.rank,entry["score"].toFixed(4),
 			entry["pert_desc"]=="-666" || entry["pert_desc"].length > 46 ?entry["pert_id"]:entry["pert_desc"],
@@ -183,27 +184,28 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 			entry.cell_id,
 			entry["pert_dose"]+entry["pert_dose_unit"],
 			entry["pert_time"]+entry["pert_time_unit"],
-			baseURL+"meta?sig_id="+entry.sig_id].join(',');
+			baseURL+"meta?sig_id="+entry.sig_id].join(delimiter);
 		}).join('\n');
 
 		var blob = new Blob([header+'\n'+content], {type: "text/plain;charset=utf-8"});
-		saveAs(blob, 'table.'+shareID+".csv");
+		saveAs(blob, 'table.'+shareID+".tsv");
 	}
 
 	$scope.saveCombination = function(){
+		var delimiter = '\t';
 		var isGeneset = $scope.input.config.searchMethod=="geneSet";
 		var score = $scope.input.config.searchMethod=="geneSet"?'Score':'Orthogonality';
-		var header = ['Rank',score,'Combination'].join(',');
+		var header = ['Rank',score,'Combination'].join(delimiter);
 		var content = $scope.combinations.map(function(combination){
 			var x1 = $scope.IDMap[combination.X1];
 			var x2 = $scope.IDMap[combination.X2];
 			return [combination.rank,
 			isGeneset?combination.value:$scope.getDegree(combination.value,2)+'°',
 			x1.rank+'. '+util.normalizePertName(x1),
-			x2.rank+'. '+util.normalizePertName(x2)].join(',');
+			x2.rank+'. '+util.normalizePertName(x2)].join(delimiter);
 		}).join('\n');
 		var blob = new Blob([header+'\n'+content], {type: "text/plain;charset=utf-8"});
-		saveAs(blob, 'table.combination.'+shareID+".csv");
+		saveAs(blob, 'table.combination.'+shareID+".tsv");
 	}
 
 	$scope.reanalyze = function(){
