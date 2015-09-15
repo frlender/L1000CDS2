@@ -234,9 +234,9 @@ services.factory('util',function(){
   		form.setAttribute('enctype', 'multipart/form-data');
 
   		var listField = document.createElement('input');
-  		listField.setAttribute('type', 'file');
-  		listField.setAttribute('name', 'file');
-  		listField.setAttribute('value', content);
+  		listField.setAttribute('type', 'hidden');
+  		listField.setAttribute('name', 'signatures');
+  		listField.setAttribute('value', JSON.stringify(content));
   		form.appendChild(listField);
 
   		document.body.appendChild(form);
