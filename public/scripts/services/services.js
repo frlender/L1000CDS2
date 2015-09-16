@@ -230,7 +230,6 @@ services.factory('util',function(){
 		var form = document.createElement('form');
   		form.setAttribute('method', 'post');
   		form.setAttribute('action', 'http://amp.pharm.mssm.edu/clustergrammer/l1000cds2/');
-    	form.setAttribute('target', '_blank');
   		form.setAttribute('enctype', 'multipart/form-data');
 
   		var listField = document.createElement('input');
