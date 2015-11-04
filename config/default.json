@@ -1,5 +1,5 @@
 {
-	"dbUrl":"mongodb://10.91.53.225/L1000CDS2",
+	"dbUrl":"mongodb://146.203.54.131/L1000CDS2",
 	"RUrl":{
 		"cpcd-v1.0":{
 			"browser":"http://10.91.53.50/Sigine",

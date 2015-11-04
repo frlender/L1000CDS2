@@ -3,6 +3,7 @@ var fs = require('fs');
 var R = require('./query-R.js');
 var mongo = require('./query-mongodb.js');
 var util = require('./util.js');
+var CronJob = require('cron').CronJob;
 
 
 exports.query = function(req,res){
@@ -132,7 +133,9 @@ exports.history = function(req,res){
 exports.count = function(req,res){
     res.header('Access-Control-Allow-Origin','*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    mongo.getCount(res);
+    mongo.getCount(function(count){
+        res.send(count+"");
+    });
 };
 
 
@@ -175,4 +178,49 @@ exports.ccleCells = function(req,res){
 exports.ccleCell = function(req,res){
     id = req.query['id'];
     mongo.ccleCell(id,res);
+}
+
+
+// for calendar view of the count
+var countByDate = [];
+var countTotalYesterday;
+mongo.getTimeBracket(function(countByDateCurrent){
+    debugger;
+    var todayDate = new Date();
+    var last = countByDateCurrent[countByDateCurrent.length-1];
+    if(last[0]==(todayDate.getYear()+1900) && last[1] == (todayDate.getMonth()+1) &&
+        last[2] == todayDate.getDate()){
+        debugger;
+        countByDate = countByDateCurrent.slice(0,countByDateCurrent.length-1);
+        var today = last;
+        mongo.getCount(function(count){
+            countTotalYesterday = count-today[3];
+        });
+    }else{
+        debugger;
+        countByDate = countByDateCurrent;
+         mongo.getCount(function(count){
+            countTotalYesterday = count;
+        });
+    }
+   
+    new CronJob('55 59 23 * * *',function(){
+        mongo.getCount(function(count){
+            var today = new Date();
+            countByDate.push([today.getYear()+1900,today.getMonth()+1,
+                today.getDate(),count-countTotalYesterday]);
+            countTotalYesterday = count;
+        });
+    },function(){},false)
+});
+
+exports.countByDate = function(req,res){
+    var sentCount = JSON.parse(JSON.stringify(countByDate));
+    var today = new Date();
+    mongo.getCount(function(count){
+        var todayCount = count-countTotalYesterday;
+        sentCount.push([today.getYear()+1900,today.getMonth()+1,
+            today.getDate(),todayCount]);
+        res.send(sentCount);
+    });
 }

@@ -121,9 +121,7 @@ exports.drugEnrich = function(input,cb){
             headers: headers,
             form: {input:input}
         }
-
     request(options, function (error, response, body) {
-        // console.log(body);
         cb(JSON.parse(body));
     });
 }

@@ -35,8 +35,8 @@ var geneSetSchema = {
 		data:{
 			type:'object',
 			properties:{
-				upGenes:{type:'array',items:{type:'string'}},
-				dnGenes:{type:'array',items:{type:'string'}}
+				upGenes:{type:'array',minItems:3,items:{type:'string'}},
+				dnGenes:{type:'array',minItems:3,items:{type:'string'}}
 			},
 			required:['upGenes','dnGenes']
 		},
@@ -92,9 +92,7 @@ exports.validateInput = function(input){
 	if(input.config.searchMethod == 'geneSet'){
 		var valid = validator.validate(input,geneSetSchema);
 		if(valid) {
-			if((input.data.upGenes.length+input.data.dnGenes.length)<5)
-				return {err:'Input gene lists are too short. Please enter up/down gene lists of at least 5 genes in total'};
-			else return {good:true}
+			return {good:true}
 		}
 		else{
 			var err = validator.lastReport.errors[0];

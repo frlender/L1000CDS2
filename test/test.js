@@ -76,7 +76,10 @@ exports.testSchema = {
 			}
 		}
 		valid = util.validateInput(geneSetInput);
-		test.ok(valid.err == 'Input gene lists are too short. Please enter up/down gene lists of at least 5 genes in total');
+		test.ok(valid.err == '#/data/dnGenes -> Array is too short (0), minimum 3');
+		geneSetInput.data.dnGenes = ['a','b','c','d','e'];
+		valid = util.validateInput(geneSetInput);
+		test.ok(valid.err == '#/data/upGenes -> Array is too short (0), minimum 3');
 		geneSetInput.data.upGenes = ['a','b','c','d','e'];
 		valid = util.validateInput(geneSetInput);
 		test.ok('good' in valid);
@@ -87,7 +90,7 @@ exports.testSchema = {
 		geneSetInput.data.dnGenes = [true,false,true,false,true];
 		valid = util.validateInput(geneSetInput);
 		test.ok(valid.err == '#/data/dnGenes/4 -> Expected type string but found type boolean');
-		geneSetInput.data.dnGenes = ['a','b'];
+		geneSetInput.data.dnGenes = ['a','b','d'];
 		geneSetInput.metadata = ['a',2,true];
 		valid = util.validateInput(geneSetInput);
 		test.ok(valid.err == '#/metadata/2 -> Expected type object but found type boolean');
@@ -133,4 +136,28 @@ exports.testSchema = {
 		test.ok(valid.err == '#/data/vals/3 -> Expected type number but found type string')
 		test.done()
 	}
+}
+
+exports.testCountByDate = function(test){
+	// only works at GMT-0500 (Easten Standard Time)
+	var dateEqual = function(x,y){
+		return (x[0]==y[0] && x[1]==y[1] && x[2]==y[2] && x[3] == y[3]);
+	}
+	var dateEqual2 = function(x,y){
+		return (x[0]==y[0] && x[1]==y[1] && x[2]==y[2]);
+	}
+	var res = {send:function(sentCount){
+		test.ok(dateEqual(sentCount[0],[2015,1,30,10]))
+		sentCount.forEach(function(e){
+			if(dateEqual2(e,[2015,9,22])) test.ok(e[3]==71);
+			if(dateEqual2(e,[2015,11,3])) test.ok(e[3]==27);
+		});
+		test.done();
+	}};
+
+	setTimeout(function(){
+		// wait until countByDate is populated. 
+		// consider prolong the time if test fails
+		hdl.countByDate({},res)
+	},2000);
 }

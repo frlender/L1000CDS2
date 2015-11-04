@@ -50,6 +50,39 @@ exports.getMeta = function(sig_id,callback){
     });
 }
 
+exports.getTimeBracket = function(cb){
+     var query = Store.find().sort({'_id':1}).select('_id');
+     var brackets = [];
+     var currentYear,currentMonth,currentDay,currentCount;
+     var t;
+     query.exec(function(err,queryRes){
+        queryRes.forEach(function(e,i){
+            t = i;
+            // debugger;
+
+            var timestamp = e._id.toString().substring(0,8);
+            var date = new Date( parseInt( timestamp, 16 ) * 1000 );
+            if(i==0){
+                currentYear = date.getYear()+1900;
+                currentMonth = date.getMonth()+1;
+                currentDay = date.getDate();
+                currentCount = 0;
+            }
+            if(currentDay == date.getDate()){
+                currentCount ++;
+            }else{
+                brackets.push([currentYear,currentMonth,currentDay,currentCount]);
+                currentYear = date.getYear()+1900;
+                currentMonth = date.getMonth()+1;
+                currentDay = date.getDate();
+                currentCount = 1;
+            }
+        });
+        brackets.push([currentYear,currentMonth,currentDay,currentCount]);
+        cb(brackets);
+     });
+}
+
 //get meta information by sig_ids and send results to client.
 exports.getMetas = function(topExpms,callback){
     // topExpms structure:
@@ -67,7 +100,6 @@ exports.getMetas = function(topExpms,callback){
 
     // console.log(map);
     query.exec(function(err,queryRes){
-        debugger;
         if(err) throw err;
         // console.log(queryRes.slice(0,2),'aaaa');
         var topMeta = [];
@@ -149,11 +181,12 @@ exports.getSharedInput = function(sharedId,cb){
 }
 
 
-exports.getCount = function(res){
+exports.getCount = function(cb){
 	var query = Count.findOne();
 	query.exec(function(err,queryRes){
 		if(err) throw err;
-		res.send(queryRes.count+"");
+        cb(queryRes.count);
+		// res.send(queryRes.count+"");
 	});
 };
 
