@@ -54,6 +54,9 @@ sigineRouter.get('/ccleCells',sigine.ccleCells);
 
 sigineRouter.post('/drugEnrich',jsonParser, sigine.drugEnrich);
 
+// click count and show calendar view
+sigineRouter.get('/countByDate',sigine.countByDate);
+
 // sigineRouter.post('/multisearch',jsonParser, sigine.multisearch);
 
 // sigineRouter.post('/input',urlencodedParser,sigine.geo2me);

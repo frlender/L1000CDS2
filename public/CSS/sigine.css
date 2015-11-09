@@ -242,6 +242,9 @@ th{
 	font-size: 1.5em;
 	vertical-align: -8%;
 	color: #d6e7d0;
+	cursor:pointer;
+	border-bottom-style: dotted;
+    border-bottom-width: thin;
 }
 
 .custom-row{

@@ -2,17 +2,17 @@
 	"dbUrl":"mongodb://10.91.53.225/L1000CDS2",
 	"RUrl":{
 		"cpcd-v1.0":{
-			"browser":"http://10.91.53.50/Sigine",
+			"browser":"http://146.203.54.158/Sigine-cpcd",
 			"API":"http://146.203.54.236:23236/custom/Sigine"
 		},
 		"cpcd-gse70138-v1.0":{
-			"browser":"http://10.91.53.50/Sigine-cpcd-gse70138",
-			"API":"http://10.91.53.104/Sigine-cpcd-gse70138"
+			"browser":"http://146.203.54.158/Sigine-cpcd-gse70138",
+			"API":"http://146.203.54.71/Sigine-cpcd-gse70138"
 		},
 		"cpcd-gse70138-lm-v1.0":{
-			"browser":"http://10.91.53.104/SigineLm",
-			"API":"http://10.91.53.104/SigineLm"
+			"browser":"http://146.203.54.158/Sigine-lm",
+			"API":"http://146.203.54.71/Sigine-lm"
 		}
 	},
-	"enrichUrl":"http://10.91.53.50/Sigine-enrich"
+	"enrichUrl":"http://146.203.54.158/Sigine-enrich"
 }

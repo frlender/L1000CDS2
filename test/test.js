@@ -140,6 +140,7 @@ exports.testSchema = {
 
 exports.testCountByDate = function(test){
 	// only works at GMT-0500 (Easten Standard Time)
+	// matching data in Production database
 	var dateEqual = function(x,y){
 		return (x[0]==y[0] && x[1]==y[1] && x[2]==y[2] && x[3] == y[3]);
 	}

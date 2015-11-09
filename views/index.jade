@@ -10,6 +10,7 @@ html(lang='en', ng-app='Sigine')
     link(rel='stylesheet', href='CSS/angular-toggle-switch-bootstrap-3.css')
     link(rel='stylesheet', href='versioned/angular-block-ui.min.css')
     link(rel="stylesheet", href='libraries/angular-flex-form/css/form.css')
+    link(rel="stylesheet", href='CSS/max-calendar.css')
 
     // libraries
     script(src='libraries/jquery/jquery.min.js') 
@@ -26,6 +27,7 @@ html(lang='en', ng-app='Sigine')
     script(src='versioned/FileSaver.min.js')
     script(src="libraries/d3/d3.min.js")
     script(src="versioned/venn.js")
+    script(src='scripts/not-ng/max-calendar.js')
     // scripts
     if dev
         script(src='scripts/app.js')
@@ -64,8 +66,10 @@ html(lang='en', ng-app='Sigine')
         span.highlight           S
         |earch Engine
       span.search-count-text
-        span.search-count {{searchCount}}
+        span.search-count(id='trigger') {{searchCount}}
         |            searches performed!
+    div(id='blanket')
+    .popup.beveled(id='calendar-popup' style="display:none")
     div(ng-view class="view" )
     footer.footer
       .container
@@ -78,3 +82,11 @@ html(lang='en', ng-app='Sigine')
 
     ga('create', 'UA-6277639-20', 'auto');
     ga('send', 'pageview');
+
+    $('#blanket').click(function() {
+        disableAllPopup();
+    });
+    $('#trigger').click(function() {
+        showPopup();
+    });
+
