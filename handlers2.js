@@ -204,12 +204,16 @@ mongo.getTimeBracket(function(countByDateCurrent){
         });
     }
    
-    new CronJob('55 59 23 * * *',function(){
+    new CronJob('11 58 23 * * *',function(){
+        console.log('start cron');
         mongo.getCount(function(count){
+            console.log(countTotalYesterday,countByDate[countByDate.length-1]);
             var today = new Date();
             countByDate.push([today.getYear()+1900,today.getMonth()+1,
                 today.getDate(),count-countTotalYesterday]);
             countTotalYesterday = count;
+            console.log(countTotalYesterday,countByDate[countByDate.length-1]);
+            console.log('end cron')
         });
     },function(){},false)
 });
