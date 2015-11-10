@@ -204,8 +204,9 @@ mongo.getTimeBracket(function(countByDateCurrent){
         });
     }
    
-    new CronJob('11 58 23 * * *',function(){
+    new CronJob('51 59 23 * * *',function(){
         console.log('start cron');
+        console.log(new Date());
         mongo.getCount(function(count){
             console.log(countTotalYesterday,countByDate[countByDate.length-1]);
             var today = new Date();
@@ -215,7 +216,7 @@ mongo.getTimeBracket(function(countByDateCurrent){
             console.log(countTotalYesterday,countByDate[countByDate.length-1]);
             console.log('end cron')
         });
-    },function(){},false)
+    },null,true);
 });
 
 exports.countByDate = function(req,res){
