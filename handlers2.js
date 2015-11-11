@@ -216,7 +216,7 @@ mongo.getTimeBracket(function(countByDateCurrent){
             console.log(countTotalYesterday,countByDate[countByDate.length-1]);
             console.log('end cron')
         });
-    },null,true,'America/New_York');
+    },null,true);
 });
 
 exports.countByDate = function(req,res){
