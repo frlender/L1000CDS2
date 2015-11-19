@@ -17,8 +17,21 @@ sigineRouter.use('/',express.static(__dirname + '/public'));
 
 sigineRouter.post('/query',jsonParser,function(req,res){
 	// for API search
-	res.header('Access-Control-Allow-Origin','*');
-	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+	res.header('Access-Control-Allow-Origin', '*');
+  	res.header('Access-Control-Allow-Methods', 'POST');
+
+	req.body.user = {};
+	req.body.user.endpoint = 'API';
+
+	sigine.query(req,res);
+});
+
+sigineRouter.post('/queryURLEncoded',urlencodedParser,function(req,res){
+	// for API search
+	res.header('Access-Control-Allow-Origin', '*');
+  	res.header('Access-Control-Allow-Methods', 'POST');
+
+  	req.body = JSON.parse(req.body.input);
 
 	req.body.user = {};
 	req.body.user.endpoint = 'API';
