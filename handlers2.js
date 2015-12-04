@@ -220,6 +220,8 @@ mongo.getTimeBracket(function(countByDateCurrent){
 });
 
 exports.countByDate = function(req,res){
+    res.header('Access-Control-Allow-Origin','*');
+    res.header('Access-Control-Allow-Methods', 'GET');
     var sentCount = JSON.parse(JSON.stringify(countByDate));
     var today = new Date();
     mongo.getCount(function(count){
