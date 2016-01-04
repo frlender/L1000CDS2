@@ -42,7 +42,7 @@ function draw_calendar(calendar, popup, blanket){
 	  else if (d>=5000){return "#006400"};}
 	
 	var svg = d3.select("div#calendar-popup").selectAll("svg")
-	    .data(d3.range(2015, 2016))
+	    .data(d3.range(2015, new Date().getFullYear()+1))
 	  .enter().append("svg")
 	    .attr("width", width)
 	    .attr("height", height)
