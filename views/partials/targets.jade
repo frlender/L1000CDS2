@@ -1,0 +1,14 @@
+.overlap-popover-holder
+	a.overlap-close.overlap-close-geneSet(ng-click="entry._targetsOpen=false")
+		i.fa.fa-times 
+	.overlap-popover-col.overlap-popover-col-margin
+		.overlap-popover-header Predicted Targets
+		.target-row(ng-repeat-start="item in filteredItems=(entry.predictedTargets | filter:entry._targetsPagination.limit)")
+			span {{item.hs_gene_symbol?item.hs_gene_symbol:item.mm_gene_symbol}},   
+			span {{item.score}}
+		div( ng-repeat-end="")
+		div
+			a(ng-class="entry._targetsPagination.limitLower>0?'':'disabled'" ng-click="entry._targetsPagination.previous()") <
+			span {{entry._targetsPagination.limitLower}} to {{entry._targetsPagination.limitUpper>entry._targetsPagination.matchedSize?entry._targetsPagination.matchedSize:entry._targetsPagination.limitUpper}} of {{entry._targetsPagination.matchedSize}}
+			a(ng-class="entry._targetsPagination.limitUpper>=entry._targetsPagination.matchedSize?'disabled':''" ng-click="entry._targetsPagination.next()") >
+		

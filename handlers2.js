@@ -233,7 +233,6 @@ exports.countByDate = function(req,res){
 }
 
 exports.predictTarget = function(req,res){
-    console.log(req.body)
     R.predictTarget(req.body,function(topMatches){
         mongo.getMicrotaskSignatures(topMatches,function(topMeta){
             res.send(topMeta);

@@ -147,7 +147,7 @@ exports.predictTarget = function(input,cb){
         options.form.json = JSON.stringify({input:input.data,method:'CD',
           dbVersion:input.config['target-db-version'],
           combination:false,
-          direction:'mimc'});
+          direction:'mimic'});
 
     }else{
         cb({"err":"search method is not CD or geneSet. It is "+input.config.searchMethod+"."})
@@ -158,7 +158,7 @@ exports.predictTarget = function(input,cb){
         if('err' in topMatches){
                 cb(new Error(topMatches.err),null);
         }else{
-                console.log(topMatches);
+                console.log(topMatches.scores,Object.keys(topMatches));
                 cb(topMatches);
         }
     });

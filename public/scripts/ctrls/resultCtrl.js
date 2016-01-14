@@ -1,7 +1,8 @@
 indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStorage', 
 	'$http', 'util', 'localStorageService', '$uibModal', '$timeout', '$location','getSearch',
+	'Pagination',
 	function($scope, $routeParam, resultStorage, $http, util, local,$modal,
-		$timeout,$location,getSearch){
+		$timeout,$location,getSearch,Pagination){
 
 	var shareID;
 	getSearch($routeParam.shareID,function(search){
@@ -222,24 +223,32 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 	}
 
 	$scope.predictTarget = function(entry){
-		var payload = {config:{'target-db-version':'microtaskSignatures-v1.0'},data:{}}
-		if($scope.input.config.searchMethod == 'CD'){
-			payload.config.searchMethod = 'CD';
-			payload.data.genes = $scope.uniqInput.up.genes.concat($scope.uniqInput.dn.genes);
-			payload.data.vals = entry.overlap.up.concat(entry.overlap.dn);
-		}else{
-			var map = {}
-			Object.keys(entry.overlap).forEach(function(key){
-				map[key.split('/')[1]] = key;
-			});
-			payload.config.searchMethod = 'geneSet';
-			payload.data.upGenes = entry.overlap[map['up']]
-			payload.data.dnGenes = entry.overlap[map['dn']]
+		if(!entry._targetsOpen){
+			if(!entry.predictedTargets){
+				var payload = {config:{'target-db-version':'microtaskSignatures-v1.0'},data:{}}
+				if($scope.input.config.searchMethod == 'CD'){
+					payload.config.searchMethod = 'CD';
+					payload.data.genes = $scope.uniqInput.up.genes.concat($scope.uniqInput.dn.genes);
+					payload.data.vals = entry.overlap.up.concat(entry.overlap.dn);
+				}else{
+					var map = {}
+					Object.keys(entry.overlap).forEach(function(key){
+						map[key.split('/')[1]] = key;
+					});
+					payload.config.searchMethod = 'geneSet';
+					payload.data.upGenes = entry.overlap[map['up']]
+					payload.data.dnGenes = entry.overlap[map['dn']]
+				}
+				$http.post(baseURL+'predictTarget',payload)
+					.success(function(data){
+						entry.predictedTargets = data;
+						entry._targetsPagination = new Pagination(10);
+						entry._targetsOpen = true;
+					});
+			}else{
+				entry._targetsOpen = true;
+			}
 		}
-		$http.post(baseURL+'predictTarget',payload)
-			.success(function(data){
-				console.log(data);
-			});
 	}
 
 	// $scope.$on('$viewContentLoaded',function(event){

@@ -259,12 +259,12 @@ exports.getMicrotaskSignatures = function(topExpms,cb){
     .select('-_id id hs_gene_symbol mm_gene_symbol organism').lean();
     query.exec(function(err,queryRes){
         if(err) throw err;
-        console.log('queryRes',queryRes)
         var signatures = [];
         queryRes.forEach(function(e){
             var idx = map[e["id"]];
             // console.log(idx);
             signatures[idx] = e;
+            signatures[idx].score = topExpms['scores'][idx];
         });
         // console.log('topMeta',topMeta.slice(0,3))
         cb(signatures);
