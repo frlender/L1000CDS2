@@ -157,6 +157,13 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 			window.location = url;
 	}
 
+	$scope.test = function(entry){
+		console.log(entry._targetsOpen);
+		entry._targetsOpen = false;
+		console.log(entry._targetsOpen);
+
+	}
+
 
 	$scope.share = function(){
 		var modalInstance = $modal.open({

@@ -648,3 +648,7 @@ marker{
 .button-right{
 	margin-left:1em;
 }
+
+.target-close{
+	left:130px;
+}
