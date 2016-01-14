@@ -25,7 +25,7 @@ indexControllers.controller('index',['$scope','$http','$location',
 
 
 var process = _.identity;
-indexControllers.controller('GeneList', ['$scope', '$http', '$modal', 'loadExample',
+indexControllers.controller('GeneList', ['$scope', '$http', '$uibModal', 'loadExample',
 	'buildQueryData', 'resultStorage', '$location', 'ffClean', 'Local',
 	'util', '$routeParams','getSearch','localStorageService',
 	function($scope,$http,$modal,loadExample,buildQueryData,resultStorage,$location,

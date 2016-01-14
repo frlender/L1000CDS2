@@ -38,7 +38,8 @@
       th  Dose 
       |             
       th  Time
-      th  Overlap 
+      th  Overlap
+      th Target 
       |             
       th  Signature 
     tbody           
@@ -62,8 +63,11 @@
         |               
         td {{entry["pert_time"]+entry["pert_time_unit"]}}
         td.narrow
-          a.btn.download-icon(popover-placement="left" popover-template="overlap.templateUrl")
+          a.btn.download-icon(popover-placement="left" uib-popover-template="overlap.templateUrl" popover-is-open="entry._overlapOpen")
             i.fa.fa-pause               
+        td.narrow(ng-click="predictTarget(entry)")
+          a.btn.download-icon
+            i.fa.fa-dot-circle-o
         td.narrow
           a.btn.download-icon(ng-class="{'disabled':!entry}" ng-click="downloadMeta(entry['sig_id'])")
             i.fa.fa-download         

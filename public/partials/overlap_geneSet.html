@@ -1,5 +1,5 @@
 
-<div class="overlap-popover-holder"><a overlap-close="overlap-close" class="overlap-close overlap-close-geneSet"><i class="fa fa-times"> </i></a>
+<div class="overlap-popover-holder"><a ng-click="entry._overlapOpen=false" class="overlap-close overlap-close-geneSet"><i class="fa fa-times"> </i></a>
   <div class="overlap-popover-col overlap-popover-col-margin">
     <div class="overlap-popover-header">input {{_keyMap(overlap.key1).input}} / signature {{_keyMap(overlap.key1).sig}}                 <a ng-href="{{helpURL}}#{{input.config.searchMethod}}Overlap" target="_blank"><i class="fa fa-question-circle"> </i></a></div>
     <textarea disabled="disabled" class="overlap-geneSet">{{buildOverlap(overlap.key1,entry)}}</textarea>

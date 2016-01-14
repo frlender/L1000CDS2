@@ -1,5 +1,5 @@
 indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStorage', 
-	'$http', 'util', 'localStorageService', '$modal', '$timeout', '$location','getSearch',
+	'$http', 'util', 'localStorageService', '$uibModal', '$timeout', '$location','getSearch',
 	function($scope, $routeParam, resultStorage, $http, util, local,$modal,
 		$timeout,$location,getSearch){
 
@@ -161,6 +161,7 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 		var modalInstance = $modal.open({
       		templateUrl: baseURL+'share.html',
       		controller: 'ModalInstanceCtrl',
+      		// appendTo: $('#modalHooker'),
       		resolve: {
         		shareURL: function () {
           		return location.href;
@@ -220,18 +221,39 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 		util.submitToClustergrammer($scope);
 	}
 
-	$scope.$on('$viewContentLoaded',function(event){
-		$timeout(function(){
-			// hack to fix the overlap popover wrong position at first click bug in Firefox.
-			$('[popover-placement="left"]').first().click();
-			$('[popover-placement="left"]').first().click();
-		},0)
-	});
+	$scope.predictTarget = function(entry){
+		var payload = {config:{'target-db-version':'microtaskSignatures-v1.0'},data:{}}
+		if($scope.input.config.searchMethod == 'CD'){
+			payload.config.searchMethod = 'CD';
+			payload.data.genes = $scope.uniqInput.up.genes.concat($scope.uniqInput.dn.genes);
+			payload.data.vals = entry.overlap.up.concat(entry.overlap.dn);
+		}else{
+			var map = {}
+			Object.keys(entry.overlap).forEach(function(key){
+				map[key.split('/')[1]] = key;
+			});
+			payload.config.searchMethod = 'geneSet';
+			payload.data.upGenes = entry.overlap[map['up']]
+			payload.data.dnGenes = entry.overlap[map['dn']]
+		}
+		$http.post(baseURL+'predictTarget',payload)
+			.success(function(data){
+				console.log(data);
+			});
+	}
+
+	// $scope.$on('$viewContentLoaded',function(event){
+	// 	$timeout(function(){
+	// 		// hack to fix the overlap popover wrong position at first click bug in Firefox.
+	// 		$('[popover-placement="left"]').first().click();
+	// 		$('[popover-placement="left"]').first().click();
+	// 	},0)
+	// });
 
 }]);
 
 indexControllers.controller('ModalInstanceCtrl', 
-	['$scope', '$modalInstance', 'shareURL', 
+	['$scope', '$uibModalInstance', 'shareURL', 
 	function($scope, $modalInstance, shareURL) {
   
  $scope.shouldBeOpened = true;

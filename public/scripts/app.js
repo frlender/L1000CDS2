@@ -15,15 +15,15 @@ Sigine.directive('focusMe', ['$timeout','$parse',function($timeout, $parse) {
   };
 }]);
 
-Sigine.directive('overlapClose',function(){
-  return {
-    link: function(scope,element,attrs){
-      $(element).click(function(){
-        $(this).closest('.popover').siblings().click();
-      });
-    }
-  };
-})
+// Sigine.directive('overlapClose',function(){
+//   return {
+//     link: function(scope,element,attrs){
+//       $(element).click(function(){
+//         $(this).closest('.popover').siblings().click();
+//       });
+//     }
+//   };
+// })
 
 
 Sigine.config(['$routeProvider',

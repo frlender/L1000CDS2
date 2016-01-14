@@ -8,7 +8,8 @@ var headers = {
 }
 
 var RUrl = config.get('RUrl'),
-    enrichUrl = config.get('enrichUrl');
+    enrichUrl = config.get('enrichUrl'),
+    targetPredictionUrl = config.get('targetPredictionUrl');
 
 exports.query = function(input,cb){
     var queryUrl = RUrl[input.config['db-version']][input.user.endpoint];
@@ -123,5 +124,42 @@ exports.drugEnrich = function(input,cb){
         }
     request(options, function (error, response, body) {
         cb(JSON.parse(body));
+    });
+}
+
+exports.predictTarget = function(input,cb){
+    var options = {
+            url: targetPredictionUrl,
+            method: 'POST',
+            headers: headers,
+            form: {json:null}
+        }
+
+    if(input.config.searchMethod == "geneSet"){
+
+        options.form.json = JSON.stringify({upGenes:input.data.upGenes,dnGenes:input.data.dnGenes,
+          dbVersion:input.config['target-db-version'],
+          combination: false,
+          method:'geneSet'});
+
+    }else if(input.config.searchMethod == "CD"){
+        
+        options.form.json = JSON.stringify({input:input.data,method:'CD',
+          dbVersion:input.config['target-db-version'],
+          combination:false,
+          direction:'mimc'});
+
+    }else{
+        cb({"err":"search method is not CD or geneSet. It is "+input.config.searchMethod+"."})
+    }
+
+    request(options, function (error, response, body) {
+        var topMatches = JSON.parse(body);
+        if('err' in topMatches){
+                cb(new Error(topMatches.err),null);
+        }else{
+                console.log(topMatches);
+                cb(topMatches);
+        }
     });
 }

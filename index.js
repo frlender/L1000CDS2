@@ -70,6 +70,8 @@ sigineRouter.post('/drugEnrich',jsonParser, sigine.drugEnrich);
 // click count and show calendar view
 sigineRouter.get('/countByDate',sigine.countByDate);
 
+sigineRouter.post('/predictTarget',jsonParser,sigine.predictTarget);
+
 // sigineRouter.post('/multisearch',jsonParser, sigine.multisearch);
 
 // sigineRouter.post('/input',urlencodedParser,sigine.geo2me);

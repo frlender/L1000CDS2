@@ -6,7 +6,7 @@
   "license": "",
   "private": true,
   "dependencies": {
-    "angular": "latest",
+    "angular": "1.4.8",
     "jquery": "1.10.2",
     "bootstrap": "3.1.1",
     "angular-route": "latest",
@@ -21,6 +21,6 @@
     "d3": "latest"
   },
   "resolutions": {
-    "angular": "1.4.4"
+    "angular": "1.4.8"
   }
 }
