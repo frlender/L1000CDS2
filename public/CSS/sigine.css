@@ -650,5 +650,31 @@ marker{
 }
 
 .target-close{
-	left:130px;
+	right:6px;
+	top:0px;
+}
+
+table.targets{
+/*	border-spacing: 2px;
+    border-collapse: separate;*/
+    margin-top:5px;
+}
+td.target{
+	text-align: center;
+	padding-right: 5px;
+}
+a.navigate{
+	text-decoration: none;
+
+}
+a.disabled{
+	color:grey;
+	text-decoration: none;
+	opacity: 0.5;
+}
+a.overlap-target-holder{
+
+}
+div.navigate-container{
+	text-align: center;
 }

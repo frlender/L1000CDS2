@@ -1,14 +1,19 @@
-.overlap-popover-holder(ng-style="{'display':entry.predictedTargets?'block':'none'}")
+.overlap-target-holder(ng-style="{'display':entry.predictedTargets?'block':'none'}")
 	a.overlap-close.target-close(ng-click="$event.stopPropagation();entry._targetsOpen=false;")
 		i.fa.fa-times
-	.overlap-popover-col.overlap-popover-col-margin
-		.overlap-popover-header Predicted Targets
-		.target-row(ng-repeat-start="item in filteredItems=(entry.predictedTargets | filter:entry._targetsPagination.limit)")
-			span {{item.hs_gene_symbol?item.hs_gene_symbol:item.mm_gene_symbol}},   
-			span {{item.score}}
-		div( ng-repeat-end="")
-		div
-			a(ng-class="entry._targetsPagination.limitLower>0?'':'disabled'" ng-click="entry._targetsPagination.previous()") <
-			span {{entry._targetsPagination.limitLower}} to {{entry._targetsPagination.limitUpper>entry._targetsPagination.matchedSize?entry._targetsPagination.matchedSize:entry._targetsPagination.limitUpper}} of {{entry._targetsPagination.matchedSize}}
-			a(ng-class="entry._targetsPagination.limitUpper>=entry._targetsPagination.matchedSize?'disabled':''" ng-click="entry._targetsPagination.next()") >
+		.overlap-popover-header
+	//- hr
+	table.targets
+		thead
+			th Target
+			th {{input.config.searchMethod=='CD'?'1-cos(α)':'Overlap'}}
+		tbody
+			tr(ng-repeat="item in filteredItems=(entry.predictedTargets |filter:entry._targetsPagination.limit)")
+				td.target {{item.hs_gene_symbol?item.hs_gene_symbol:item.mm_gene_symbol}}
+				td {{item.score.toFixed(4)}}
+	//- hr
+	div.navigate-container
+		a.navigate(ng-class="entry._targetsPagination.limitLower>0?'':'disabled'" ng-click="entry._targetsPagination.previous()") <
+		span {{entry._targetsPagination.limitLower}} to {{entry._targetsPagination.limitUpper>entry._targetsPagination.matchedSize?entry._targetsPagination.matchedSize:entry._targetsPagination.limitUpper}} of {{entry._targetsPagination.matchedSize}}
+		a.navigate(ng-class="entry._targetsPagination.limitUpper>=entry._targetsPagination.matchedSize?'disabled':''" ng-click="entry._targetsPagination.next()") >
 
