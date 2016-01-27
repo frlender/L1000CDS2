@@ -135,12 +135,15 @@ exports.predictTarget = function(input,cb){
             form: {json:null}
         }
 
+
     if(input.config.searchMethod == "geneSet"){
 
-        options.form.json = JSON.stringify({upGenes:input.data.upGenes,dnGenes:input.data.dnGenes,
-          dbVersion:input.config['target-db-version'],
-          combination: false,
-          method:'geneSet'});
+        options.form.json = JSON.stringify({upGenes:input.data.upGenes,
+            dnGenes:input.data.dnGenes,
+            sig_id:input.data.sig_id,
+            dbVersion:input.config['target-db-version'],
+            combination: false,
+            method:'geneSet'});
 
     }else if(input.config.searchMethod == "CD"){
         

@@ -245,6 +245,7 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 					payload.config.searchMethod = 'geneSet';
 					payload.data.upGenes = entry.overlap[map['up']]
 					payload.data.dnGenes = entry.overlap[map['dn']]
+					payload.data.sig_id = entry.sig_id;
 				}
 				$http.post(baseURL+'predictTarget',payload)
 					.success(function(data){

@@ -40,8 +40,7 @@ var Schema2 = mongoose.Schema({
     "data":Object,
     "meta":Array,
     "user":Object
-},
-    {collection:"sigine-store-2"});
+},{collection:"sigine-store-2"});
 var Store = mongoose.model('Store',Schema2);
 
 var Schema3 = mongoose.Schema({"count":Number},{collection:"sigine-count"});

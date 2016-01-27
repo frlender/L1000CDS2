@@ -6,7 +6,9 @@
 	table.targets
 		thead
 			th Target
-			th {{input.config.searchMethod=='CD'?'1-cos(α)':'Overlap'}}
+			th {{input.config.searchMethod=='CD'?'1-cos(α)':'Overlap'}}     
+				a(ng-href="{{helpURL}}#score" target="_blank")
+					i.fa.fa-question-circle 
 		tbody
 			tr(ng-repeat="item in filteredItems=(entry.predictedTargets |filter:entry._targetsPagination.limit)")
 				td.target {{item.hs_gene_symbol?item.hs_gene_symbol:item.mm_gene_symbol}}
