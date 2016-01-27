@@ -239,3 +239,10 @@ exports.predictTarget = function(req,res){
         });
     });
 }
+
+exports.getPredictedTargets = function(req,res){
+    var sig_id = req.query['sig_id'];
+    mongo.getTargets(sig_id,function(targets){
+        res.send(targets);
+    });
+}

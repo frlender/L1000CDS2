@@ -5,17 +5,25 @@
 	//- hr
 	table.targets
 		thead
-			th Target
-			th {{input.config.searchMethod=='CD'?'1-cos(α)':'Overlap'}}     
+			th 1-cos(α)     
 				a(ng-href="{{helpURL}}#score" target="_blank")
 					i.fa.fa-question-circle 
+			th Predicted
+			th Direction
+			th GEO ID
+			
 		tbody
 			tr(ng-repeat="item in filteredItems=(entry.predictedTargets |filter:entry._targetsPagination.limit)")
-				td.target {{item.hs_gene_symbol?item.hs_gene_symbol:item.mm_gene_symbol}}
-				td {{item.score.toFixed(4)}}
+				td {{item.pert_direction=='down'?item.score.toFixed(4):(2-item.score).toFixed(4)}}
+				td.target 
+					a(ng-href='{{harmonizomeURL+(item.hs_gene_symbol?item.hs_gene_symbol:item.mm_gene_symbol)}}' target="_blank"){{item.hs_gene_symbol?item.hs_gene_symbol:item.mm_gene_symbol}}
+				td {{item.pert_direction}} {{item.id}}
+				td 
+					a(ng-href='{{geoURL+item.geo_id}}' target="_blank") {{item.geo_id}}
+				
 	//- hr
 	div.navigate-container
-		a.navigate(ng-class="entry._targetsPagination.limitLower>0?'':'disabled'" ng-click="entry._targetsPagination.previous()") <
+		a.navigate(ng-class="entry._targetsPagination.limitLower>0?'':'disabled'" ng-click="entry._targetsPagination.previous()")        <           
 		span {{entry._targetsPagination.limitLower}} to {{entry._targetsPagination.limitUpper>entry._targetsPagination.matchedSize?entry._targetsPagination.matchedSize:entry._targetsPagination.limitUpper}} of {{entry._targetsPagination.matchedSize}}
-		a.navigate(ng-class="entry._targetsPagination.limitUpper>=entry._targetsPagination.matchedSize?'disabled':''" ng-click="entry._targetsPagination.next()") >
+		a.navigate(ng-class="entry._targetsPagination.limitUpper>=entry._targetsPagination.matchedSize?'disabled':''" ng-click="entry._targetsPagination.next()")      >     
 

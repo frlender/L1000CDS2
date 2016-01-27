@@ -30,10 +30,15 @@ var SchemaCcle = mongoose.Schema({"cell":String, "tissue":String, genes:[String]
     vals:[Number]},{collection:"ccle"});
 var CcleCell = mongoose.model('CcleCell',SchemaCcle);
 
-// for target prediction
+// for target meta
 var SchemaMicrotaskSignatures = mongoose.Schema({'hs_gene_symbol':String,
     'mm_gene_symbol':String,'id':String,'organism':String},{collection:'microtaskSignatures'})
 var MicrotaskSignatures = mongoose.model('MicrotaskSignatures',SchemaMicrotaskSignatures);
+
+// for targets
+var SchemaTargets = mongoose.Schema({targetIds:Array, scores:Array, sig_id:String},
+    {collection:'targets'})
+var Targets = mongoose.model('Targets',SchemaTargets);
 
 var Schema2 = mongoose.Schema({
     "config":Object,
@@ -267,5 +272,33 @@ exports.getMicrotaskSignatures = function(topExpms,cb){
         });
         // console.log('topMeta',topMeta.slice(0,3))
         cb(signatures);
+    });
+}
+
+var getTargetsMeta = function(topExpms,cb){
+     var map = {};
+    topExpms["targetIds"].forEach(function(e,i) {
+        map[e] = i;
+    });
+    var query = MicrotaskSignatures.find({id:{$in:topExpms["targetIds"]}})
+    .select('-_id id hs_gene_symbol mm_gene_symbol pert_direction geo_id').lean();
+    query.exec(function(err,queryRes){
+        if(err) throw err;
+        var signatures = [];
+        queryRes.forEach(function(e){
+            var idx = map[e["id"]];
+            // console.log(idx);
+            signatures[idx] = e;
+            signatures[idx].score = topExpms['scores'][idx];
+        });
+        // console.log('topMeta',topMeta.slice(0,3))
+        cb(signatures);
+    });
+}
+
+exports.getTargets = function(sig_id,cb){
+    var query = Targets.findOne({sig_id:sig_id}).lean().exec(function(err,doc){
+        if(err) throw err;
+        getTargetsMeta(doc,cb)
     });
 }

@@ -71,6 +71,7 @@ sigineRouter.post('/drugEnrich',jsonParser, sigine.drugEnrich);
 sigineRouter.get('/countByDate',sigine.countByDate);
 
 sigineRouter.post('/predictTarget',jsonParser,sigine.predictTarget);
+sigineRouter.get('/predictTarget',jsonParser,sigine.getPredictedTargets);
 
 // sigineRouter.post('/multisearch',jsonParser, sigine.multisearch);
 

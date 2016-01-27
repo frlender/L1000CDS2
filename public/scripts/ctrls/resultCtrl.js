@@ -67,6 +67,8 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 		$scope.drugbankURL = "http://www.drugbank.ca/drugs/";
 		$scope.lifeURL = "http://life.ccs.miami.edu/life/summary?mode=SmallMolecule&source=BROAD&input="
 		$scope.helpURL = baseURL+'help/';
+		$scope.geoURL = 'http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=';
+		$scope.harmonizomeURL = 'http://amp.pharm.mssm.edu/Harmonizome/gene/';
 		$scope.overlap = {};
 		var tag = util.getTag($scope.input.meta);
 		$scope.tag = tag?tag:{value:"No tag"};
@@ -232,27 +234,33 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 	$scope.predictTarget = function(entry){
 		if(!entry._targetsOpen){
 			if(!entry.predictedTargets){
-				var payload = {config:{'target-db-version':'microtaskSignatures-v1.0'},data:{}}
-				if($scope.input.config.searchMethod == 'CD'){
-					payload.config.searchMethod = 'CD';
-					payload.data.genes = $scope.uniqInput.up.genes.concat($scope.uniqInput.dn.genes);
-					payload.data.vals = entry.overlap.up.concat(entry.overlap.dn);
-				}else{
-					var map = {}
-					Object.keys(entry.overlap).forEach(function(key){
-						map[key.split('/')[1]] = key;
-					});
-					payload.config.searchMethod = 'geneSet';
-					payload.data.upGenes = entry.overlap[map['up']]
-					payload.data.dnGenes = entry.overlap[map['dn']]
-					payload.data.sig_id = entry.sig_id;
-				}
-				$http.post(baseURL+'predictTarget',payload)
-					.success(function(data){
-						entry.predictedTargets = data;
-						entry._targetsPagination = new Pagination(10);
-						entry._targetsOpen = true;
-					});
+				$http.get(baseURL+'predictTarget?sig_id='+entry.sig_id)
+				.success(function(data){
+					entry.predictedTargets = data;
+					entry._targetsPagination = new Pagination(10);
+					entry._targetsOpen = true;
+				});
+				// var payload = {config:{'target-db-version':'microtaskSignatures-v1.0'},data:{}}
+				// if($scope.input.config.searchMethod == 'CD'){
+				// 	payload.config.searchMethod = 'CD';
+				// 	payload.data.genes = $scope.uniqInput.up.genes.concat($scope.uniqInput.dn.genes);
+				// 	payload.data.vals = entry.overlap.up.concat(entry.overlap.dn);
+				// }else{
+				// 	var map = {}
+				// 	Object.keys(entry.overlap).forEach(function(key){
+				// 		map[key.split('/')[1]] = key;
+				// 	});
+				// 	payload.config.searchMethod = 'geneSet';
+				// 	payload.data.upGenes = entry.overlap[map['up']]
+				// 	payload.data.dnGenes = entry.overlap[map['dn']]
+				// 	payload.data.sig_id = entry.sig_id;
+				// }
+				// $http.post(baseURL+'predictTarget',payload)
+				// 	.success(function(data){
+				// 		entry.predictedTargets = data;
+				// 		entry._targetsPagination = new Pagination(10);
+				// 		entry._targetsOpen = true;
+				// 	});
 			}else{
 				entry._targetsOpen = true;
 			}
