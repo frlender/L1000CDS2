@@ -66,6 +66,10 @@
             .input-margin
               input(type="checkbox" ng-model="combination") 
               span  Search for small molecule combinations.<span ng-if="isNew(1438275426251)" class="new"> New!</span>
+              //- ng-if creates child scope!!! use ng-show instead here
+            .input-margin(ng-show="dbVersion=='cpcd-gse70138-v1.0'") 
+              input(type="checkbox" ng-model="includeLessSignificant") 
+              span  Include less significant signatures.<span ng-if="isNew(1454010406322)" class="new"> New!</span> 
             .input-margin
               input(type="checkbox" ng-model="share") 
               span  Yes. I agree to share my input signature and metadata for search by other investigators.

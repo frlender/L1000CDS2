@@ -39,6 +39,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$uibModal', 'loadEx
 				$scope.share = input.config.share;
 				$scope.dbVersion = input.config['db-version'];
 				$scope.combination = input.config.combination;
+				$scope.includeLessSignificant = input.config.includeLessSignificant;
 				$scope.inputMeta = input.meta.length==0?
 				[{key:"Tag",value:"",dataPlaceholder:"add a tag"}]:input.meta;
 				if(input.config.searchMethod=="geneSet"){
@@ -59,6 +60,7 @@ indexControllers.controller('GeneList', ['$scope', '$http', '$uibModal', 'loadEx
 			$scope.share = false;
 			$scope.combination = false;
 			$scope.dbVersion = 'cpcd-gse70138-v1.0';
+			$scope.includeLessSignificant = false;
 			$scope.inputMeta = [
 				{key:"Tag",value:"",dataPlaceholder:"add a tag"},
        			{key:"Cell", value:""},

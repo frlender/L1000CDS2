@@ -12,7 +12,13 @@ var RUrl = config.get('RUrl'),
     targetPredictionUrl = config.get('targetPredictionUrl');
 
 exports.query = function(input,cb){
-    var queryUrl = RUrl[input.config['db-version']][input.user.endpoint];
+    var dbVersion;
+    if(input.config.includeLessSignificant){
+        dbVersion = 'cpcd-with-insignificant-gse70138-v1.0';
+    }else{
+        dbVersion = input.config['db-version'];
+    }
+    var queryUrl = RUrl[dbVersion][input.user.endpoint];
     if(input.config.searchMethod == "geneSet"){
         if(input.config.aggravate){
         var upGenes = input.data.upGenes,
@@ -107,7 +113,7 @@ exports.query = function(input,cb){
                     delete topMatches.upCd;
                     delete topMatches.dnCd;
                 }
-
+                console.log(topMatches.sig_ids)
                 cb(null,topMatches);
             }
         }
@@ -127,42 +133,42 @@ exports.drugEnrich = function(input,cb){
     });
 }
 
-exports.predictTarget = function(input,cb){
-    var options = {
-            url: targetPredictionUrl,
-            method: 'POST',
-            headers: headers,
-            form: {json:null}
-        }
+// exports.predictTarget = function(input,cb){
+//     var options = {
+//             url: targetPredictionUrl,
+//             method: 'POST',
+//             headers: headers,
+//             form: {json:null}
+//         }
 
 
-    if(input.config.searchMethod == "geneSet"){
+//     if(input.config.searchMethod == "geneSet"){
 
-        options.form.json = JSON.stringify({upGenes:input.data.upGenes,
-            dnGenes:input.data.dnGenes,
-            sig_id:input.data.sig_id,
-            dbVersion:input.config['target-db-version'],
-            combination: false,
-            method:'geneSet'});
+//         options.form.json = JSON.stringify({upGenes:input.data.upGenes,
+//             dnGenes:input.data.dnGenes,
+//             sig_id:input.data.sig_id,
+//             dbVersion:input.config['target-db-version'],
+//             combination: false,
+//             method:'geneSet'});
 
-    }else if(input.config.searchMethod == "CD"){
+//     }else if(input.config.searchMethod == "CD"){
         
-        options.form.json = JSON.stringify({input:input.data,method:'CD',
-          dbVersion:input.config['target-db-version'],
-          combination:false,
-          direction:'mimic'});
+//         options.form.json = JSON.stringify({input:input.data,method:'CD',
+//           dbVersion:input.config['target-db-version'],
+//           combination:false,
+//           direction:'mimic'});
 
-    }else{
-        cb({"err":"search method is not CD or geneSet. It is "+input.config.searchMethod+"."})
-    }
+//     }else{
+//         cb({"err":"search method is not CD or geneSet. It is "+input.config.searchMethod+"."})
+//     }
 
-    request(options, function (error, response, body) {
-        var topMatches = JSON.parse(body);
-        if('err' in topMatches){
-                cb(new Error(topMatches.err),null);
-        }else{
-                console.log(topMatches.scores,Object.keys(topMatches));
-                cb(topMatches);
-        }
-    });
-}
+//     request(options, function (error, response, body) {
+//         var topMatches = JSON.parse(body);
+//         if('err' in topMatches){
+//                 cb(new Error(topMatches.err),null);
+//         }else{
+//                 console.log(topMatches.scores,Object.keys(topMatches));
+//                 cb(topMatches);
+//         }
+//     });
+// }

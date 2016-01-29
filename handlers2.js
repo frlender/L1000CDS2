@@ -232,13 +232,13 @@ exports.countByDate = function(req,res){
     });
 }
 
-exports.predictTarget = function(req,res){
-    R.predictTarget(req.body,function(topMatches){
-        mongo.getMicrotaskSignatures(topMatches,function(topMeta){
-            res.send(topMeta);
-        });
-    });
-}
+// exports.predictTarget = function(req,res){
+//     R.predictTarget(req.body,function(topMatches){
+//         mongo.getMicrotaskSignatures(topMatches,function(topMeta){
+//             res.send(topMeta);
+//         });
+//     });
+// }
 
 exports.getPredictedTargets = function(req,res){
     var sig_id = req.query['sig_id'];
