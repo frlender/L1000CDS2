@@ -14,8 +14,8 @@
 			"API":"http://146.203.54.71/Sigine-lm"
 		},
 		"cpcd-with-insignificant-gse70138-v1.0":{
-			"browser":"http://127.0.0.1:23243/custom/Sigine",
-			"API":"http://127.0.0.1:23243/custom/Sigine"
+			"browser":"http://146.203.54.158/Sigine-cpcd-with-insignificant-gse70138",
+			"API":"http://146.203.54.71/Sigine-cpcd-with-insignificant-gse70138"
 		}
 	},
 	"enrichUrl":"http://146.203.54.158/Sigine-enrich",

@@ -113,7 +113,6 @@ exports.query = function(input,cb){
                     delete topMatches.upCd;
                     delete topMatches.dnCd;
                 }
-                console.log(topMatches.sig_ids)
                 cb(null,topMatches);
             }
         }

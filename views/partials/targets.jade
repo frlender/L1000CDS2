@@ -17,7 +17,7 @@
 				td {{item.pert_direction=='down'?item.score.toFixed(4):(2-item.score).toFixed(4)}}
 				td.target 
 					a(ng-href='{{harmonizomeURL+(item.hs_gene_symbol?item.hs_gene_symbol:item.mm_gene_symbol)}}' target="_blank"){{item.hs_gene_symbol?item.hs_gene_symbol:item.mm_gene_symbol}}
-				td {{item.pert_direction}} {{item.id}}
+				td {{item.pert_direction}}
 				td 
 					a(ng-href='{{geoURL+item.geo_id}}' target="_blank") {{item.geo_id}}
 				
