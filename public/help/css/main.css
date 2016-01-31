@@ -39,7 +39,7 @@ strong {
     padding: 30px 20px 20px 20px;
     position: fixed;
     top: 0;
-    width: 175px;
+    width: 237px;
 }
 #sidebar a {
     color: #000;
@@ -60,10 +60,13 @@ strong {
 
 /* Content */
 #content {
-    margin-left: 240px;
+    margin-left: 310px;
     padding-bottom: 50px;
     position: relative;
     width: 600px;
+}
+#content p{
+    text-align: justify;
 }
 #content section a {
     color: #009DFF;
@@ -131,6 +134,9 @@ strong {
 }
 #content table tr {
     height: 25px;
+}
+#content table th{
+    text-align: left;
 }
 #content table td {
     border-bottom: 1px solid #ccc;

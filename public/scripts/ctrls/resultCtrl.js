@@ -236,7 +236,7 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 			if(!entry.predictedTargets){
 				$http.get(baseURL+'predictTarget?sig_id='+entry.sig_id)
 				.success(function(data){
-					entry.predictedTargets = data;
+					entry.predictedTargets = data.slice(0,20);
 					entry._targetsPagination = new Pagination(10);
 					entry._targetsOpen = true;
 				});
