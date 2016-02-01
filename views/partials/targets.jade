@@ -6,7 +6,7 @@
 	table.targets
 		thead
 			th 1-cos(α)     
-				a(ng-href="{{helpURL}}#score" target="_blank")
+				a(ng-href="{{helpURL}}#targetPrediction" target="_blank")
 					i.fa.fa-question-circle 
 			th Predicted
 			th Direction
@@ -16,7 +16,7 @@
 			tr(ng-repeat="item in filteredItems=(entry.predictedTargets |filter:entry._targetsPagination.limit)")
 				td {{item.pert_direction=='down'?item.score.toFixed(4):(2-item.score).toFixed(4)}}
 				td.target 
-					a(ng-href='{{harmonizomeURL+(item.hs_gene_symbol?item.hs_gene_symbol:item.mm_gene_symbol)}}' target="_blank"){{item.hs_gene_symbol?item.hs_gene_symbol:item.mm_gene_symbol}}
+					a(ng-href='{{harmonizomeURL+(item.hs_gene_symbol?item.hs_gene_symbol:item.mm_gene_symbol)}}' target="_blank") {{item.hs_gene_symbol?item.hs_gene_symbol:item.mm_gene_symbol}}
 				td {{item.pert_direction}}
 				td 
 					a(ng-href='{{geoURL+item.geo_id}}' target="_blank") {{item.geo_id}}
