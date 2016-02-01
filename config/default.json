@@ -18,6 +18,5 @@
 			"API":"http://146.203.54.71/Sigine-cpcd-with-insignificant-gse70138"
 		}
 	},
-	"enrichUrl":"http://146.203.54.158/Sigine-enrich",
-	"targetPredictionUrl":"http://127.0.0.1:23241/custom/tp"
+	"enrichUrl":"http://146.203.54.158/Sigine-enrich"
 }

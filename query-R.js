@@ -8,9 +8,8 @@ var headers = {
 }
 
 var RUrl = config.get('RUrl'),
-    enrichUrl = config.get('enrichUrl'),
-    targetPredictionUrl = config.get('targetPredictionUrl');
-
+    enrichUrl = config.get('enrichUrl');
+    
 exports.query = function(input,cb){
     var dbVersion;
     if(input.config.includeLessSignificant){
