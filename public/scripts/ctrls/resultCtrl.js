@@ -26,6 +26,17 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 		initialization();
 	});
 
+	// function getRanks(arr,reverse){
+	// 	if(reverse==undefined) reverse=false;
+	// 	if(reverse)
+	// 		var compareFun = function(a,b){return b-a};
+	// 	else
+	// 		var compareFun = function(a,b){return a-b};
+	// 	var sorted = arr.slice().sort(compareFun);
+	// 	var ranks = arr.slice().map(function(v){ return sorted.indexOf(v)+1 });
+	// 	return ranks;
+	// }
+
 	function initialization(){
 		$scope.IDMap = {};
 		$scope.entries.forEach(function(e){
@@ -127,10 +138,15 @@ indexControllers.controller('resultCtrl',['$scope', '$routeParams', 'resultStora
 				$scope.uniqInput[key].vals, cdVec);
 				var filter = aggravate?function(item){return item[1]*item[2]>0}:
 				function(item){return item[1]*item[2]<0};
+				if( (key=='up'&&aggravate) || (key=='dn'&&!aggravate) ){
+					overlapArr.sort(function(a,b){return b[2]-a[2]});
+				}else{
+					overlapArr.sort(function(a,b){return a[2]-b[2]});
+				}
 				var overlapStrArr = [];
 				entry._dynamic[key] = [];
 				overlapArr.forEach(function(item){
-					overlapStrArr.push(item.join('\t'));
+					overlapStrArr.push(item.join(' \t'));
 					if(filter(item)){
 						entry._dynamic[key].push(item[0]);
 					}
